@@ -25,7 +25,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     // Delay loading of 3D scene for smoother initial experience
-    const timer = setTimeout(() => setShowScene(true), 1000);
+    const timer = setTimeout(() => setShowScene(true), 500);
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({
@@ -253,12 +253,11 @@ const HeroSection = () => {
 
       {/* 3D Background Scene */}
       <Suspense fallback={null}>
-        {showScene &&
-          false && ( // Temporarily disabled for performance testing
-            <div className="absolute inset-0 z-[1] opacity-50">
-              <Scene3D variant="hero" />
-            </div>
-          )}
+        {showScene && (
+          <div className="absolute inset-0 z-[1] opacity-60">
+            <Scene3D variant="hero" />
+          </div>
+        )}
       </Suspense>
       <div
         ref={videoRef}

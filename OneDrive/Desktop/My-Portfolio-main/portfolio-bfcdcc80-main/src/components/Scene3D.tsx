@@ -7,8 +7,254 @@ import {
   Torus,
   Environment,
   Stars,
+  Text,
 } from "@react-three/drei";
 import * as THREE from "three";
+
+// Mind-blowing crystal structure that morphs and pulses
+function CrystalStructure() {
+  const groupRef = useRef<THREE.Group>(null);
+  const crystalsRef = useRef<(THREE.Mesh | null)[]>([]);
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = state.clock.elapsedTime * 0.2;
+      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
+    }
+
+    crystalsRef.current.forEach((crystal, i) => {
+      if (crystal) {
+        crystal.rotation.x = state.clock.elapsedTime * (0.5 + i * 0.1);
+        crystal.rotation.z = state.clock.elapsedTime * (0.3 + i * 0.15);
+        crystal.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2 + i) * 0.2);
+      }
+    });
+  });
+
+  const crystalPositions = [
+    [0, 0, 0],
+    [2, 1, -1],
+    [-2, -1, 1],
+    [1, -2, -0.5],
+    [-1, 2, 0.5],
+  ];
+
+  const crystalColors = ["#00d4aa", "#a855f7", "#ff6b6b", "#ffd93d", "#6bcf7f"];
+
+  return (
+    <group ref={groupRef}>
+      {crystalPositions.map((pos, i) => (
+        <Float key={i} speed={2 + i * 0.5} rotationIntensity={1 + i * 0.3} floatIntensity={1 + i * 0.2}>
+          <mesh
+            ref={(el) => (crystalsRef.current[i] = el)}
+            position={pos as [number, number, number]}
+          >
+            <octahedronGeometry args={[0.8 + i * 0.2, 0]} />
+            <MeshDistortMaterial
+              color={crystalColors[i]}
+              distort={0.2 + i * 0.1}
+              speed={1 + i * 0.3}
+              roughness={0.1}
+              metalness={0.9}
+              emissive={crystalColors[i]}
+              emissiveIntensity={0.3 + i * 0.1}
+            />
+          </mesh>
+        </Float>
+      ))}
+    </group>
+  );
+}
+
+// Dynamic particle system that forms text shapes
+function TextParticles() {
+  const particlesRef = useRef<THREE.Points>(null);
+  const textRef = useRef<THREE.Group>(null);
+
+  // Create particles that form "WALUUBE" text
+  const [positions, colors] = useMemo(() => {
+    const positions = new Float32Array(2000 * 3);
+    const colors = new Float32Array(2000 * 3);
+
+    // Create text-forming particle positions
+    for (let i = 0; i < 2000; i++) {
+      // Create a flowing text shape
+      const t = (i / 2000) * Math.PI * 4;
+      const radius = 3 + Math.sin(t * 3) * 0.5;
+
+      positions[i * 3] = Math.cos(t) * radius + Math.sin(t * 2) * 0.8;
+      positions[i * 3 + 1] = Math.sin(t) * radius * 0.7 + Math.cos(t * 3) * 0.3;
+      positions[i * 3 + 2] = Math.sin(t * 1.5) * 0.5 + Math.cos(t * 4) * 0.2;
+
+      // Dynamic colors based on position
+      const hue = (t / (Math.PI * 4)) * 0.8 + 0.1;
+      const color = new THREE.Color();
+      color.setHSL(hue, 0.8, 0.7);
+      colors[i * 3] = color.r;
+      colors[i * 3 + 1] = color.g;
+      colors[i * 3 + 2] = color.b;
+    }
+
+    return [positions, colors];
+  }, []);
+
+  useFrame((state) => {
+    if (particlesRef.current) {
+      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.1;
+      particlesRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.05) * 0.1;
+
+      // Animate particle positions for flowing effect
+      const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < 2000; i++) {
+        const t = (i / 2000) * Math.PI * 4 + state.clock.elapsedTime * 0.5;
+        positions[i * 3 + 1] += Math.sin(t + state.clock.elapsedTime) * 0.001;
+      }
+      particlesRef.current.geometry.attributes.position.needsUpdate = true;
+    }
+  });
+
+  return (
+    <points ref={particlesRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={2000}
+          array={positions}
+          itemSize={3}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={2000}
+          array={colors}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.03}
+        vertexColors
+        transparent
+        opacity={0.8}
+        sizeAttenuation
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+}
+
+// Floating geometric elements with complex animations
+function FloatingGeometry() {
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+      groupRef.current.children.forEach((child, i) => {
+        child.position.y += Math.sin(state.clock.elapsedTime * (1 + i * 0.2) + i) * 0.002;
+      });
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {/* Large floating torus */}
+      <Float speed={1.5} rotationIntensity={2} floatIntensity={1}>
+        <mesh position={[4, 2, -2]}>
+          <torusGeometry args={[1.2, 0.3, 16, 100]} />
+          <MeshDistortMaterial
+            color="#00d4aa"
+            distort={0.4}
+            speed={1.5}
+            roughness={0.2}
+            metalness={0.8}
+            emissive="#00d4aa"
+            emissiveIntensity={0.2}
+          />
+        </mesh>
+      </Float>
+
+      {/* Morphing sphere */}
+      <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
+        <mesh position={[-3, -1, 1]}>
+          <sphereGeometry args={[0.8, 32, 32]} />
+          <MeshDistortMaterial
+            color="#a855f7"
+            distort={0.6}
+            speed={2}
+            roughness={0.1}
+            metalness={0.9}
+            emissive="#a855f7"
+            emissiveIntensity={0.3}
+          />
+        </mesh>
+      </Float>
+
+      {/* Icosahedron */}
+      <Float speed={2.5} rotationIntensity={3} floatIntensity={1.5}>
+        <mesh position={[1, -3, 0]}>
+          <icosahedronGeometry args={[0.6, 1]} />
+          <meshStandardMaterial
+            color="#ff6b6b"
+            emissive="#ff6b6b"
+            emissiveIntensity={0.4}
+            metalness={0.95}
+            roughness={0.05}
+          />
+        </mesh>
+      </Float>
+
+      {/* Dodecahedron */}
+      <Float speed={1.8} rotationIntensity={2.5} floatIntensity={1.2}>
+        <mesh position={[-1, 3, -1]}>
+          <dodecahedronGeometry args={[0.5]} />
+          <MeshDistortMaterial
+            color="#ffd93d"
+            distort={0.3}
+            speed={1.8}
+            roughness={0.3}
+            metalness={0.7}
+            emissive="#ffd93d"
+            emissiveIntensity={0.25}
+          />
+        </mesh>
+      </Float>
+    </group>
+  );
+}
+
+// Animated energy rings with pulsing effects
+function EnergyRings() {
+  const ringsRef = useRef<(THREE.Mesh | null)[]>([]);
+
+  useFrame((state) => {
+    ringsRef.current.forEach((ring, i) => {
+      if (ring) {
+        ring.rotation.z = state.clock.elapsedTime * (0.5 + i * 0.2);
+        ring.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2 + i * Math.PI * 0.5) * 0.3);
+      }
+    });
+  });
+
+  return (
+    <>
+      {[0, 1, 2].map((i) => (
+        <mesh
+          key={i}
+          ref={(el) => (ringsRef.current[i] = el)}
+          position={[0, 0, 0]}
+          rotation={[Math.PI * 0.5, 0, 0]}
+        >
+          <torusGeometry args={[2 + i * 1.5, 0.05, 8, 64]} />
+          <meshBasicMaterial
+            color={["#00d4aa", "#a855f7", "#ff6b6b"][i]}
+            transparent
+            opacity={0.6 - i * 0.1}
+            blending={THREE.AdditiveBlending}
+          />
+        </mesh>
+      ))}
+    </>
+  );
+}
 
 // Morphing sphere with dynamic distortion
 function MorphingSphere({
@@ -365,30 +611,55 @@ function CameraController() {
 }
 
 // Main 3D scene component for hero/background
+// Mind-blowing Hero Scene with dynamic text-forming particles and morphing crystals
 function HeroScene() {
   return (
     <>
-      <ambientLight intensity={0.2} />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#00d4aa" />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#a855f7" />
-
-      <CameraController />
-
-      <MorphingSphere position={[0, 0, 0]} color="#00d4aa" />
-      <GlowingRing position={[0, 0, 0]} color="#a855f7" />
-
-      <ParticleField />
-      <Stars
-        radius={50}
-        depth={50}
-        count={2000}
-        factor={4}
-        saturation={0}
-        fade
-        speed={1}
+      {/* Advanced lighting setup */}
+      <ambientLight intensity={0.1} />
+      <pointLight position={[5, 5, 5]} intensity={2} color="#00d4aa" />
+      <pointLight position={[-5, -5, -5]} intensity={1.5} color="#a855f7" />
+      <pointLight position={[0, 0, 8]} intensity={1} color="#ff6b6b" />
+      <spotLight
+        position={[0, 10, 0]}
+        angle={0.6}
+        penumbra={0.5}
+        intensity={1.5}
+        color="#ffffff"
+        castShadow
       />
 
-      <Environment preset="night" />
+      {/* Interactive camera controller */}
+      <CameraController />
+
+      {/* Main morphing crystal structure */}
+      <CrystalStructure />
+
+      {/* Dynamic text-forming particle system */}
+      <TextParticles />
+
+      {/* Floating geometric elements */}
+      <FloatingGeometry />
+
+      {/* Enhanced particle field */}
+      <ParticleField />
+
+      {/* Animated energy rings */}
+      <EnergyRings />
+
+      {/* Distant stars for depth */}
+      <Stars
+        radius={100}
+        depth={50}
+        count={3000}
+        factor={6}
+        saturation={0}
+        fade
+        speed={0.3}
+      />
+
+      {/* Atmospheric environment */}
+      <Environment preset="sunset" />
     </>
   );
 }

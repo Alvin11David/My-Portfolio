@@ -54,7 +54,11 @@ const CoffeeSection = () => {
     };
 
     return (
-        <section ref={containerRef} className="relative py-24 overflow-hidden bg-background">
+        <section
+            ref={containerRef}
+            id="support"
+            className="relative py-24 overflow-hidden bg-background"
+        >
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] animate-pulse" />
             </div>
@@ -113,8 +117,8 @@ const CoffeeSection = () => {
                                                     key={num}
                                                     onClick={() => setCoffees(num)}
                                                     className={`flex flex-col items-center justify-center w-24 h-28 rounded-3xl border transition-all duration-500 ${coffees === num
-                                                            ? "bg-primary border-primary text-background shadow-2xl shadow-primary/40 scale-110 -translate-y-2"
-                                                            : "bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:border-white/20"
+                                                        ? "bg-primary border-primary text-background shadow-2xl shadow-primary/40 scale-110 -translate-y-2"
+                                                        : "bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:border-white/20"
                                                         }`}
                                                 >
                                                     <span className="text-3xl mb-1">☕</span>

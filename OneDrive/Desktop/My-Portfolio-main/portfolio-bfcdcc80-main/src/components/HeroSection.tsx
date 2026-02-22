@@ -254,7 +254,7 @@ const HeroSection = () => {
       {/* 3D Background Scene */}
       <Suspense fallback={null}>
         {showScene && (
-          <div className="absolute inset-0 z-[1] opacity-60">
+          <div className="absolute inset-0 z-[1] opacity-40">
             <Scene3D variant="hero" />
           </div>
         )}

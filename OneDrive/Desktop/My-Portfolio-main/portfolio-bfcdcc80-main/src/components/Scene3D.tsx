@@ -1,5 +1,5 @@
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useRef, useMemo, Suspense } from "react";
+import { Canvas, useFrame, useThree, extend } from "@react-three/fiber";
 import {
   Float,
   MeshDistortMaterial,
@@ -7,9 +7,15 @@ import {
   Torus,
   Environment,
   Stars,
-  Text,
 } from "@react-three/drei";
+import {
+  Bloom,
+  ChromaticAberration,
+  EffectComposer,
+} from "@react-three/postprocessing";
 import * as THREE from "three";
+
+extend({ EffectComposer, Bloom, ChromaticAberration });
 
 // Mind-blowing crystal structure that morphs and pulses
 function CrystalStructure() {
@@ -19,14 +25,17 @@ function CrystalStructure() {
   useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
+      groupRef.current.rotation.x =
+        Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
     }
 
     crystalsRef.current.forEach((crystal, i) => {
       if (crystal) {
         crystal.rotation.x = state.clock.elapsedTime * (0.5 + i * 0.1);
         crystal.rotation.z = state.clock.elapsedTime * (0.3 + i * 0.15);
-        crystal.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2 + i) * 0.2);
+        crystal.scale.setScalar(
+          1 + Math.sin(state.clock.elapsedTime * 2 + i) * 0.2,
+        );
       }
     });
   });
@@ -44,7 +53,12 @@ function CrystalStructure() {
   return (
     <group ref={groupRef}>
       {crystalPositions.map((pos, i) => (
-        <Float key={i} speed={2 + i * 0.5} rotationIntensity={1 + i * 0.3} floatIntensity={1 + i * 0.2}>
+        <Float
+          key={i}
+          speed={2 + i * 0.5}
+          rotationIntensity={1 + i * 0.3}
+          floatIntensity={1 + i * 0.2}
+        >
           <mesh
             ref={(el) => (crystalsRef.current[i] = el)}
             position={pos as [number, number, number]}
@@ -73,13 +87,13 @@ function TextParticles() {
 
   // Create particles that form "WALUUBE" text
   const [positions, colors] = useMemo(() => {
-    const positions = new Float32Array(2000 * 3);
-    const colors = new Float32Array(2000 * 3);
+    const positions = new Float32Array(1000 * 3);
+    const colors = new Float32Array(1000 * 3);
 
     // Create text-forming particle positions
-    for (let i = 0; i < 2000; i++) {
+    for (let i = 0; i < 1000; i++) {
       // Create a flowing text shape
-      const t = (i / 2000) * Math.PI * 4;
+      const t = (i / 1000) * Math.PI * 4;
       const radius = 3 + Math.sin(t * 3) * 0.5;
 
       positions[i * 3] = Math.cos(t) * radius + Math.sin(t * 2) * 0.8;
@@ -101,10 +115,12 @@ function TextParticles() {
   useFrame((state) => {
     if (particlesRef.current) {
       particlesRef.current.rotation.y = state.clock.elapsedTime * 0.1;
-      particlesRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.05) * 0.1;
+      particlesRef.current.rotation.x =
+        Math.sin(state.clock.elapsedTime * 0.05) * 0.1;
 
       // Animate particle positions for flowing effect
-      const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
+      const positions = particlesRef.current.geometry.attributes.position
+        .array as Float32Array;
       for (let i = 0; i < 2000; i++) {
         const t = (i / 2000) * Math.PI * 4 + state.clock.elapsedTime * 0.5;
         positions[i * 3 + 1] += Math.sin(t + state.clock.elapsedTime) * 0.001;
@@ -118,13 +134,13 @@ function TextParticles() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={2000}
+          count={1000}
           array={positions}
           itemSize={3}
         />
         <bufferAttribute
           attach="attributes-color"
-          count={2000}
+          count={1000}
           array={colors}
           itemSize={3}
         />
@@ -149,7 +165,8 @@ function FloatingGeometry() {
     if (groupRef.current) {
       groupRef.current.rotation.y = state.clock.elapsedTime * 0.15;
       groupRef.current.children.forEach((child, i) => {
-        child.position.y += Math.sin(state.clock.elapsedTime * (1 + i * 0.2) + i) * 0.002;
+        child.position.y +=
+          Math.sin(state.clock.elapsedTime * (1 + i * 0.2) + i) * 0.002;
       });
     }
   });
@@ -159,7 +176,7 @@ function FloatingGeometry() {
       {/* Large floating torus */}
       <Float speed={1.5} rotationIntensity={2} floatIntensity={1}>
         <mesh position={[4, 2, -2]}>
-          <torusGeometry args={[1.2, 0.3, 16, 100]} />
+          <torusGeometry args={[1.2, 0.3, 8, 50]} />
           <MeshDistortMaterial
             color="#00d4aa"
             distort={0.4}
@@ -175,7 +192,7 @@ function FloatingGeometry() {
       {/* Morphing sphere */}
       <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
         <mesh position={[-3, -1, 1]}>
-          <sphereGeometry args={[0.8, 32, 32]} />
+          <sphereGeometry args={[0.8, 16, 16]} />
           <MeshDistortMaterial
             color="#a855f7"
             distort={0.6}
@@ -229,7 +246,9 @@ function EnergyRings() {
     ringsRef.current.forEach((ring, i) => {
       if (ring) {
         ring.rotation.z = state.clock.elapsedTime * (0.5 + i * 0.2);
-        ring.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2 + i * Math.PI * 0.5) * 0.3);
+        ring.scale.setScalar(
+          1 + Math.sin(state.clock.elapsedTime * 2 + i * Math.PI * 0.5) * 0.3,
+        );
       }
     });
   });
@@ -243,7 +262,7 @@ function EnergyRings() {
           position={[0, 0, 0]}
           rotation={[Math.PI * 0.5, 0, 0]}
         >
-          <torusGeometry args={[2 + i * 1.5, 0.05, 8, 64]} />
+          <torusGeometry args={[2 + i * 1.5, 0.05, 4, 32]} />
           <meshBasicMaterial
             color={["#00d4aa", "#a855f7", "#ff6b6b"][i]}
             transparent
@@ -318,7 +337,7 @@ function GlowingRing({
   return (
     <Float speed={1.5} rotationIntensity={2} floatIntensity={1.5}>
       <mesh ref={meshRef} position={position}>
-        <torusGeometry args={[1.2, 0.1, 16, 100]} />
+        <torusGeometry args={[1.2, 0.1, 8, 50]} />
         <meshStandardMaterial
           color={color}
           emissive={color}
@@ -334,7 +353,7 @@ function GlowingRing({
 // Particle field
 function ParticleField() {
   const particlesRef = useRef<THREE.Points>(null);
-  const count = 500;
+  const count = 250;
 
   const [positions, colors] = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -441,7 +460,7 @@ function ContactGeometry() {
       {/* Orbiting torus */}
       <Float speed={2.5} rotationIntensity={1.5} floatIntensity={0.8}>
         <mesh ref={torusRef} position={[3, 0, 0]}>
-          <torusGeometry args={[0.8, 0.2, 16, 100]} />
+          <torusGeometry args={[0.8, 0.2, 8, 50]} />
           <meshStandardMaterial
             color="#a855f7"
             emissive="#a855f7"
@@ -455,7 +474,7 @@ function ContactGeometry() {
       {/* Floating sphere */}
       <Float speed={4} rotationIntensity={3} floatIntensity={2}>
         <mesh ref={sphereRef} position={[-2, 1, 1]}>
-          <sphereGeometry args={[0.6, 32, 32]} />
+          <sphereGeometry args={[0.6, 16, 16]} />
           <MeshDistortMaterial
             color="#ff6b6b"
             distort={0.3}
@@ -499,7 +518,7 @@ function ContactGeometry() {
 // Enhanced particle system for contact section
 function ContactParticles() {
   const particlesRef = useRef<THREE.Points>(null);
-  const count = 800;
+  const count = 400;
 
   const [positions, colors] = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -598,13 +617,27 @@ function ContactScene() {
 }
 
 // Mouse-reactive camera
+// Interactive mouse-responsive camera controller
 function CameraController() {
-  const { camera } = useThree();
+  const { camera, mouse } = useThree();
 
   useFrame((state) => {
-    camera.position.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.5;
-    camera.position.y = Math.cos(state.clock.elapsedTime * 0.15) * 0.3;
+    // Smooth camera movement based on mouse position
+    camera.position.x = THREE.MathUtils.lerp(
+      camera.position.x,
+      mouse.x * 2,
+      0.02,
+    );
+    camera.position.y = THREE.MathUtils.lerp(
+      camera.position.y,
+      mouse.y * 1.5,
+      0.02,
+    );
     camera.lookAt(0, 0, 0);
+
+    // Add subtle floating motion
+    camera.position.x += Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
+    camera.position.y += Math.cos(state.clock.elapsedTime * 0.15) * 0.05;
   });
 
   return null;
@@ -651,7 +684,7 @@ function HeroScene() {
       <Stars
         radius={100}
         depth={50}
-        count={3000}
+        count={1500}
         factor={6}
         saturation={0}
         fade
@@ -660,6 +693,17 @@ function HeroScene() {
 
       {/* Atmospheric environment */}
       <Environment preset="sunset" />
+
+      {/* Post-processing effects for mind-blowing visuals */}
+      <Suspense fallback={null}>
+        <EffectComposer multisampling={0}>
+          <ChromaticAberration
+            offset={new THREE.Vector2(0.002, 0.002)}
+            radialModulation={false}
+            modulationOffset={0}
+          />
+        </EffectComposer>
+      </Suspense>
     </>
   );
 }
@@ -681,11 +725,24 @@ const Scene3D = ({ variant = "hero", className = "" }: Scene3DProps) => {
   };
 
   return (
-    <div className={`absolute inset-0 ${className}`}>
+    <div
+      className={`absolute inset-0 ${className}`}
+      style={{
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        perspective: 1000,
+      }}
+    >
       <Canvas
         camera={{ position: [0, 0, 6], fov: 50 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={1}
+        gl={{
+          antialias: false,
+          alpha: false,
+          powerPreference: "high-performance",
+          stencil: false,
+          depth: true,
+        }}
       >
         {renderScene()}
       </Canvas>

@@ -10,6 +10,7 @@ import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import FloatingLanguages from "@/components/FloatingLanguages";
 import SkillsSection from "@/components/SkillsSection";
+import CoffeeSection from "@/components/CoffeeSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
@@ -86,8 +87,10 @@ const Index = () => {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
+        <SkillsSection />
         {/* <FloatingLanguages /> */}{" "}
         {/* Temporarily disabled for performance testing */}
+        <CoffeeSection />
         <ContactSection />
         <Footer />
       </main>

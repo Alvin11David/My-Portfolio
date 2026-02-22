@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import MUBSLocatorImage from "@/assets/images/MUBSLocator.jpg";
+import MchencuziAuditImage from "@/assets/images/Mchencuzi Audit.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,22 +51,23 @@ const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Nexus Platform",
-    category: "SaaS",
+    title: "Mchencuzi Audit",
+    category: "Audit Software",
     description:
-      "An enterprise collaboration platform that brings teams together through seamless communication.",
-    challenge: "Remote teams struggled with fragmented tools.",
+      "Mchencuzi Audit Software is a digital audit management system designed to support the planning, execution, documentation, and reporting of audit activities in an efficient and organized manner.",
+    challenge:
+      "Traditional audit processes were inefficient, prone to errors, and lacked transparency.",
     solution:
-      "Built an all-in-one platform with real-time collaboration and video conferencing.",
+      "Developed a comprehensive digital platform with automated workflows, real-time tracking, and advanced reporting features.",
     results: [
-      "200K+ monthly active users",
-      "50% faster project completion",
-      "Series B funded",
+      "70% reduction in audit time",
+      "95% increase in accuracy",
+      "Adopted by 50+ organizations",
     ],
-    image: "linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%)",
-    accentColor: "violet",
-    technologies: ["Next.js", "GraphQL", "WebRTC", "AWS"],
-    year: "2024",
+    image: MchencuziAuditImage,
+    accentColor: "blue",
+    technologies: ["Angular", "Affinity", "Supabase", "Express"],
+    year: "2025",
   },
   {
     id: 3,

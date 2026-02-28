@@ -204,8 +204,8 @@ const SkillsSection = () => {
       </div>
 
       {/* Marquee Text */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 overflow-hidden opacity-[0.03] select-none pointer-events-none">
-        <div ref={marqueeRef} className="flex whitespace-nowrap font-serif text-[15vw] font-black uppercase tracking-tighter">
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 overflow-hidden opacity-[0.05] select-none pointer-events-none">
+        <div ref={marqueeRef} className="flex whitespace-nowrap font-serif text-[15vw] font-black uppercase tracking-tighter text-foreground">
           <span className="mr-20">Mastery & Strategy • Mastery & Strategy •</span>
           <span className="mr-20">Mastery & Strategy • Mastery & Strategy •</span>
         </div>
@@ -214,14 +214,14 @@ const SkillsSection = () => {
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
         <div ref={headerRef} className="mb-24 text-center">
-          <div className="animate-header inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 mb-6 text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+          <div className="animate-header inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 mb-6 text-xs font-bold uppercase tracking-[0.2em] text-primary">
             <Sparkles className="h-3 w-3" />
             Skillset
           </div>
-          <h2 className="animate-header font-serif text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
+          <h2 className="animate-header font-serif text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6">
             Technical <span className="gradient-text">Proficiency</span>
           </h2>
-          <p className="animate-header mx-auto max-w-2xl text-lg text-slate-400 font-light leading-relaxed">
+          <p className="animate-header mx-auto max-w-2xl text-lg text-foreground font-light leading-relaxed">
             Architecting digital excellence through a sophisticated stack of modern technologies and refined design principles.
           </p>
         </div>
@@ -233,19 +233,19 @@ const SkillsSection = () => {
               key={category.title}
               onMouseMove={(e) => handleMouseMove(e, e.currentTarget as HTMLDivElement)}
               onMouseLeave={(e) => handleMouseLeave(e.currentTarget as HTMLDivElement)}
-              className={`skill-card relative group rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:bg-white/10 ${category.shadowColor} hover:shadow-2xl`}
+              className={`skill-card relative group rounded-[2rem] border border-border bg-card/50 p-8 backdrop-blur-xl transition-all duration-300 hover:border-primary/30 hover:bg-card ${category.shadowColor} hover:shadow-2xl`}
               style={{ perspective: "1000px" }}
             >
               <div className="card-glow absolute inset-0 -z-10 bg-gradient-to-br from-primary/30 to-transparent blur-3xl opacity-0 transition-opacity duration-300" />
 
               {/* Category Header */}
               <div className="mb-10 flex items-center justify-between">
-                <div className={`p-4 rounded-2xl bg-gradient-to-br ${category.color} border border-white/10`}>
+                <div className={`p-4 rounded-2xl bg-gradient-to-br ${category.color} border border-border`}>
                   {category.icon}
                 </div>
                 <div className="text-right">
-                  <span className="block text-2xl font-black text-white/20">0{idx + 1}</span>
-                  <h3 className="text-2xl font-bold text-white tracking-tight">{category.title}</h3>
+                  <span className="block text-2xl font-black text-foreground/10">0{idx + 1}</span>
+                  <h3 className="text-2xl font-bold text-foreground tracking-tight">{category.title}</h3>
                 </div>
               </div>
 
@@ -254,14 +254,14 @@ const SkillsSection = () => {
                 {category.skills.map((skill) => (
                   <div key={skill.name} className="group/skill">
                     <div className="mb-3 flex items-end justify-between">
-                      <span className="text-sm font-medium text-slate-300 group-hover/skill:text-white transition-colors">
+                      <span className="text-sm font-medium text-foreground group-hover/skill:text-primary transition-colors">
                         {skill.name}
                       </span>
                       <span className="text-[10px] font-bold tracking-widest text-primary/60 uppercase">
                         {skill.level}%
                       </span>
                     </div>
-                    <div className="relative h-[6px] w-full overflow-hidden rounded-full bg-white/5">
+                    <div className="relative h-[6px] w-full overflow-hidden rounded-full bg-secondary">
                       <div
                         className="skill-bar-fill absolute inset-y-0 left-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500"
                         style={{ width: "0%" }}
@@ -279,7 +279,7 @@ const SkillsSection = () => {
 
         {/* Tools Section */}
         <div className="text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-slate-500 mb-8">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-foreground/80 mb-8">
             Extended Ecosystem
           </p>
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
@@ -287,7 +287,7 @@ const SkillsSection = () => {
               <Badge
                 key={tool}
                 variant="outline"
-                className="px-6 py-2 rounded-full border-white/5 bg-white/5 text-slate-300 hover:bg-primary/20 hover:text-white hover:border-primary/50 transition-all duration-300 cursor-default"
+                className="px-6 py-2 rounded-full border-border bg-card/50 text-foreground hover:bg-primary/20 hover:text-primary hover:border-primary/50 transition-all duration-300 cursor-default"
               >
                 {tool}
               </Badge>

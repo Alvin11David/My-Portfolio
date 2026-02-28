@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import MUBSLocatorImage from "@/assets/images/MUBSLocator.jpg";
 import MchencuziAuditImage from "@/assets/images/Mchencuzi Audit.png";
+import HeplerAppImage from "@/assets/images/Helper Cover.jpg";
+import TimeSync from "@/assets/images/Time Sync.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,38 +73,37 @@ const projects: Project[] = [
   },
   {
     id: 3,
-    title: "Pulse Health",
+    title: "Helper App",
     category: "Healthcare",
     description:
-      "A comprehensive health tracking ecosystem that empowers users to take control of their wellness.",
-    challenge: "Health data was scattered across multiple apps.",
+      "Find trusted help fast or earn more work—match, chat, and get paid in one place.",
+    challenge: "Unemployement and underemployment were rising, while people struggled to find reliable help for everyday tasks.",
     solution:
-      "Unified all health metrics in one beautiful dashboard with personalized recommendations.",
+      "Built a mobile app platform that connects people needing help with local helpers, featuring secure payments, real-time chat, and AI-driven matching.",
     results: ["1M+ downloads", "85% user retention", "Featured by Apple"],
-    image: "linear-gradient(135deg, #f43f5e 0%, #fb923c 100%)",
+    image: HeplerAppImage,
     accentColor: "rose",
-    technologies: ["Swift", "HealthKit", "Firebase", "TensorFlow"],
-    year: "2023",
+    technologies: ["Flutter","Firebase", "Blender", "Affinity", "Relworx", "Figma"],
+    year: "2026",
   },
   {
     id: 4,
-    title: "Lumina Commerce",
-    category: "E-commerce",
+    title: "Time Sync",
+    category: "Education",
     description:
-      "A next-generation shopping experience that blends physical and digital retail seamlessly.",
+      "A next-generation education timer that helps students manage their study sessions effectively.",
     challenge:
-      "Online shopping lacked the tactile experience of in-store browsing.",
+      "Students often struggle with time management and maintaining focus during study sessions.",
     solution:
-      "Implemented AR try-on features and personalized AI recommendations.",
+      "Developed an intuitive timer with customizable intervals, progress tracking, and focus mode features.",
     results: [
       "35% higher conversion rate",
       "60% fewer returns",
-      "Best E-commerce UX Award",
     ],
-    image: "linear-gradient(135deg, #f59e0b 0%, #eab308 100%)",
+    image: TimeSync,
     accentColor: "amber",
-    technologies: ["React", "Three.js", "ARKit", "Shopify"],
-    year: "2023",
+    technologies: ["Angular", "Three.js", "Supabase", "Figma"],
+    year: "2026",
   },
   {
     id: 5,

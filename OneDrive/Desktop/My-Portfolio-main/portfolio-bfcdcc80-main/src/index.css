@@ -6,6 +6,70 @@
 
 @layer base {
   :root {
+    /* Light Mode - Pure & Premium */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    /* Electric cyan accent - adjusted for light */
+    --primary: 174 100% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 96%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 240 10% 96%;
+    --muted-foreground: 0 0% 25%;
+
+    --accent: 174 100% 35%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 10% 90%;
+    --input: 240 10% 90%;
+    --ring: 174 100% 38%;
+
+    --radius: 1rem;
+
+    /* Extended design tokens */
+    --glow-primary: 174 100% 45%;
+    --glow-secondary: 280 100% 60%;
+    --surface-glass: 0 0% 100%;
+
+    /* Typography */
+    --font-serif: "Playfair Display", Georgia, serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg,
+        hsl(174 100% 38%),
+        hsl(200 100% 45%));
+    --gradient-accent: linear-gradient(135deg,
+        hsl(280 100% 50%),
+        hsl(174 100% 38%));
+
+    /* Shadows */
+    --shadow-glow: 0 0 60px hsl(174 100% 45% / 0.15);
+    --shadow-glow-lg: 0 0 100px hsl(174 100% 45% / 0.25);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 15% 3%;
+    --sidebar-primary: 174 100% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 8% 95%;
+    --sidebar-accent-foreground: 240 15% 3%;
+    --sidebar-border: 240 10% 90%;
+    --sidebar-ring: 174 100% 38%;
+  }
+
+  .dark {
     /* Deep noir with electric cyan - ultra premium palette */
     --background: 240 15% 3%;
     --foreground: 0 0% 98%;
@@ -36,28 +100,18 @@
     --input: 240 10% 12%;
     --ring: 174 100% 45%;
 
-    --radius: 1rem;
-
     /* Extended design tokens */
     --glow-primary: 174 100% 45%;
     --glow-secondary: 280 100% 60%;
     --surface-glass: 240 12% 6%;
 
-    /* Typography */
-    --font-serif: "Playfair Display", Georgia, serif;
-    --font-sans: "Inter", system-ui, sans-serif;
-
     /* Gradients */
-    --gradient-primary: linear-gradient(
-      135deg,
-      hsl(174 100% 45%),
-      hsl(200 100% 50%)
-    );
-    --gradient-accent: linear-gradient(
-      135deg,
-      hsl(280 100% 60%),
-      hsl(174 100% 45%)
-    );
+    --gradient-primary: linear-gradient(135deg,
+        hsl(174 100% 45%),
+        hsl(200 100% 50%));
+    --gradient-accent: linear-gradient(135deg,
+        hsl(280 100% 60%),
+        hsl(174 100% 45%));
 
     /* Shadows */
     --shadow-glow: 0 0 60px hsl(174 100% 45% / 0.25);
@@ -126,6 +180,7 @@
 }
 
 @layer components {
+
   /* Glassmorphism */
   .glass {
     background: hsl(var(--surface-glass) / 0.7);
@@ -222,6 +277,7 @@
     0% {
       transform: translateX(0);
     }
+
     100% {
       transform: translateX(-50%);
     }
@@ -231,29 +287,35 @@
     0% {
       transform: translateX(-50%);
     }
+
     100% {
       transform: translateX(0);
     }
   }
 
   @keyframes float {
+
     0%,
     100% {
       transform: translateY(0px) rotate(0deg);
     }
+
     33% {
       transform: translateY(-10px) rotate(120deg);
     }
+
     66% {
       transform: translateY(5px) rotate(240deg);
     }
   }
 
   @keyframes gradient-shift {
+
     0%,
     100% {
       background-position: 0% 50%;
     }
+
     50% {
       background-position: 100% 50%;
     }
@@ -283,19 +345,24 @@
 }
 
 @layer utilities {
+
   /* Animation delays */
   .animation-delay-100 {
     animation-delay: 100ms;
   }
+
   .animation-delay-200 {
     animation-delay: 200ms;
   }
+
   .animation-delay-300 {
     animation-delay: 300ms;
   }
+
   .animation-delay-400 {
     animation-delay: 400ms;
   }
+
   .animation-delay-500 {
     animation-delay: 500ms;
   }
@@ -304,6 +371,7 @@
   .perspective-1000 {
     perspective: 1000px;
   }
+
   .perspective-2000 {
     perspective: 2000px;
   }

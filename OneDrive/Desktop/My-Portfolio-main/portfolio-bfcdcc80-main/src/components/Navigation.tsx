@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { gsap } from "gsap";
 import MagneticButton from "./MagneticButton";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -94,8 +95,8 @@ const Navigation = () => {
                 href={link.href}
                 strength={0.2}
                 className={`group relative px-5 py-3 text-sm font-medium transition-colors ${activeSection === link.href.slice(1)
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
                   }`}
               >
                 <span className="relative flex items-center gap-2">
@@ -106,14 +107,18 @@ const Navigation = () => {
                     {link.label}
                     <span
                       className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-gradient-to-r from-primary to-glow-secondary transition-transform duration-500 ${activeSection === link.href.slice(1)
-                          ? "scale-x-100"
-                          : "scale-x-0 group-hover:scale-x-100"
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
                         }`}
                     />
                   </span>
                 </span>
               </MagneticButton>
             ))}
+
+            <div className="mx-4 h-6 w-[1px] bg-border/50" />
+
+            <ThemeToggle />
 
             <MagneticButton
               href="#contact"
@@ -123,26 +128,29 @@ const Navigation = () => {
             </MagneticButton>
           </nav>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="relative z-[60] flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/50 text-foreground backdrop-blur-sm transition-all hover:border-primary hover:text-primary md:hidden"
-          >
-            <div className="relative h-4 w-5">
-              <span
-                className={`absolute left-0 top-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : ""
-                  }`}
-              />
-              <span
-                className={`absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""
-                  }`}
-              />
-              <span
-                className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : ""
-                  }`}
-              />
-            </div>
-          </button>
+          {/* Mobile controls */}
+          <div className="flex items-center gap-4 md:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="relative z-[60] flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/50 text-foreground backdrop-blur-sm transition-all hover:border-primary hover:text-primary"
+            >
+              <div className="relative h-4 w-5">
+                <span
+                  className={`absolute left-0 top-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : ""
+                    }`}
+                />
+                <span
+                  className={`absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""
+                    }`}
+                />
+                <span
+                  className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : ""
+                    }`}
+                />
+              </div>
+            </button>
+          </div>
         </div>
       </header>
 

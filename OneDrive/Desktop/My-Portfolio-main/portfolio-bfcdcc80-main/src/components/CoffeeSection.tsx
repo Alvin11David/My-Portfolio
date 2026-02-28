@@ -64,7 +64,7 @@ const CoffeeSection = () => {
             </div>
 
             <div className="container relative z-10 mx-auto px-4">
-                <div className="max-w-4xl mx-auto rounded-[3rem] border border-white/10 bg-white/5 p-8 md:p-16 backdrop-blur-xl shadow-2xl overflow-hidden relative group">
+                <div className="max-w-4xl mx-auto rounded-[3rem] border border-border bg-card/50 p-8 md:p-16 backdrop-blur-xl shadow-2xl overflow-hidden relative group">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                     <div className="relative z-10 flex flex-col items-center text-center">
@@ -80,11 +80,11 @@ const CoffeeSection = () => {
                             Support My Work
                         </div>
 
-                        <h2 className="coffee-animate font-serif text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        <h2 className="coffee-animate font-serif text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
                             Fuel the <span className="gradient-text">Innovation</span>
                         </h2>
 
-                        <p className="coffee-animate max-w-xl text-lg text-slate-400 mb-10 font-light leading-relaxed">
+                        <p className="coffee-animate max-w-xl text-lg text-muted-foreground mb-10 font-light leading-relaxed">
                             If you find my work helpful or inspiring, consider supporting my journey.
                             Every coffee fuels more late-night coding sessions and creative breakthroughs.
                         </p>
@@ -102,10 +102,10 @@ const CoffeeSection = () => {
                                         </span>
                                     </Button>
                                 </DialogTrigger>
-                                <DialogContent className="sm:max-w-[425px] bg-[#0c0c14] border-white/10 backdrop-blur-2xl rounded-[2.5rem] p-8">
+                                <DialogContent className="sm:max-w-[425px] bg-background border-border backdrop-blur-2xl rounded-[2.5rem] p-8">
                                     <DialogHeader className="mb-6">
-                                        <DialogTitle className="text-3xl font-serif text-white text-center">Fuel Creativity</DialogTitle>
-                                        <DialogDescription className="text-slate-400 text-center text-base mt-2">
+                                        <DialogTitle className="text-3xl font-serif text-foreground text-center">Fuel Creativity</DialogTitle>
+                                        <DialogDescription className="text-muted-foreground text-center text-base mt-2">
                                             Choose how many coffees you'd like to send my way. $5 per coffee.
                                         </DialogDescription>
                                     </DialogHeader>
@@ -117,8 +117,8 @@ const CoffeeSection = () => {
                                                     key={num}
                                                     onClick={() => setCoffees(num)}
                                                     className={`flex flex-col items-center justify-center w-24 h-28 rounded-3xl border transition-all duration-500 ${coffees === num
-                                                        ? "bg-primary border-primary text-background shadow-2xl shadow-primary/40 scale-110 -translate-y-2"
-                                                        : "bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:border-white/20"
+                                                        ? "bg-primary border-primary text-primary-foreground shadow-2xl shadow-primary/40 scale-110 -translate-y-2"
+                                                        : "bg-secondary border-border text-muted-foreground hover:bg-secondary/80 hover:border-primary/50"
                                                         }`}
                                                 >
                                                     <span className="text-3xl mb-1">☕</span>
@@ -129,36 +129,36 @@ const CoffeeSection = () => {
 
                                         <div className="space-y-6">
                                             <div className="space-y-2">
-                                                <label className="text-sm font-bold text-slate-500 uppercase tracking-widest ml-1">Custom Amount</label>
+                                                <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest ml-1">Custom Amount</label>
                                                 <div className="relative">
                                                     <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" />
                                                     <Input
                                                         type="number"
                                                         value={coffees}
                                                         onChange={(e) => setCoffees(Math.max(1, parseInt(e.target.value) || 1))}
-                                                        className="pl-12 bg-white/5 border-white/10 text-white rounded-2xl h-14 text-lg focus:ring-primary/50"
+                                                        className="pl-12 bg-secondary border-border text-foreground rounded-2xl h-14 text-lg focus:ring-primary/50"
                                                         placeholder="Enter number of coffees"
                                                     />
                                                 </div>
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-sm font-bold text-slate-500 uppercase tracking-widest ml-1">Your Message</label>
+                                                <label className="text-sm font-bold text-muted-foreground uppercase tracking-widest ml-1">Your Message</label>
                                                 <div className="relative">
                                                     <MessageCircle className="absolute left-4 top-4 w-4 h-4 text-primary" />
                                                     <Textarea
                                                         placeholder="I love your work! Keep it up..."
                                                         value={message}
                                                         onChange={(e) => setMessage(e.target.value)}
-                                                        className="pl-12 bg-white/5 border-white/10 text-white rounded-2xl min-h-[120px] text-base focus:ring-primary/50 py-4"
+                                                        className="pl-12 bg-secondary border-border text-foreground rounded-2xl min-h-[120px] text-base focus:ring-primary/50 py-4"
                                                     />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="p-6 rounded-[1.5rem] bg-gradient-to-br from-primary/20 to-transparent border border-primary/20 flex justify-between items-center shadow-inner">
+                                        <div className="p-6 rounded-[1.5rem] bg-gradient-to-br from-primary/10 to-secondary border border-primary/20 flex justify-between items-center shadow-inner">
                                             <div>
-                                                <p className="text-slate-400 text-sm font-medium">Total Contribution</p>
+                                                <p className="text-muted-foreground text-sm font-medium">Total Contribution</p>
                                                 <p className="text-xs text-primary/60 font-medium italic">Support helps a lot!</p>
                                             </div>
                                             <span className="text-4xl font-black text-primary drop-shadow-glow">${coffees * coffeePrice}</span>
@@ -181,16 +181,16 @@ const CoffeeSection = () => {
                                 {[1, 2, 3, 4].map((i) => (
                                     <div
                                         key={i}
-                                        className="w-12 h-12 rounded-full border-2 border-[#0c0c14] bg-slate-800 flex items-center justify-center text-[10px] font-bold text-white overflow-hidden shadow-lg"
+                                        className="w-12 h-12 rounded-full border-2 border-background bg-secondary flex items-center justify-center text-[10px] font-bold text-foreground overflow-hidden shadow-lg"
                                     >
                                         <img src={`https://i.pravatar.cc/100?img=${i + 15}`} alt="Supporter" className="w-full h-full object-cover" />
                                     </div>
                                 ))}
-                                <div className="w-12 h-12 rounded-full border-2 border-[#0c0c14] bg-primary/20 backdrop-blur-sm flex items-center justify-center text-xs font-black text-primary italic shadow-lg">
+                                <div className="w-12 h-12 rounded-full border-2 border-background bg-primary/20 backdrop-blur-sm flex items-center justify-center text-xs font-black text-primary italic shadow-lg">
                                     +12
                                 </div>
                             </div>
-                            <span className="text-sm text-slate-500 font-semibold tracking-wide">Fueling digital dreams daily</span>
+                            <span className="text-sm text-muted-foreground font-semibold tracking-wide">Fueling digital dreams daily</span>
                         </div>
                     </div>
 

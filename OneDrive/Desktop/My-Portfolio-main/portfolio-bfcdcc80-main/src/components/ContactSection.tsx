@@ -174,49 +174,49 @@ const ContactSection = () => {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative min-h-screen overflow-hidden bg-background py-32 lg:py-40"
+      className="relative min-h-screen overflow-hidden bg-background py-20 md:py-32 lg:py-40"
     >
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute right-0 top-1/4 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[180px]" />
-        <div className="absolute bottom-1/4 left-0 h-[500px] w-[500px] rounded-full bg-glow-secondary/5 blur-[150px]" />
+        <div className="absolute right-0 top-1/4 h-[400px] w-[400px] sm:h-[600px] sm:w-[600px] rounded-full bg-primary/5 blur-[120px] sm:blur-[180px]" />
+        <div className="absolute bottom-1/4 left-0 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-glow-secondary/5 blur-[100px] sm:blur-[150px]" />
 
         {/* Mind-blowing 3D Scene */}
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-20 sm:opacity-30">
           <Scene3D variant="contact" />
         </div>
       </div>
 
       {/* Large background text */}
-      <div className="absolute -right-20 top-1/2 -translate-y-1/2 rotate-90 select-none font-serif text-[15vw] font-bold leading-none text-foreground/[0.02]">
+      <div className="absolute -right-20 top-1/2 -translate-y-1/2 rotate-90 select-none font-serif text-[20vw] sm:text-[15vw] font-bold leading-none text-foreground/[0.02]">
         CONTACT
       </div>
 
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div ref={headerRef} className="mb-20 text-center">
-          <span className="animate-header mb-6 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.4em] text-primary">
+        <div ref={headerRef} className="mb-12 md:mb-20 text-center">
+          <span className="animate-header mb-4 sm:mb-6 inline-flex items-center gap-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.4em] text-primary">
             <MessageCircle className="h-4 w-4" />
             Get In Touch
           </span>
-          <h2 className="animate-header font-serif text-5xl font-bold md:text-6xl lg:text-7xl">
+          <h2 className="animate-header font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
             Let's Create <span className="gradient-text">Together</span>
           </h2>
-          <p className="animate-header mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+          <p className="animate-header mx-auto mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground">
             Have a project in mind? I'd love to hear about it. Let's discuss how
             we can bring your vision to life.
           </p>
         </div>
 
         <div ref={contentRef} className="mx-auto max-w-6xl">
-          <div className="grid gap-16 lg:grid-cols-2">
+          <div className="grid gap-12 sm:gap-16 lg:grid-cols-2">
             {/* Left - Contact info */}
-            <div className="left-content space-y-10">
+            <div className="left-content space-y-8 sm:space-y-10">
               <div>
-                <h3 className="mb-4 font-serif text-3xl font-bold">
+                <h3 className="mb-4 font-serif text-2xl sm:text-3xl font-bold">
                   Let's Start a Conversation
                 </h3>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-base sm:text-lg text-muted-foreground">
                   I'm currently available for freelance projects and full-time
                   opportunities.
                 </p>
@@ -225,41 +225,49 @@ const ContactSection = () => {
               {/* Contact links */}
               <div className="space-y-4">
                 <a
-                  href="mailto:hello@portfolio.com"
-                  className="group flex items-center gap-5 rounded-2xl border border-border bg-card/50 p-5 transition-all duration-500 hover:border-primary/50 hover:bg-card"
+                  href="mailto:alvin69david@gmail.com"
+                  className="group flex items-center gap-4 sm:gap-5 rounded-2xl border border-border bg-card/50 p-4 sm:p-5 transition-all duration-500 hover:border-primary/50 hover:bg-card"
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Mail className="h-6 w-6" />
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Mail className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium">alvin69david@gmail.com</p>
+                  <div className="min-w-0">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
+                      Email
+                    </p>
+                    <p className="truncate font-medium text-sm sm:text-base">
+                      alvin69david@gmail.com
+                    </p>
                   </div>
-                  <ArrowUpRight className="ml-auto h-5 w-5 text-muted-foreground transition-all group-hover:text-primary group-hover:rotate-45" />
+                  <ArrowUpRight className="ml-auto h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground transition-all group-hover:text-primary group-hover:rotate-45" />
                 </a>
 
-                <div className="flex items-center gap-5 rounded-2xl border border-border bg-card/50 p-5">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-secondary text-muted-foreground">
-                    <MapPin className="h-6 w-6" />
+                <div className="flex items-center gap-4 sm:gap-5 rounded-2xl border border-border bg-card/50 p-4 sm:p-5">
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl bg-secondary text-muted-foreground">
+                    <MapPin className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-medium">Kampala | Uganda</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">
+                      Location
+                    </p>
+                    <p className="font-medium text-sm sm:text-base">
+                      Kampala | Uganda
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Social links */}
               <div>
-                <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                   Follow Me
                 </p>
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {socialLinks.map((social) => (
                     <MagneticButton
                       key={social.label}
                       href={social.href}
-                      className="flex h-14 w-14 items-center justify-center rounded-xl border border-border bg-card/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:bg-primary/10 hover:text-primary"
+                      className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl border border-border bg-card/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:bg-primary/10 hover:text-primary"
                     >
                       <social.icon className="h-5 w-5" />
                     </MagneticButton>
@@ -268,9 +276,11 @@ const ContactSection = () => {
               </div>
 
               {/* CTA card */}
-              <div className="rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/10 to-transparent p-8">
-                <p className="mb-4 text-lg font-medium">Prefer a quick call?</p>
-                <p className="mb-6 text-muted-foreground">
+              <div className="rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/10 to-transparent p-6 sm:p-8">
+                <p className="mb-4 text-base sm:text-lg font-medium">
+                  Prefer a quick call?
+                </p>
+                <p className="mb-6 text-sm sm:text-muted-foreground">
                   Book a free 15-minute intro call to discuss your project.
                 </p>
                 <a
@@ -288,9 +298,9 @@ const ContactSection = () => {
               <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                className="rounded-3xl border border-border bg-card/50 p-8 backdrop-blur-sm lg:p-10"
+                className="rounded-3xl border border-border bg-card/50 p-6 backdrop-blur-sm lg:p-10"
               >
-                <h3 className="mb-8 font-serif text-2xl font-bold">
+                <h3 className="mb-6 sm:mb-8 font-serif text-xl sm:text-2xl font-bold">
                   Send a Message
                 </h3>
 

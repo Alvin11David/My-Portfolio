@@ -2,7 +2,24 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Code2, Palette, Server, Cpu, Layers, Sparkles, Terminal, Database, Globe, Cloud } from "lucide-react";
+import {
+  Code2,
+  Palette,
+  Server,
+  Cpu,
+  Layers,
+  Sparkles,
+  Terminal,
+  Database,
+  Globe,
+  Cloud,
+  GitBranch,
+  Zap,
+  PenTool,
+  CreditCard,
+  Send,
+  Box,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -22,6 +39,7 @@ const skillCategories: SkillCategory[] = [
     skills: [
       { name: "React.js / Next.js", level: 96 },
       { name: "TypeScript", level: 94 },
+      { name: "JavaScript", level: 94 },
       { name: "Tailwind CSS", level: 95 },
       { name: "Three.js / GSAP", level: 85 },
       { name: "Framer Motion", level: 88 },
@@ -33,11 +51,9 @@ const skillCategories: SkillCategory[] = [
     title: "Backend",
     icon: <Server className="h-8 w-8 text-emerald-400" />,
     skills: [
-      { name: "Node.js / Express", level: 92 },
-      { name: "NestJS / Python", level: 85 },
-      { name: "GraphQL / REST", level: 95 },
-      { name: "WebSockets", level: 80 },
-      { name: "PostgreSQL / Prisma", level: 90 },
+      { name: "Node.js", level: 72 },
+      { name: "Python", level: 60 },
+      { name: "MySQL", level: 60 },
     ],
     color: "from-emerald-500/20 via-teal-500/20 to-green-500/20",
     shadowColor: "shadow-emerald-500/20",
@@ -46,10 +62,8 @@ const skillCategories: SkillCategory[] = [
     title: "Infrastructure",
     icon: <Cloud className="h-8 w-8 text-purple-400" />,
     skills: [
-      { name: "Docker / Kubernetes", level: 82 },
-      { name: "AWS / Vercel", level: 88 },
-      { name: "CI/CD Pipelines", level: 85 },
-      { name: "Linux / Nginx", level: 80 },
+      { name: "Docker", level: 42 },
+      { name: "Vercel", level: 88 },
       { name: "Firebase / Supabase", level: 87 },
     ],
     color: "from-purple-500/20 via-fuchsia-500/20 to-pink-500/20",
@@ -58,7 +72,18 @@ const skillCategories: SkillCategory[] = [
 ];
 
 const tools = [
-  "Git", "Docker", "AWS", "Vercel", "Three.js", "GSAP", "Redis", "Prisma", "Supabase", "Stripe", "Figma", "Postman", "Jest", "Sentry"
+  { name: "Git", icon: <GitBranch className="h-4 w-4" /> },
+  { name: "Blender", icon: <Zap className="h-4 w-4" /> },
+  { name: "Affinity", icon: <Palette className="h-4 w-4" /> },
+  { name: "Vercel", icon: <Globe className="h-4 w-4" /> },
+  { name: "Three.js", icon: <Box className="h-4 w-4" /> },
+  { name: "GSAP", icon: <Sparkles className="h-4 w-4" /> },
+  { name: "Redis", icon: <Database className="h-4 w-4" /> },
+  { name: "Prisma", icon: <Database className="h-4 w-4" /> },
+  { name: "Supabase", icon: <Database className="h-4 w-4" /> },
+  { name: "Stripe", icon: <CreditCard className="h-4 w-4" /> },
+  { name: "Figma", icon: <PenTool className="h-4 w-4" /> },
+  { name: "Postman", icon: <Send className="h-4 w-4" /> },
 ];
 
 const SkillsSection = () => {
@@ -140,10 +165,13 @@ const SkillsSection = () => {
         });
       }
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, card: HTMLDivElement) => {
+  const handleMouseMove = (
+    e: React.MouseEvent<HTMLDivElement>,
+    card: HTMLDivElement,
+  ) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -205,9 +233,16 @@ const SkillsSection = () => {
 
       {/* Marquee Text */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 overflow-hidden opacity-[0.05] select-none pointer-events-none">
-        <div ref={marqueeRef} className="flex whitespace-nowrap font-serif text-[15vw] font-black uppercase tracking-tighter text-foreground">
-          <span className="mr-20">Mastery & Strategy • Mastery & Strategy •</span>
-          <span className="mr-20">Mastery & Strategy • Mastery & Strategy •</span>
+        <div
+          ref={marqueeRef}
+          className="flex whitespace-nowrap font-serif text-[15vw] font-black uppercase tracking-tighter text-foreground"
+        >
+          <span className="mr-20">
+            Mastery & Strategy • Mastery & Strategy •
+          </span>
+          <span className="mr-20">
+            Mastery & Strategy • Mastery & Strategy •
+          </span>
         </div>
       </div>
 
@@ -222,17 +257,25 @@ const SkillsSection = () => {
             Technical <span className="gradient-text">Proficiency</span>
           </h2>
           <p className="animate-header mx-auto max-w-2xl text-lg text-foreground font-light leading-relaxed">
-            Architecting digital excellence through a sophisticated stack of modern technologies and refined design principles.
+            Architecting digital excellence through a sophisticated stack of
+            modern technologies and refined design principles.
           </p>
         </div>
 
         {/* Categories Grid */}
-        <div ref={cardsRef} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-24">
+        <div
+          ref={cardsRef}
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-24"
+        >
           {skillCategories.map((category, idx) => (
             <div
               key={category.title}
-              onMouseMove={(e) => handleMouseMove(e, e.currentTarget as HTMLDivElement)}
-              onMouseLeave={(e) => handleMouseLeave(e.currentTarget as HTMLDivElement)}
+              onMouseMove={(e) =>
+                handleMouseMove(e, e.currentTarget as HTMLDivElement)
+              }
+              onMouseLeave={(e) =>
+                handleMouseLeave(e.currentTarget as HTMLDivElement)
+              }
               className={`skill-card relative group rounded-[2rem] border border-border bg-card/50 p-8 backdrop-blur-xl transition-all duration-300 hover:border-primary/30 hover:bg-card ${category.shadowColor} hover:shadow-2xl`}
               style={{ perspective: "1000px" }}
             >
@@ -240,12 +283,18 @@ const SkillsSection = () => {
 
               {/* Category Header */}
               <div className="mb-10 flex items-center justify-between">
-                <div className={`p-4 rounded-2xl bg-gradient-to-br ${category.color} border border-border`}>
+                <div
+                  className={`p-4 rounded-2xl bg-gradient-to-br ${category.color} border border-border`}
+                >
                   {category.icon}
                 </div>
                 <div className="text-right">
-                  <span className="block text-2xl font-black text-foreground/10">0{idx + 1}</span>
-                  <h3 className="text-2xl font-bold text-foreground tracking-tight">{category.title}</h3>
+                  <span className="block text-2xl font-black text-foreground/10">
+                    0{idx + 1}
+                  </span>
+                  <h3 className="text-2xl font-bold text-foreground tracking-tight">
+                    {category.title}
+                  </h3>
                 </div>
               </div>
 
@@ -285,11 +334,12 @@ const SkillsSection = () => {
           <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
             {tools.map((tool) => (
               <Badge
-                key={tool}
+                key={tool.name}
                 variant="outline"
-                className="px-6 py-2 rounded-full border-border bg-card/50 text-foreground hover:bg-primary/20 hover:text-primary hover:border-primary/50 transition-all duration-300 cursor-default"
+                className="px-6 py-2 rounded-full border-border bg-card/50 text-foreground hover:bg-primary/20 hover:text-primary hover:border-primary/50 transition-all duration-300 cursor-default flex items-center gap-2"
               >
-                {tool}
+                {tool.icon}
+                {tool.name}
               </Badge>
             ))}
           </div>

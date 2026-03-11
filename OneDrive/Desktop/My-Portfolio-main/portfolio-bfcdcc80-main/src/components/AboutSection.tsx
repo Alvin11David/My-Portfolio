@@ -15,14 +15,14 @@ const AboutSection = () => {
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   const stats = [
-    { number: 8, suffix: "+", label: "Years Experience" },
-    { number: 50, suffix: "+", label: "Projects Delivered" },
-    { number: 30, suffix: "+", label: "Happy Clients" },
-    { number: 15, suffix: "M", label: "Users Reached" },
+    { number: 2, suffix: "+", label: "Years Experience" },
+    { number: 5, suffix: "+", label: "Projects Delivered" },
+    { number: 5, suffix: "+", label: "Happy Clients" },
+    { number: 8, suffix: "+", label: "Users Reached" },
   ];
 
   const bioText =
-    "I’m a passionate designer and developer with over 2 years of experience creating impactful digital products. I believe in the power of thoughtful design combined with clean, efficient code. I’m currently pursuing a degree in Computer Science at Makerere University.";
+    "As a seasoned designer and developer with over 2 years of experience, I specialize in crafting impactful digital products that seamlessly integrate thoughtful design with clean, efficient code. My expertise spans modern web technologies, user experience design, and scalable software solutions. Currently pursuing a degree in Computer Science at Makerere University, I remain committed to continuous learning and innovation in the ever-evolving field of technology.";
 
   useGSAP(
     () => {
@@ -123,11 +123,11 @@ const AboutSection = () => {
               onUpdate: function () {
                 if (numRef) {
                   numRef.textContent = Math.floor(
-                    this.targets()[0].val
+                    this.targets()[0].val,
                   ).toString();
                 }
               },
-            }
+            },
           );
         }
       });
@@ -167,7 +167,7 @@ const AboutSection = () => {
         });
       }
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
   return (
@@ -301,9 +301,7 @@ const AboutSection = () => {
 
             {/* Skills */}
             <div ref={skillsRef}>
-              <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-  
-              </p>
+              <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-muted-foreground"></p>
               <div className="flex flex-wrap gap-3">
                 {[
                   "React",

@@ -48,12 +48,16 @@
     --font-sans: "Inter", system-ui, sans-serif;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg,
-        hsl(174 100% 38%),
-        hsl(200 100% 45%));
-    --gradient-accent: linear-gradient(135deg,
-        hsl(280 100% 50%),
-        hsl(174 100% 38%));
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(174 100% 38%),
+      hsl(200 100% 45%)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(280 100% 50%),
+      hsl(174 100% 38%)
+    );
 
     /* Shadows */
     --shadow-glow: 0 0 60px hsl(174 100% 45% / 0.15);
@@ -106,12 +110,16 @@
     --surface-glass: 240 12% 6%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg,
-        hsl(174 100% 45%),
-        hsl(200 100% 50%));
-    --gradient-accent: linear-gradient(135deg,
-        hsl(280 100% 60%),
-        hsl(174 100% 45%));
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(174 100% 45%),
+      hsl(200 100% 50%)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(280 100% 60%),
+      hsl(174 100% 45%)
+    );
 
     /* Shadows */
     --shadow-glow: 0 0 60px hsl(174 100% 45% / 0.25);
@@ -180,7 +188,6 @@
 }
 
 @layer components {
-
   /* Glassmorphism */
   .glass {
     background: hsl(var(--surface-glass) / 0.7);
@@ -294,7 +301,6 @@
   }
 
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0px) rotate(0deg);
@@ -310,7 +316,6 @@
   }
 
   @keyframes gradient-shift {
-
     0%,
     100% {
       background-position: 0% 50%;
@@ -345,7 +350,6 @@
 }
 
 @layer utilities {
-
   /* Animation delays */
   .animation-delay-100 {
     animation-delay: 100ms;

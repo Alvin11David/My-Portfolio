@@ -7,7 +7,9 @@ import { useGSAP } from "@gsap/react";
 import MUBSLocatorImage from "@/assets/images/MUBSLocator.jpg";
 import MchencuziAuditImage from "@/assets/images/Mchencuzi Audit.png";
 import HeplerAppImage from "@/assets/images/Helper Cover.jpg";
+
 import TimeSync from "@/assets/images/Time Sync.png";
+import BibleAppImage from "@/assets/images/BibleApp.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,13 +79,21 @@ const projects: Project[] = [
     category: "Healthcare",
     description:
       "Find trusted help fast or earn more work—match, chat, and get paid in one place.",
-    challenge: "Unemployement and underemployment were rising, while people struggled to find reliable help for everyday tasks.",
+    challenge:
+      "Unemployement and underemployment were rising, while people struggled to find reliable help for everyday tasks.",
     solution:
       "Built a mobile app platform that connects people needing help with local helpers, featuring secure payments, real-time chat, and AI-driven matching.",
     results: ["1M+ downloads", "85% user retention", "Featured by Apple"],
     image: HeplerAppImage,
     accentColor: "rose",
-    technologies: ["Flutter","Firebase", "Blender", "Affinity", "Relworx", "Figma"],
+    technologies: [
+      "Flutter",
+      "Firebase",
+      "Blender",
+      "Affinity",
+      "Relworx",
+      "Figma",
+    ],
     year: "2026",
   },
   {
@@ -96,10 +106,7 @@ const projects: Project[] = [
       "Students often struggle with time management and maintaining focus during study sessions.",
     solution:
       "Developed an intuitive timer with customizable intervals, progress tracking, and focus mode features.",
-    results: [
-      "35% higher conversion rate",
-      "60% fewer returns",
-    ],
+    results: ["35% higher conversion rate", "60% fewer returns"],
     image: TimeSync,
     accentColor: "amber",
     technologies: ["Angular", "Three.js", "Supabase", "Figma"],
@@ -107,21 +114,22 @@ const projects: Project[] = [
   },
   {
     id: 5,
-    title: "Echo Social",
-    category: "Social Media",
+    title: "Bible App",
+    category: "Spiritual",
     description:
-      "A privacy-first social platform that puts meaningful connections over vanity metrics.",
-    challenge: "Users were tired of algorithmic feeds and privacy concerns.",
+      "A comprehensive Bible application offering multiple translations, daily devotionals, and offline access for spiritual growth.",
+    challenge:
+      "Many users lacked easy access to scripture and devotionals, especially offline or in regions with limited connectivity.",
     solution:
-      "Built a chronological, ad-free experience with end-to-end encryption.",
+      "Developed a user-friendly app with offline Bible versions, daily devotionals, bookmarks, and a powerful search feature.",
     results: [
-      "500K signups in first month",
-      "92% privacy satisfaction",
-      "Featured in Wired",
+      "200K+ downloads worldwide",
+      "4.8★ average rating",
+      "Used in 30+ countries",
     ],
-    image: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)",
-    accentColor: "blue",
-    technologies: ["Flutter", "Rust", "WebSocket", "E2E Encryption"],
+    image: BibleAppImage,
+    accentColor: "violet",
+    technologies: ["React Native", "Firebase", "TypeScript", "Expo"],
     year: "2023",
   },
 ];

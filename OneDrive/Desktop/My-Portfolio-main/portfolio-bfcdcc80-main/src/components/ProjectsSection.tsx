@@ -7,7 +7,6 @@ import { useGSAP } from "@gsap/react";
 import MUBSLocatorImage from "@/assets/images/MUBSLocator.jpg";
 import MchencuziAuditImage from "@/assets/images/Mchencuzi Audit.png";
 import HeplerAppImage from "@/assets/images/Helper Cover.jpg";
-
 import TimeSync from "@/assets/images/Time Sync.png";
 import BibleAppImage from "@/assets/images/BibleApp.png";
 

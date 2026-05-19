@@ -473,7 +473,7 @@ const ProjectsSection = () => {
               exit={{ opacity: 0, scale: 0.95, y: 30 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl overflow-hidden rounded-t-3xl border border-border bg-card shadow-2xl sm:rounded-3xl sm:max-h-[calc(100vh-2rem)]"
+              className="relative flex w-full max-w-5xl max-h-[calc(100vh-1rem)] flex-col overflow-hidden rounded-t-3xl border border-border bg-card shadow-2xl sm:rounded-3xl sm:max-h-[calc(100vh-2rem)]"
             >
               {/* Close button */}
               <button
@@ -517,7 +517,7 @@ const ProjectsSection = () => {
               </div>
 
               {/* Content */}
-              <div className="max-h-[calc(100vh-45vh)] overflow-y-auto p-5 sm:max-h-none sm:p-10">
+              <div className="flex-1 overflow-y-auto p-5 sm:p-10">
                 <p className="mb-8 text-base text-muted-foreground sm:mb-12 sm:text-xl">
                   {selectedProject.description}
                 </p>

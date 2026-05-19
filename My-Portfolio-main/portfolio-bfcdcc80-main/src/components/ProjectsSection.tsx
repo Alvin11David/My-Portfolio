@@ -11,6 +11,7 @@ import TimeSync from "@/assets/images/Time Sync.png";
 import BibleAppImage from "@/assets/images/BibleApp.png";
 import VeritasImage from "@/assets/images/Veritas.png";
 import EdwinsBakeHouseImage from "@/assets/images/EdwinsBakeHouse.png";
+import JamboPOSImage from "@/assets/images/JamboPOS.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,7 +151,7 @@ const projects: Project[] = [
     title: "Veritas Institute",
     category: "Education",
     description:
-      "A modern institute demo website crafted to present programs, admissions, and campus information with a clean user experience.",
+      "",
     challenge:
       "Education institutions need a clear, trustworthy web presence that makes it easy for visitors to explore offerings quickly.",
     solution:
@@ -171,7 +172,7 @@ const projects: Project[] = [
     title: "Edwin's Bake House",
     category: "Bakery",
     description:
-      "A warm, product-focused bakery website designed to showcase cakes, breads, and customer-first ordering information.",
+      "",
     challenge:
       "Small food brands need a polished online presence that makes browsing products and placing orders feel simple and inviting.",
     solution:
@@ -186,6 +187,27 @@ const projects: Project[] = [
     technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     year: "2026",
     webUrl: "https://edwins-bake-house.vercel.app/",
+  },
+  {
+    id: 8,
+    title: "JamboPOS",
+    category: "Point of Sale",
+    description:
+      "A streamlined point-of-sale prototype built to help businesses manage sales, inventory, and daily operations.",
+    challenge:
+      "Retail and service businesses need a fast, reliable system that simplifies checkout and keeps operations organized.",
+    solution:
+      "Created a clean POS experience with structured workflows, intuitive navigation, and clear business-focused presentation.",
+    results: [
+      "Simplified checkout flow",
+      "Better daily sales tracking",
+      "Clearer inventory management",
+    ],
+    image: JamboPOSImage,
+    accentColor: "emerald",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    year: "2026",
+    webUrl: "https://jambo-pos-system-prototype.netlify.app/",
   },
 ];
 

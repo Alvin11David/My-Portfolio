@@ -10,6 +10,7 @@ import HeplerAppImage from "@/assets/images/Helper Cover.jpg";
 import TimeSync from "@/assets/images/Time Sync.png";
 import BibleAppImage from "@/assets/images/BibleApp.png";
 import VeritasImage from "@/assets/images/Veritas.png";
+import EdwinsBakeHouseImage from "@/assets/images/EdwinsBakeHouse.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -163,6 +164,27 @@ const projects: Project[] = [
     technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     year: "2026",
     webUrl: "https://institute-demo-site.netlify.app/",
+  },
+  {
+    id: 7,
+    title: "Edwin's Bake House",
+    category: "Bakery",
+    description:
+      "A warm, product-focused bakery website designed to showcase cakes, breads, and customer-first ordering information.",
+    challenge:
+      "Small food brands need a polished online presence that makes browsing products and placing orders feel simple and inviting.",
+    solution:
+      "Built a responsive showcase site with clear product presentation, strong branding, and easy access to key business details.",
+    results: [
+      "Clearer product visibility",
+      "Improved online ordering flow",
+      "Stronger brand presentation",
+    ],
+    image: EdwinsBakeHouseImage,
+    accentColor: "orange",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    year: "2026",
+    webUrl: "https://edwins-bake-house.vercel.app/",
   },
 ];
 

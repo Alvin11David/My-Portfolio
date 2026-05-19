@@ -79,7 +79,6 @@ const projects: Project[] = [
     accentColor: "blue",
     technologies: ["Angular", "Affinity", "Supabase", "Express"],
     year: "2025",
-    webUrl: "https://mchencuzi.com/",
   },
   {
     id: 3,
@@ -221,17 +220,33 @@ const ProjectsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+    const updateMatch = () => setIsDesktop(mediaQuery.matches);
+    updateMatch();
+
+    mediaQuery.addEventListener("change", updateMatch);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateMatch);
+    };
+  }, []);
 
   useGSAP(
     () => {
+      if (!isDesktop) return;
+
       if (
         !sectionRef.current ||
         !horizontalRef.current ||
         !containerRef.current
-      )
+      ) {
         return;
+      }
 
-      // Header animation
       if (headerRef.current) {
         const elements = headerRef.current.querySelectorAll(".animate-header");
         gsap.from(elements, {
@@ -248,11 +263,9 @@ const ProjectsSection = () => {
         });
       }
 
-      // Horizontal scroll
       const container = containerRef.current;
       const horizontal = horizontalRef.current;
       const cards = horizontal.querySelectorAll(".project-card");
-
       const totalWidth = horizontal.scrollWidth - container.offsetWidth;
 
       const scrollTween = gsap.to(horizontal, {
@@ -263,7 +276,7 @@ const ProjectsSection = () => {
           start: "top top",
           end: () => `+=${totalWidth}`,
           pin: true,
-          scrub: 0.5, // Reduced from 1 for better performance
+          scrub: 0.5,
           anticipatePin: 1,
           onUpdate: (self) => {
             const newIndex = Math.floor(self.progress * projects.length);
@@ -272,11 +285,7 @@ const ProjectsSection = () => {
         },
       });
 
-      // Card animations
-      cards.forEach((card, i) => {
-        const inner = card.querySelector(".card-content");
-        const image = card.querySelector(".card-image");
-
+      cards.forEach((card) => {
         gsap.from(card, {
           opacity: 0,
           scale: 0.8,
@@ -292,7 +301,7 @@ const ProjectsSection = () => {
         });
       });
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [isDesktop] },
   );
 
   return (
@@ -325,17 +334,19 @@ const ProjectsSection = () => {
       </div>
 
       {/* Horizontal scroll container */}
-      <div ref={containerRef} className="relative h-screen">
+      <div ref={containerRef} className="relative lg:h-screen">
         <div
           ref={horizontalRef}
-          className="absolute left-0 top-0 flex h-full items-center gap-8 px-6 lg:gap-12 lg:px-12"
-          style={{ width: `${projects.length * 85 + 15}vw` }}
+          className="relative flex flex-col gap-8 px-6 lg:absolute lg:left-0 lg:top-0 lg:h-full lg:flex-row lg:items-center lg:gap-12 lg:px-12"
+          style={
+            isDesktop ? { width: `${projects.length * 85 + 15}vw` } : undefined
+          }
         >
           {projects.map((project, index) => (
             <article
               key={project.id}
               onClick={() => setSelectedProject(project)}
-              className="project-card group relative h-[70vh] w-[80vw] flex-shrink-0 cursor-pointer lg:w-[60vw]"
+              className="project-card group relative h-[70vh] w-full cursor-pointer flex-shrink-0 lg:w-[60vw]"
               style={{ perspective: "1200px" }}
             >
               <div
@@ -417,7 +428,7 @@ const ProjectsSection = () => {
           ))}
 
           {/* End card */}
-          <div className="flex h-[70vh] w-[40vw] flex-shrink-0 items-center justify-center">
+          <div className="flex h-[50vh] w-full flex-shrink-0 items-center justify-center lg:h-[70vh] lg:w-[40vw]">
             <div className="text-center">
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
                 Want to see more?
@@ -434,7 +445,7 @@ const ProjectsSection = () => {
         </div>
 
         {/* Progress indicators */}
-        <div className="absolute bottom-12 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+        <div className="absolute bottom-12 left-1/2 z-20 hidden -translate-x-1/2 gap-3 lg:flex">
           {projects.map((_, i) => (
             <div
               key={i}

@@ -150,8 +150,7 @@ const projects: Project[] = [
     id: 6,
     title: "Veritas Institute",
     category: "Education",
-    description:
-      "",
+    description: "",
     challenge:
       "Education institutions need a clear, trustworthy web presence that makes it easy for visitors to explore offerings quickly.",
     solution:
@@ -171,8 +170,7 @@ const projects: Project[] = [
     id: 7,
     title: "Edwin's Bake House",
     category: "Bakery",
-    description:
-      "",
+    description: "",
     challenge:
       "Small food brands need a polished online presence that makes browsing products and placing orders feel simple and inviting.",
     solution:
@@ -467,7 +465,7 @@ const ProjectsSection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-background/98 p-4 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-background/98 p-2 backdrop-blur-xl sm:items-center sm:p-4"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
@@ -475,19 +473,19 @@ const ProjectsSection = () => {
               exit={{ opacity: 0, scale: 0.95, y: 30 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-border bg-card"
+              className="relative w-full max-w-5xl overflow-hidden rounded-t-3xl border border-border bg-card shadow-2xl sm:rounded-3xl sm:max-h-[calc(100vh-2rem)]"
             >
               {/* Close button */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute right-6 top-6 z-10 flex h-14 w-14 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground backdrop-blur-sm transition-all hover:border-primary hover:text-primary"
+                className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground backdrop-blur-sm transition-all hover:border-primary hover:text-primary sm:right-6 sm:top-6 sm:h-14 sm:w-14"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
 
               {/* Header */}
               <div
-                className="relative aspect-video"
+                className="relative aspect-[4/3] sm:aspect-video"
                 style={{ background: getBackground(selectedProject.image) }}
               >
                 <div className="absolute inset-0 opacity-20">
@@ -502,39 +500,39 @@ const ProjectsSection = () => {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
 
-                <div className="absolute bottom-0 left-0 right-0 p-10">
-                  <div className="mb-3 flex items-center gap-4">
-                    <span className="h-px w-10 bg-primary" />
-                    <span className="text-sm font-bold uppercase tracking-wider text-primary">
+                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-10">
+                  <div className="mb-3 flex flex-wrap items-center gap-3 sm:gap-4">
+                    <span className="h-px w-8 bg-primary sm:w-10" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-primary sm:text-sm">
                       {selectedProject.category}
                     </span>
-                    <span className="ml-auto rounded-full bg-background/80 px-4 py-2 text-sm text-foreground backdrop-blur-sm">
+                    <span className="ml-auto rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground backdrop-blur-sm sm:px-4 sm:py-2 sm:text-sm">
                       {selectedProject.year}
                     </span>
                   </div>
-                  <h3 className="font-serif text-5xl font-bold text-foreground md:text-6xl">
+                  <h3 className="max-w-3xl font-serif text-3xl font-bold leading-tight text-foreground sm:text-5xl md:text-6xl">
                     {selectedProject.title}
                   </h3>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-10">
-                <p className="mb-12 text-xl text-muted-foreground">
+              <div className="max-h-[calc(100vh-45vh)] overflow-y-auto p-5 sm:max-h-none sm:p-10">
+                <p className="mb-8 text-base text-muted-foreground sm:mb-12 sm:text-xl">
                   {selectedProject.description}
                 </p>
 
                 {(selectedProject.liveUrl ||
                   selectedProject.webUrl ||
                   selectedProject.playStoreUrl) && (
-                  <div className="mb-12">
-                    <div className="flex flex-wrap gap-3">
+                  <div className="mb-8 sm:mb-12">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                       {selectedProject.liveUrl && (
                         <a
                           href={selectedProject.liveUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground sm:w-auto"
                         >
                           View on App Store
                           <ArrowUpRight className="h-4 w-4" />
@@ -546,7 +544,7 @@ const ProjectsSection = () => {
                           href={selectedProject.playStoreUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground sm:w-auto"
                         >
                           Get on Google Play
                           <ArrowUpRight className="h-4 w-4" />
@@ -558,7 +556,7 @@ const ProjectsSection = () => {
                           href={selectedProject.webUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-foreground transition-colors hover:border-primary hover:text-primary"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-secondary/30 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-foreground transition-colors hover:border-primary hover:text-primary sm:w-auto"
                         >
                           Visit Web App
                           <ArrowUpRight className="h-4 w-4" />
@@ -568,9 +566,9 @@ const ProjectsSection = () => {
                   </div>
                 )}
 
-                <div className="mb-12 grid gap-10 md:grid-cols-2">
+                <div className="mb-8 grid gap-6 md:mb-12 md:grid-cols-2 md:gap-10">
                   <div>
-                    <h4 className="mb-4 font-serif text-xl font-bold text-foreground">
+                    <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
                       The Challenge
                     </h4>
                     <p className="text-muted-foreground">
@@ -578,7 +576,7 @@ const ProjectsSection = () => {
                     </p>
                   </div>
                   <div>
-                    <h4 className="mb-4 font-serif text-xl font-bold text-foreground">
+                    <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
                       The Solution
                     </h4>
                     <p className="text-muted-foreground">
@@ -588,17 +586,17 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* Results */}
-                <div className="mb-12">
-                  <h4 className="mb-6 font-serif text-xl font-bold text-foreground">
+                <div className="mb-8 sm:mb-12">
+                  <h4 className="mb-4 font-serif text-lg font-bold text-foreground sm:mb-6 sm:text-xl">
                     Key Results
                   </h4>
-                  <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
                     {selectedProject.results.map((result, i) => (
                       <div
                         key={i}
-                        className="rounded-2xl border border-border bg-secondary/30 p-6 text-center"
+                        className="rounded-2xl border border-border bg-secondary/30 p-4 text-center sm:p-6"
                       >
-                        <span className="text-lg font-medium text-foreground">
+                        <span className="text-sm font-medium text-foreground sm:text-lg">
                           {result}
                         </span>
                       </div>
@@ -608,14 +606,14 @@ const ProjectsSection = () => {
 
                 {/* Technologies */}
                 <div>
-                  <h4 className="mb-4 font-serif text-xl font-bold text-foreground">
+                  <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
                     Technologies Used
                   </h4>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
                     {selectedProject.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-full border border-primary/50 bg-primary/10 px-5 py-2 text-sm font-medium text-primary"
+                        className="rounded-full border border-primary/50 bg-primary/10 px-4 py-2 text-xs font-medium text-primary sm:px-5 sm:text-sm"
                       >
                         {tech}
                       </span>

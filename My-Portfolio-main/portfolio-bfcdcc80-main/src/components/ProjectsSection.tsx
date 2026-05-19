@@ -26,6 +26,7 @@ interface Project {
   year: string;
   liveUrl?: string;
   webUrl?: string;
+  playStoreUrl?: string;
 }
 
 const projects: Project[] = [
@@ -79,7 +80,7 @@ const projects: Project[] = [
   },
   {
     id: 3,
-    title: "Helper App",
+    title: "C-Helper App",
     category: "Healthcare",
     description:
       "Find trusted help fast or earn more work—match, chat, and get paid in one place.",
@@ -99,6 +100,8 @@ const projects: Project[] = [
       "Figma",
     ],
     year: "2026",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.helperapp.mobile&referrer=utm_source%3Dgoogle%26utm_medium%3Dorganic%26utm_term%3Dc-helper&pcampaignid=APPU_1_ehEMatmcCa6ki-gPuca46A4",
   },
   {
     id: 4,
@@ -451,7 +454,9 @@ const ProjectsSection = () => {
                   {selectedProject.description}
                 </p>
 
-                {(selectedProject.liveUrl || selectedProject.webUrl) && (
+                {(selectedProject.liveUrl ||
+                  selectedProject.webUrl ||
+                  selectedProject.playStoreUrl) && (
                   <div className="mb-12">
                     <div className="flex flex-wrap gap-3">
                       {selectedProject.liveUrl && (
@@ -462,6 +467,18 @@ const ProjectsSection = () => {
                           className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
                         >
                           View on App Store
+                          <ArrowUpRight className="h-4 w-4" />
+                        </a>
+                      )}
+
+                      {selectedProject.playStoreUrl && (
+                        <a
+                          href={selectedProject.playStoreUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                        >
+                          Get on Google Play
                           <ArrowUpRight className="h-4 w-4" />
                         </a>
                       )}

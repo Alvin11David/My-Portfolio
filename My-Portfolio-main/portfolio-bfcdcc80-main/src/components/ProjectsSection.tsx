@@ -119,6 +119,7 @@ const projects: Project[] = [
     accentColor: "amber",
     technologies: ["Angular", "Three.js", "Supabase", "Figma"],
     year: "2026",
+    webUrl: "https://timetablesync-d33fc.web.app/",
   },
   {
     id: 5,

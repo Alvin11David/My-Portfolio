@@ -75,6 +75,7 @@ const projects: Project[] = [
     accentColor: "blue",
     technologies: ["Angular", "Affinity", "Supabase", "Express"],
     year: "2025",
+    webUrl: "https://mchencuzi.com/",
   },
   {
     id: 3,

@@ -24,6 +24,8 @@ interface Project {
   accentColor: string;
   technologies: string[];
   year: string;
+  liveUrl?: string;
+  webUrl?: string;
 }
 
 const projects: Project[] = [
@@ -51,6 +53,8 @@ const projects: Project[] = [
       "React Native",
     ],
     year: "2024",
+    liveUrl: "https://apps.apple.com/ug/app/mubs-locator/id6755059078",
+    webUrl: "https://mubs-locator.web.app/",
   },
   {
     id: 2,
@@ -445,6 +449,36 @@ const ProjectsSection = () => {
                 <p className="mb-12 text-xl text-muted-foreground">
                   {selectedProject.description}
                 </p>
+
+                {(selectedProject.liveUrl || selectedProject.webUrl) && (
+                  <div className="mb-12">
+                    <div className="flex flex-wrap gap-3">
+                      {selectedProject.liveUrl && (
+                        <a
+                          href={selectedProject.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                        >
+                          View on App Store
+                          <ArrowUpRight className="h-4 w-4" />
+                        </a>
+                      )}
+
+                      {selectedProject.webUrl && (
+                        <a
+                          href={selectedProject.webUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-foreground transition-colors hover:border-primary hover:text-primary"
+                        >
+                          Visit Web App
+                          <ArrowUpRight className="h-4 w-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 <div className="mb-12 grid gap-10 md:grid-cols-2">
                   <div>

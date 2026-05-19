@@ -105,6 +105,7 @@ const projects: Project[] = [
     liveUrl: "https://apps.apple.com/ug/app/c-helper-app/id6759479834",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.helperapp.mobile&referrer=utm_source%3Dgoogle%26utm_medium%3Dorganic%26utm_term%3Dc-helper&pcampaignid=APPU_1_ehEMatmcCa6ki-gPuca46A4",
+    webUrl: "https://c-helper-support.lovable.app/",
   },
   {
     id: 4,

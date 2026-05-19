@@ -9,6 +9,7 @@ import MchencuziAuditImage from "@/assets/images/Mchencuzi Audit.png";
 import HeplerAppImage from "@/assets/images/Helper Cover.jpg";
 import TimeSync from "@/assets/images/Time Sync.png";
 import BibleAppImage from "@/assets/images/BibleApp.png";
+import VeritasImage from "@/assets/images/Veritas.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -141,6 +142,27 @@ const projects: Project[] = [
     technologies: ["React Native", "Firebase", "TypeScript", "Expo"],
     year: "2023",
     webUrl: "https://church-bible-app.netlify.app/",
+  },
+  {
+    id: 6,
+    title: "Veritas Institute",
+    category: "Education",
+    description:
+      "A modern institute demo website crafted to present programs, admissions, and campus information with a clean user experience.",
+    challenge:
+      "Education institutions need a clear, trustworthy web presence that makes it easy for visitors to explore offerings quickly.",
+    solution:
+      "Designed a responsive, content-focused website with clear navigation, strong visual hierarchy, and conversion-ready sections.",
+    results: [
+      "Faster program discovery",
+      "Improved first-visit engagement",
+      "Clearer admissions journey",
+    ],
+    image: VeritasImage,
+    accentColor: "teal",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    year: "2026",
+    webUrl: "https://institute-demo-site.netlify.app/",
   },
 ];
 

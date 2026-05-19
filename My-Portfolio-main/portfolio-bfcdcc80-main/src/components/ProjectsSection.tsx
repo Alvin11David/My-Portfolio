@@ -140,6 +140,7 @@ const projects: Project[] = [
     accentColor: "violet",
     technologies: ["React Native", "Firebase", "TypeScript", "Expo"],
     year: "2023",
+    webUrl: "https://church-bible-app.netlify.app/",
   },
 ];
 

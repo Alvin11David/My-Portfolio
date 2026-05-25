@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import {
   Send,
@@ -31,7 +31,17 @@ const ContactSection = () => {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const sendIconRef = useRef<SVGSVGElement>(null);
   const deliveryTrailRef = useRef<HTMLDivElement>(null);
+  const deliveryCarRef = useRef<HTMLDivElement>(null);
+  const dustParticlesRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Initialize EmailJS
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -92,6 +102,8 @@ const ContactSection = () => {
     const button = submitButtonRef.current;
     const icon = sendIconRef.current;
     const trail = deliveryTrailRef.current;
+    const car = deliveryCarRef.current;
+    const dust = dustParticlesRef.current;
 
     const deliveryTimeline = gsap.timeline();
 
@@ -119,22 +131,58 @@ const ContactSection = () => {
         }, 0.55);
     }
 
+    // Delivery car animation
+    if (car) {
+      deliveryTimeline
+        .set(car, { opacity: 1, x: 0, scaleX: 1 }, 0.1)
+        .to(car, {
+          x: 600,
+          duration: 1.2,
+          ease: "power2.inOut",
+        }, 0.1)
+        .to(car, {
+          opacity: 0,
+          scaleX: 0.7,
+          duration: 0.3,
+          ease: "power2.in",
+        }, 0.9);
+    }
+
+    // Dust particles animation
+    if (dust) {
+      const particles = dust.querySelectorAll(".dust-particle");
+      particles.forEach((particle, index) => {
+        const delay = index * 0.08;
+        deliveryTimeline
+          .set(particle, { opacity: 1, x: 0, y: 0, scale: 1 }, 0.2 + delay)
+          .to(particle, {
+            x: 450 + Math.random() * 100,
+            y: -30 + (Math.random() - 0.5) * 40,
+            opacity: 0,
+            scale: 0,
+            duration: 0.8 + Math.random() * 0.3,
+            ease: "power1.out",
+          }, 0.2 + delay);
+      });
+    }
+
     if (icon) {
       deliveryTimeline
-        .set(icon, { x: 0, y: 0, rotate: 0, transformOrigin: "50% 50%" })
+        .set(icon, { x: 0, y: 0, rotate: 0, transformOrigin: "50% 50%" }, 0.1)
         .to(icon, {
-          x: 150,
-          y: -28,
-          rotate: 18,
-          duration: 0.7,
-          ease: "power3.out",
-        }, 0)
+          x: 30,
+          y: -15,
+          rotate: 8,
+          opacity: 0.5,
+          duration: 0.4,
+          ease: "power2.out",
+        }, 0.1)
         .to(icon, {
           opacity: 0,
           scale: 0.6,
           duration: 0.2,
           ease: "power2.in",
-        }, 0.52)
+        }, 0.4)
         .set(icon, { x: 0, y: 0, rotate: 0, opacity: 1, scale: 1 });
     }
 
@@ -158,7 +206,6 @@ const ContactSection = () => {
           message: formData.message,
           title: "New Contact Message",
         },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
 
       toast({
@@ -474,13 +521,36 @@ const ContactSection = () => {
                       ref={deliveryTrailRef}
                       className="absolute inset-y-1/2 left-6 h-px w-[calc(100%-3rem)] -translate-y-1/2 bg-gradient-to-r from-transparent via-primary-foreground/60 to-transparent opacity-0"
                     />
+                    
+                    {/* Delivery car animation */}
+                    <div
+                      ref={deliveryCarRef}
+                      className="absolute inset-y-1/2 left-6 -translate-y-1/2 text-2xl opacity-0 whitespace-nowrap"
+                    >
+                      🚚
+                    </div>
+
+                    {/* Dust particles */}
+                    <div
+                      ref={dustParticlesRef}
+                      className="absolute inset-0 pointer-events-none"
+                    >
+                      {[...Array(6)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="dust-particle absolute inset-y-1/2 left-8 w-2 h-2 rounded-full bg-primary-foreground/40 opacity-0"
+                          style={{
+                            width: `${2 + i * 0.8}px`,
+                            height: `${2 + i * 0.8}px`,
+                          }}
+                        />
+                      ))}
+                    </div>
+
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,_hsl(var(--primary-foreground)/0.2),_transparent_35%),radial-gradient(circle_at_80%_50%,_hsl(var(--glow-secondary)/0.18),_transparent_32%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <span className="relative z-10 flex items-center justify-center gap-3">
                         <span className="flex flex-col items-center leading-none sm:flex-row sm:gap-3">
                           <span>{isSending ? "Sending Message" : "Send Message"}</span>
-                          <span className="text-[10px] font-medium uppercase tracking-[0.35em] text-primary-foreground/70">
-                            {isSending ? "Delivery in motion" : "Secure send"}
-                          </span>
                         </span>
                         <Send
                           ref={sendIconRef}

@@ -174,7 +174,7 @@ const AboutSection = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="relative overflow-hidden bg-background py-32 lg:py-40"
+      className="relative overflow-hidden bg-background py-16 lg:py-24"
     >
       {/* Background elements */}
       <div className="absolute inset-0">
@@ -189,7 +189,7 @@ const AboutSection = () => {
 
       <div className="container relative z-10 mx-auto px-6">
         {/* Header */}
-        <div ref={headerRef} className="mb-24">
+        <div ref={headerRef} className="mb-12">
           <span className="subtitle mb-6 inline-flex items-center gap-4 text-sm font-semibold uppercase tracking-[0.4em] text-primary">
             <span className="h-px w-16 bg-gradient-to-r from-transparent to-primary" />
             About Me
@@ -201,7 +201,7 @@ const AboutSection = () => {
           </h2>
         </div>
 
-        <div className="grid gap-20 lg:grid-cols-2 lg:gap-32">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Image column */}
           <div ref={imageRef} className="relative">
             <div

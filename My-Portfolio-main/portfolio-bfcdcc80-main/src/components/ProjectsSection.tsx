@@ -313,7 +313,7 @@ const ProjectsSection = () => {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 px-6 pb-20 pt-32 lg:px-12">
+      <div className="relative z-10 px-6 pb-12 pt-20 lg:px-12">
         <div ref={headerRef} className="mx-auto max-w-7xl">
           <span className="animate-header mb-6 inline-flex items-center gap-4 text-sm font-semibold uppercase tracking-[0.4em] text-primary">
             <span className="h-px w-16 bg-gradient-to-r from-transparent to-primary" />

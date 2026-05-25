@@ -17,7 +17,8 @@ const Navigation = () => {
 
       // Update progress bar
       if (progressRef.current) {
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
         const progress = (window.scrollY / scrollHeight) * 100;
         progressRef.current.style.width = `${progress}%`;
       }
@@ -42,7 +43,7 @@ const Navigation = () => {
     gsap.fromTo(
       navRef.current,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 2, ease: "power3.out" }
+      { y: 0, opacity: 1, duration: 1, delay: 2, ease: "power3.out" },
     );
   }, []);
 
@@ -67,12 +68,16 @@ const Navigation = () => {
 
       <header
         ref={navRef}
-        className={`fixed left-0 right-0 top-[2px] z-50 transition-all duration-700 ${isScrolled ? "py-3" : "bg-transparent py-5"
-          }`}
+        className={`fixed left-0 right-0 top-[2px] z-50 transition-all duration-700 ${
+          isScrolled ? "py-3" : "bg-transparent py-5"
+        }`}
       >
         <div
-          className={`container mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-4 transition-all duration-700 ${isScrolled ? "glass soft-border shadow-2xl shadow-background/30" : "bg-transparent"
-            }`}
+          className={`container mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-4 transition-all duration-700 ${
+            isScrolled
+              ? "glass soft-border shadow-2xl shadow-background/30"
+              : "bg-transparent"
+          }`}
         >
           {/* Logo */}
           <MagneticButton href="#" strength={0.3}>
@@ -97,10 +102,11 @@ const Navigation = () => {
                 key={link.href}
                 href={link.href}
                 strength={0.2}
-                className={`group relative px-5 py-3 text-sm font-medium transition-colors ${activeSection === link.href.slice(1)
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-                  }`}
+                className={`group relative px-5 py-3 text-sm font-medium transition-colors ${
+                  activeSection === link.href.slice(1)
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 <span className="relative flex items-center gap-2">
                   <span className="text-[10px] font-bold opacity-40 transition-opacity group-hover:opacity-100">
@@ -109,10 +115,11 @@ const Navigation = () => {
                   <span className="relative">
                     {link.label}
                     <span
-                      className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-gradient-to-r from-primary to-glow-secondary transition-transform duration-500 ${activeSection === link.href.slice(1)
-                        ? "scale-x-100"
-                        : "scale-x-0 group-hover:scale-x-100"
-                        }`}
+                      className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-gradient-to-r from-primary to-glow-secondary transition-transform duration-500 ${
+                        activeSection === link.href.slice(1)
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      }`}
                     />
                   </span>
                 </span>
@@ -140,16 +147,21 @@ const Navigation = () => {
             >
               <div className="relative h-4 w-5">
                 <span
-                  className={`absolute left-0 top-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : ""
-                    }`}
+                  className={`absolute left-0 top-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${
+                    isMobileMenuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : ""
+                  }`}
                 />
                 <span
-                  className={`absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""
-                    }`}
+                  className={`absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 rounded-full bg-current transition-all duration-300 ${
+                    isMobileMenuOpen ? "opacity-0" : ""
+                  }`}
                 />
                 <span
-                  className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${isMobileMenuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : ""
-                    }`}
+                  className={`absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-current transition-all duration-300 ${
+                    isMobileMenuOpen
+                      ? "top-1/2 -translate-y-1/2 -rotate-45"
+                      : ""
+                  }`}
                 />
               </div>
             </button>

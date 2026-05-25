@@ -82,7 +82,7 @@ const Index = () => {
       {/* Custom cursor (desktop only) */}
       <CustomCursor />
 
-      <main className="relative overflow-x-hidden">
+      <main className="section-shell relative isolate overflow-x-hidden">
         <Navigation />
         <HeroSection />
         <AboutSection />

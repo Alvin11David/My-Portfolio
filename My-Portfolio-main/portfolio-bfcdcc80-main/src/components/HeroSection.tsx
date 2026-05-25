@@ -243,7 +243,7 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-background"
+      className="section-shell relative h-screen w-full overflow-hidden bg-background"
     >
       {/* Cinematic overlay */}
       <div
@@ -341,7 +341,7 @@ const HeroSection = () => {
         {/* Subtitle */}
         <p
           ref={subtitleRef}
-          className="mb-8 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.4em] text-primary sm:text-sm"
+          className="hero-badge mb-8 flex items-center gap-4 rounded-full px-5 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-primary sm:text-sm"
         >
           <span className="h-px w-12 bg-gradient-to-r from-transparent to-primary" />
           <span className="relative">
@@ -357,7 +357,7 @@ const HeroSection = () => {
           className="mb-10 overflow-visible text-center"
           style={{ perspective: "1000px" }}
         >
-          <h1 className="font-serif font-bold leading-[0.9] tracking-tight">
+          <h1 className="mx-auto max-w-6xl font-serif font-bold leading-[0.88] tracking-tight">
             <span
               className="headline-line block"
               style={{ transformStyle: "preserve-3d" }}
@@ -408,10 +408,10 @@ const HeroSection = () => {
         </p>
 
         {/* CTA Buttons */}
-        <div ref={ctaRef} className="flex flex-col gap-5 sm:flex-row">
+        <div ref={ctaRef} className="flex flex-col gap-4 sm:flex-row">
           <MagneticButton
             href="#projects"
-            className="cta-btn group relative overflow-hidden rounded-full bg-primary px-10 py-5 font-semibold text-primary-foreground transition-all duration-500 hover:shadow-2xl hover:shadow-primary/40"
+            className="cta-btn group relative overflow-hidden rounded-full bg-primary px-10 py-5 font-semibold text-primary-foreground transition-all duration-500 hover:shadow-2xl hover:shadow-primary/35"
           >
             <span className="relative z-10 flex items-center gap-3">
               Explore My Work
@@ -434,7 +434,7 @@ const HeroSection = () => {
 
           <MagneticButton
             href="#contact"
-            className="cta-btn group relative overflow-hidden rounded-full border-2 border-primary/50 bg-transparent px-10 py-5 font-semibold text-foreground backdrop-blur-sm transition-all duration-500 hover:border-primary hover:bg-primary/10 hover:text-primary"
+            className="cta-btn group relative overflow-hidden rounded-full border border-border bg-background/40 px-10 py-5 font-semibold text-foreground backdrop-blur-md transition-all duration-500 hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
           >
             <span className="flex items-center gap-3">
               Let's Talk

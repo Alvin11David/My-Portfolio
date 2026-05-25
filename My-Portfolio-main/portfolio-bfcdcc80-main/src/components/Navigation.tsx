@@ -67,10 +67,13 @@ const Navigation = () => {
 
       <header
         ref={navRef}
-        className={`fixed left-0 right-0 top-[2px] z-50 transition-all duration-700 ${isScrolled ? "glass py-4" : "bg-transparent py-6"
+        className={`fixed left-0 right-0 top-[2px] z-50 transition-all duration-700 ${isScrolled ? "py-3" : "bg-transparent py-5"
           }`}
       >
-        <div className="container mx-auto flex items-center justify-between px-6">
+        <div
+          className={`container mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-4 transition-all duration-700 ${isScrolled ? "glass soft-border shadow-2xl shadow-background/30" : "bg-transparent"
+            }`}
+        >
           {/* Logo */}
           <MagneticButton href="#" strength={0.3}>
             <span className="group font-serif text-2xl font-bold text-foreground transition-colors hover:text-primary">
@@ -162,7 +165,7 @@ const Navigation = () => {
             animate={{ clipPath: "circle(150% at calc(100% - 3rem) 3rem)" }}
             exit={{ clipPath: "circle(0% at calc(100% - 3rem) 3rem)" }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[55] flex flex-col items-center justify-center bg-background"
+            className="fixed inset-0 z-[55] flex flex-col items-center justify-center bg-background/98 backdrop-blur-2xl"
           >
             <nav className="flex flex-col items-center gap-10">
               {navLinks.map((link, index) => (

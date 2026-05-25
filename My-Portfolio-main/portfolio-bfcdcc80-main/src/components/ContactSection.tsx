@@ -28,6 +28,9 @@ const ContactSection = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const sendIconRef = useRef<SVGSVGElement>(null);
+  const deliveryTrailRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -86,13 +89,60 @@ const ContactSection = () => {
       return;
     }
 
-    const button = formRef.current?.querySelector(".submit-button");
+    const button = submitButtonRef.current;
+    const icon = sendIconRef.current;
+    const trail = deliveryTrailRef.current;
+
+    const deliveryTimeline = gsap.timeline();
+
     if (button) {
-      gsap.to(button, {
-        scale: 0.95,
-        duration: 0.1,
-        yoyo: true,
-        repeat: 1,
+      deliveryTimeline.to(button, {
+        scale: 0.98,
+        duration: 0.12,
+        ease: "power2.out",
+      });
+    }
+
+    if (trail) {
+      deliveryTimeline
+        .set(trail, { scaleX: 0, opacity: 0, transformOrigin: "left center" })
+        .to(trail, {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.35,
+          ease: "power2.out",
+        }, 0.05)
+        .to(trail, {
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.in",
+        }, 0.55);
+    }
+
+    if (icon) {
+      deliveryTimeline
+        .set(icon, { x: 0, y: 0, rotate: 0, transformOrigin: "50% 50%" })
+        .to(icon, {
+          x: 150,
+          y: -28,
+          rotate: 18,
+          duration: 0.7,
+          ease: "power3.out",
+        }, 0)
+        .to(icon, {
+          opacity: 0,
+          scale: 0.6,
+          duration: 0.2,
+          ease: "power2.in",
+        }, 0.52)
+        .set(icon, { x: 0, y: 0, rotate: 0, opacity: 1, scale: 1 });
+    }
+
+    if (button) {
+      deliveryTimeline.to(button, {
+        scale: 1,
+        duration: 0.18,
+        ease: "back.out(2)",
       });
     }
 
@@ -417,11 +467,25 @@ const ContactSection = () => {
                   <button
                     type="submit"
                     disabled={isSending}
+                    ref={submitButtonRef}
                     className="submit-button group relative w-full overflow-hidden rounded-xl bg-primary py-4 font-semibold text-primary-foreground transition-all duration-500 hover:shadow-xl hover:shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-70"
                   >
+                    <div
+                      ref={deliveryTrailRef}
+                      className="absolute inset-y-1/2 left-6 h-px w-[calc(100%-3rem)] -translate-y-1/2 bg-gradient-to-r from-transparent via-primary-foreground/60 to-transparent opacity-0"
+                    />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,_hsl(var(--primary-foreground)/0.2),_transparent_35%),radial-gradient(circle_at_80%_50%,_hsl(var(--glow-secondary)/0.18),_transparent_32%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <span className="relative z-10 flex items-center justify-center gap-3">
-                      {isSending ? "Sending..." : "Send Message"}
-                      <Send className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                        <span className="flex flex-col items-center leading-none sm:flex-row sm:gap-3">
+                          <span>{isSending ? "Sending Message" : "Send Message"}</span>
+                          <span className="text-[10px] font-medium uppercase tracking-[0.35em] text-primary-foreground/70">
+                            {isSending ? "Delivery in motion" : "Secure send"}
+                          </span>
+                        </span>
+                        <Send
+                          ref={sendIconRef}
+                          className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                        />
                     </span>
                     <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary via-glow-secondary to-primary bg-[length:200%_100%] opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:animate-gradient-shift" />
                   </button>

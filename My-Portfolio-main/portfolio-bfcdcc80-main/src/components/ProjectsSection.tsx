@@ -304,6 +304,28 @@ const ProjectsSection = () => {
     { scope: sectionRef, dependencies: [isDesktop] },
   );
 
+  // Robust background scroll lock for mobile (store scroll position and fix body)
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const scrollY = window.scrollY || window.pageYOffset;
+    const bodyStyle = document.body.style;
+    const originalPosition = bodyStyle.position;
+    const originalTop = bodyStyle.top;
+    const originalWidth = bodyStyle.width;
+
+    bodyStyle.position = "fixed";
+    bodyStyle.top = `-${scrollY}px`;
+    bodyStyle.width = "100%";
+
+    return () => {
+      bodyStyle.position = originalPosition || "";
+      bodyStyle.top = originalTop || "";
+      bodyStyle.width = originalWidth || "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [selectedProject]);
+
   return (
     <section ref={sectionRef} id="projects" className="relative bg-background">
       {/* Background */}
@@ -528,7 +550,13 @@ const ProjectsSection = () => {
               </div>
 
               {/* Content */}
-              <div className="flex-1 overflow-y-auto p-5 sm:p-10">
+              <div
+                className="flex-1 overflow-y-auto p-5 sm:p-10"
+                style={{
+                  WebkitOverflowScrolling: "touch",
+                  touchAction: "pan-y",
+                }}
+              >
                 <p className="mb-8 text-base text-muted-foreground sm:mb-12 sm:text-xl">
                   {selectedProject.description}
                 </p>

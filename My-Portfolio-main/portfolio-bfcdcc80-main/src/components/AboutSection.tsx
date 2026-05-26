@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import CloudWave from "./CloudWave";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -327,6 +328,7 @@ const AboutSection = () => {
           </div>
         </div>
       </div>
+        <CloudWave className="absolute left-0 bottom-0 w-full" />
     </section>
   );
 };

@@ -283,6 +283,26 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Cloud wave animation */
+  .wave-animate {
+    transform-origin: center;
+    animation: wave-move 8s linear infinite;
+  }
+
+  @keyframes wave-move {
+    0% {
+      transform: translateX(0) translateY(0);
+    }
+    50% {
+      transform: translateX(-6%) translateY(-4px);
+    }
+    100% {
+      transform: translateX(0) translateY(0);
+    }
   }
 
   .gradient-text-accent {

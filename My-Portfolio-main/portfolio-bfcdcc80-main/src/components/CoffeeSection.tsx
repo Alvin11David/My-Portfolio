@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import CloudWave from "./CloudWave";
 
 const CoffeeSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);

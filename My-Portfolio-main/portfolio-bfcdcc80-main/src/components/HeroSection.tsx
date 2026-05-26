@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import MagneticButton from "./MagneticButton";
+import CloudWave from "./CloudWave";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -429,7 +430,7 @@ const HeroSection = () => {
                 />
               </svg>
             </span>
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary via-glow-secondary to-primary bg-[length:200%_100%] transition-all duration-700 group-hover:animate-gradient-shift" />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary via-glow-primary to-primary bg-[length:200%_100%] transition-all duration-700 group-hover:animate-gradient-shift" />
           </MagneticButton>
 
           <MagneticButton
@@ -456,9 +457,6 @@ const HeroSection = () => {
           href="#about"
           className="group flex flex-col items-center gap-4 text-muted-foreground transition-colors duration-500 hover:text-primary"
         >
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
-            Scroll
-          </span>
           <div className="relative h-16 w-[1px] overflow-hidden rounded-full bg-border">
             <div className="absolute inset-x-0 top-0 h-8 animate-bounce-subtle bg-gradient-to-b from-primary to-transparent" />
           </div>
@@ -473,6 +471,7 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 z-[1] select-none overflow-hidden whitespace-nowrap font-serif text-[20vw] font-bold leading-none text-foreground/[0.02]">
         PORTFOLIO
       </div>
+      <CloudWave className="absolute left-0 bottom-0 w-full" />
     </section>
   );
 };

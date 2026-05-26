@@ -328,7 +328,7 @@ const AboutSection = () => {
           </div>
         </div>
       </div>
-        <CloudWave className="absolute left-0 bottom-0 w-full" />
+      <CloudWave className="absolute left-0 bottom-0 w-full -z-10" />
     </section>
   );
 };

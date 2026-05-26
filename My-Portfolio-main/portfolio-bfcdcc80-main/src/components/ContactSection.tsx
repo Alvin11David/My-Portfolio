@@ -20,6 +20,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import MagneticButton from "./MagneticButton";
 import Scene3D from "./Scene3D";
+import CloudWave from "./CloudWave";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -594,6 +595,7 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
+      <CloudWave className="absolute left-0 bottom-0 w-full -z-10" />
     </section>
   );
 };

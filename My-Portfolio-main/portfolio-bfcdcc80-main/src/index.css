@@ -295,13 +295,13 @@
 
   @keyframes wave-move {
     0% {
-      transform: translateX(0) translateY(0);
+      transform: translateY(0);
     }
     50% {
-      transform: translateX(-6%) translateY(-4px);
+      transform: translateY(-4px);
     }
     100% {
-      transform: translateX(0) translateY(0);
+      transform: translateY(0);
     }
   }
 

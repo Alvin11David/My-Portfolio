@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import CloudWave from "./CloudWave";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, X, ArrowRight } from "lucide-react";
 import { gsap } from "gsap";

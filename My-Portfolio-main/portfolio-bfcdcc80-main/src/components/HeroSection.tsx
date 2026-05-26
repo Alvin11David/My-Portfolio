@@ -409,7 +409,7 @@ const HeroSection = () => {
         </p>
 
         {/* CTA Buttons */}
-        <div ref={ctaRef} className="flex flex-col gap-4 sm:flex-row">
+        <div ref={ctaRef} className="flex flex-col gap-4 sm:flex-row mb-20">
           <MagneticButton
             href="#projects"
             className="cta-btn group relative overflow-hidden rounded-full bg-primary px-10 py-5 font-semibold text-primary-foreground transition-all duration-500 hover:shadow-2xl hover:shadow-primary/35"
@@ -471,7 +471,7 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 z-[1] select-none overflow-hidden whitespace-nowrap font-serif text-[20vw] font-bold leading-none text-foreground/[0.02]">
         PORTFOLIO
       </div>
-      <CloudWave className="absolute left-0 bottom-0 w-full" />
+      <CloudWave className="absolute left-0 bottom-0 w-full -z-10" />
     </section>
   );
 };

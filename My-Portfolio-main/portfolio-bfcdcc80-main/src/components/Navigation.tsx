@@ -6,14 +6,32 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<number | null>(null);
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+
+      setIsScrolled(currentScrollY > 50);
+      setIsNavVisible(true);
+
+      if (scrollTimeoutRef.current) {
+        window.clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        if (window.scrollY > 50) {
+          setIsNavVisible(false);
+        }
+      }, 1400);
+
+      lastScrollYRef.current = currentScrollY;
 
       // Update progress bar
       if (progressRef.current) {
@@ -34,8 +52,17 @@ const Navigation = () => {
       }
     };
 
+    lastScrollYRef.current = window.scrollY;
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        window.clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -58,7 +85,7 @@ const Navigation = () => {
   return (
     <>
       {/* Progress bar */}
-      <div className="fixed left-0 right-0 top-0 z-[60] h-[2px] bg-border">
+      <div className="fixed left-0 right-0 top-0 z-[230] h-[2px] bg-border">
         <div
           ref={progressRef}
           className="h-full bg-gradient-to-r from-primary via-glow-secondary to-primary"
@@ -68,8 +95,12 @@ const Navigation = () => {
 
       <header
         ref={navRef}
-        className={`fixed left-0 right-0 top-[2px] z-50 transition-all duration-700 ${
+        className={`fixed left-0 right-0 top-[2px] z-[220] transition-all duration-700 ${
           isScrolled ? "py-3" : "bg-transparent py-5"
+        } ${
+          isNavVisible || !isScrolled
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-[120%] opacity-0"
         }`}
       >
         <div
@@ -139,11 +170,11 @@ const Navigation = () => {
           </nav>
 
           {/* Mobile controls */}
-          <div className="flex items-center gap-4 md:hidden">
+          <div className="flex items-center gap-4">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative z-[60] flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/50 text-foreground backdrop-blur-sm transition-all hover:border-primary hover:text-primary"
+              className="relative z-[240] flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/70 text-foreground backdrop-blur-sm transition-all hover:border-primary hover:text-primary"
             >
               <div className="relative h-4 w-5">
                 <span
@@ -177,7 +208,7 @@ const Navigation = () => {
             animate={{ clipPath: "circle(150% at calc(100% - 3rem) 3rem)" }}
             exit={{ clipPath: "circle(0% at calc(100% - 3rem) 3rem)" }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[55] flex flex-col items-center justify-center bg-background/98 backdrop-blur-2xl"
+            className="fixed inset-0 z-[215] flex flex-col items-center justify-center bg-background/98 backdrop-blur-2xl"
           >
             <nav className="flex flex-col items-center gap-10">
               {navLinks.map((link, index) => (

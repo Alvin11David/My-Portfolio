@@ -1,7 +1,16 @@
-import { useRef, useState, useEffect } from "react";
-import CloudWave from "./CloudWave";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, X, ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  ChevronDown,
+  FolderOpen,
+  Globe2,
+  LayoutGrid,
+  Smartphone,
+  X,
+} from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -20,6 +29,7 @@ interface Project {
   id: number;
   title: string;
   category: string;
+  group: string;
   description: string;
   challenge: string;
   solution: string;
@@ -38,6 +48,7 @@ const projects: Project[] = [
     id: 1,
     title: "MUBS Locator",
     category: "Fintech",
+    group: "Mobile Apps",
     description:
       "Find buildings quickly using Google Maps, submit feedback to improve campus facilities, and manage your profile effortlessly.",
     challenge:
@@ -65,6 +76,7 @@ const projects: Project[] = [
     id: 2,
     title: "Mchencuzi Audit",
     category: "Audit Software",
+    group: "Enterprise Systems",
     description:
       "Mchencuzi Audit Software is a digital audit management system designed to support the planning, execution, documentation, and reporting of audit activities in an efficient and organized manner.",
     challenge:
@@ -85,6 +97,7 @@ const projects: Project[] = [
     id: 3,
     title: "C-Helper App",
     category: "Healthcare",
+    group: "Mobile Apps",
     description:
       "Find trusted help fast or earn more work—match, chat, and get paid in one place.",
     challenge:
@@ -112,6 +125,7 @@ const projects: Project[] = [
     id: 4,
     title: "Time Sync",
     category: "Education",
+    group: "Web Apps",
     description:
       "A next-generation education timer that helps students manage their study sessions effectively.",
     challenge:
@@ -129,6 +143,7 @@ const projects: Project[] = [
     id: 5,
     title: "Bible App",
     category: "Spiritual",
+    group: "Mobile Apps",
     description:
       "A comprehensive Bible application offering multiple translations, daily devotionals, and offline access for spiritual growth.",
     challenge:
@@ -150,6 +165,7 @@ const projects: Project[] = [
     id: 6,
     title: "Veritas Institute",
     category: "Education",
+    group: "Web Apps",
     description: "",
     challenge:
       "Education institutions need a clear, trustworthy web presence that makes it easy for visitors to explore offerings quickly.",
@@ -170,6 +186,7 @@ const projects: Project[] = [
     id: 7,
     title: "Edwin's Bake House",
     category: "Bakery",
+    group: "Web Apps",
     description: "",
     challenge:
       "Small food brands need a polished online presence that makes browsing products and placing orders feel simple and inviting.",
@@ -190,6 +207,7 @@ const projects: Project[] = [
     id: 8,
     title: "JamboPOS",
     category: "Point of Sale",
+    group: "Web Apps",
     description:
       "A streamlined point-of-sale prototype built to help businesses manage sales, inventory, and daily operations.",
     challenge:
@@ -209,45 +227,42 @@ const projects: Project[] = [
   },
 ];
 
-const getBackground = (image: string) =>
-  image.startsWith("linear-gradient")
-    ? image
-    : `url(${image}) center / cover no-repeat`;
+const getBackgroundImage = (image: string) =>
+  image.startsWith("linear-gradient") ? image : `url(${image})`;
+
+const projectGroups = [
+  {
+    title: "Mobile Apps",
+    description:
+      "Pocket-first experiences with polished app-store style previews.",
+    icon: Smartphone,
+  },
+  {
+    title: "Web Apps",
+    description:
+      "Modern web experiences, dashboards, and polished business sites.",
+    icon: Globe2,
+  },
+  {
+    title: "Enterprise Systems",
+    description: "Operational tools and structured systems for real workflows.",
+    icon: Building2,
+  },
+];
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string>("Mobile Apps");
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
-
-    const updateMatch = () => setIsDesktop(mediaQuery.matches);
-    updateMatch();
-
-    mediaQuery.addEventListener("change", updateMatch);
-
-    return () => {
-      mediaQuery.removeEventListener("change", updateMatch);
-    };
-  }, []);
+  const groupedProjects = projectGroups.map((group) => ({
+    ...group,
+    projects: projects.filter((project) => project.group === group.title),
+  }));
 
   useGSAP(
     () => {
-      if (!isDesktop) return;
-
-      if (
-        !sectionRef.current ||
-        !horizontalRef.current ||
-        !containerRef.current
-      ) {
-        return;
-      }
-
       if (headerRef.current) {
         const elements = headerRef.current.querySelectorAll(".animate-header");
         gsap.from(elements, {
@@ -264,48 +279,24 @@ const ProjectsSection = () => {
         });
       }
 
-      const container = containerRef.current;
-      const horizontal = horizontalRef.current;
-      const cards = horizontal.querySelectorAll(".project-card");
-      const totalWidth = horizontal.scrollWidth - container.offsetWidth;
-
-      const scrollTween = gsap.to(horizontal, {
-        x: -totalWidth,
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: () => `+=${totalWidth}`,
-          pin: true,
-          scrub: 0.5,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            const newIndex = Math.floor(self.progress * projects.length);
-            setActiveIndex(Math.min(newIndex, projects.length - 1));
-          },
-        },
-      });
-
-      cards.forEach((card) => {
-        gsap.from(card, {
+      const folders = sectionRef.current?.querySelectorAll(".project-folder");
+      folders?.forEach((folder) => {
+        gsap.from(folder, {
           opacity: 0,
-          scale: 0.8,
-          rotateY: -15,
+          y: 80,
           duration: 1,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: card,
-            containerAnimation: scrollTween,
-            start: "left 80%",
+            trigger: folder,
+            start: "top 82%",
             toggleActions: "play none none reverse",
           },
         });
       });
     },
-    { scope: sectionRef, dependencies: [isDesktop] },
+    { scope: sectionRef },
   );
 
-  // Robust background scroll lock for mobile (store scroll position and fix body)
   useEffect(() => {
     if (!selectedProject) return;
 
@@ -329,13 +320,11 @@ const ProjectsSection = () => {
 
   return (
     <section ref={sectionRef} id="projects" className="relative bg-background">
-      {/* Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute right-0 top-0 h-[800px] w-[800px] rounded-full bg-primary/5 blur-[200px]" />
         <div className="absolute bottom-0 left-0 h-[600px] w-[600px] rounded-full bg-glow-secondary/5 blur-[150px]" />
       </div>
 
-      {/* Header */}
       <div className="relative z-10 px-6 pb-12 pt-20 lg:px-12">
         <div ref={headerRef} className="mx-auto max-w-7xl">
           <span className="animate-header mb-6 inline-flex items-center gap-4 text-sm font-semibold uppercase tracking-[0.4em] text-primary">
@@ -356,142 +345,182 @@ const ProjectsSection = () => {
         </div>
       </div>
 
-      {/* Horizontal scroll container */}
-      <div ref={containerRef} className="relative lg:h-screen">
-        <div
-          ref={horizontalRef}
-          className="relative flex flex-col gap-8 px-6 lg:absolute lg:left-0 lg:top-0 lg:h-full lg:flex-row lg:items-center lg:gap-12 lg:px-12"
-          style={
-            isDesktop ? { width: `${projects.length * 85 + 15}vw` } : undefined
-          }
-        >
-          {projects.map((project, index) => (
-            <article
-              key={project.id}
-              onClick={() => setSelectedProject(project)}
-              className="project-card group relative h-[70vh] w-full cursor-pointer flex-shrink-0 lg:w-[60vw]"
-              style={{ perspective: "1200px" }}
-            >
-              <div
-                className="card-content relative h-full w-full overflow-hidden rounded-3xl border border-border/50 transition-all duration-700 group-hover:border-primary/50"
-                style={{ transformStyle: "preserve-3d" }}
+      <div className="relative z-10 px-6 pb-24 lg:px-12">
+        <div className="mx-auto max-w-7xl space-y-10">
+          {groupedProjects.map((group, groupIndex) => {
+            const Icon = group.icon;
+            const isOpen = openGroup === group.title;
+            const previewProjects = group.projects.slice(0, 3);
+
+            return (
+              <section
+                key={group.title}
+                className="project-folder relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/80 shadow-[0_20px_80px_rgba(0,0,0,0.08)] backdrop-blur-xl"
               >
-                {/* Background gradient */}
-                <div
-                  className="card-image absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                  style={{ background: getBackground(project.image) }}
-                />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--primary)/0.08),transparent_35%),radial-gradient(circle_at_bottom_left,hsl(var(--glow-secondary)/0.08),transparent_30%)]" />
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-70" />
-
-                {/* Grid pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div
-                    className="h-full w-full"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
-                      backgroundSize: "60px 60px",
-                    }}
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-12">
-                  {/* Top bar */}
-                  <div className="absolute left-8 right-8 top-8 flex items-center justify-between lg:left-12 lg:right-12 lg:top-12">
-                    <div className="flex items-center gap-3">
-                      <span className="h-px w-8 bg-primary" />
-                      <span className="text-xs font-bold uppercase tracking-wider text-primary">
-                        {project.category}
-                      </span>
+                <button
+                  type="button"
+                  onClick={() => setOpenGroup(isOpen ? "" : group.title)}
+                  className="relative flex w-full flex-col gap-5 p-5 text-left md:p-7"
+                >
+                  <div className="flex flex-col gap-4 border-b border-border/60 pb-5 md:flex-row md:items-end md:justify-between">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary shadow-[0_0_30px_hsl(var(--primary)/0.18)]">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+                          <FolderOpen className="h-3.5 w-3.5 text-primary" />
+                          Folder {String(groupIndex + 1).padStart(2, "0")}
+                        </div>
+                        <h3 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
+                          {group.title}
+                        </h3>
+                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                          {group.description}
+                        </p>
+                      </div>
                     </div>
-                    <span className="rounded-full bg-foreground/10 px-4 py-2 text-sm font-medium text-foreground backdrop-blur-sm">
-                      {project.year}
+
+                    <div className="flex items-center gap-3 self-start rounded-full border border-border/70 bg-background/70 px-4 py-2 text-sm text-muted-foreground">
+                      <LayoutGrid className="h-4 w-4 text-primary" />
+                      {group.projects.length} items
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    {previewProjects.map((project, previewIndex) => (
+                      <div
+                        key={project.id}
+                        className="relative h-16 w-20 overflow-hidden rounded-2xl border border-border/60 bg-background shadow-sm"
+                        style={{
+                          transform: `translateY(${previewIndex * 2}px)`,
+                        }}
+                      >
+                        <div
+                          className="absolute inset-0 bg-cover bg-center"
+                          style={{
+                            backgroundImage: getBackgroundImage(project.image),
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
+                      </div>
+                    ))}
+                    <span className="ml-2 text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+                      {isOpen ? "Tap to collapse" : "Tap to open folder"}
                     </span>
+                    <ChevronDown
+                      className={`ml-auto h-5 w-5 text-primary transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
+                    />
                   </div>
+                </button>
 
-                  {/* Number */}
-                  <div className="absolute right-8 top-1/2 -translate-y-1/2 font-serif text-[20vw] font-bold leading-none text-foreground/5 lg:right-12">
-                    0{index + 1}
-                  </div>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 md:px-7 md:pb-7">
+                        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                          {group.projects.map((project) => (
+                            <article
+                              key={project.id}
+                              onClick={() => setSelectedProject(project)}
+                              className="project-card group relative cursor-pointer overflow-hidden rounded-[1.75rem] border border-border/60 bg-background/80 transition-all duration-500 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_24px_80px_rgba(0,0,0,0.14)]"
+                            >
+                              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-glow-secondary/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                  {/* Main content */}
-                  <div className="relative z-10">
-                    <h3 className="mb-4 font-serif text-4xl font-bold text-foreground transition-colors duration-500 group-hover:text-primary md:text-5xl lg:text-6xl">
-                      {project.title}
-                    </h3>
-                    <p className="mb-8 max-w-xl text-lg text-muted-foreground">
-                      {project.description}
-                    </p>
+                              <div className="relative p-4">
+                                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.25rem] border border-border/50 bg-secondary/40">
+                                  <div
+                                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                    style={{
+                                      backgroundImage: getBackgroundImage(
+                                        project.image,
+                                      ),
+                                    }}
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-90" />
+                                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
+                                    <div>
+                                      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-background/75 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary backdrop-blur-sm">
+                                        {project.category}
+                                      </div>
+                                      <h4 className="max-w-[14rem] font-serif text-2xl font-bold text-foreground drop-shadow-sm">
+                                        {project.title}
+                                      </h4>
+                                    </div>
+                                    <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/75 text-foreground backdrop-blur-sm transition-transform duration-500 group-hover:rotate-45 group-hover:bg-primary group-hover:text-primary-foreground">
+                                      <ArrowUpRight className="h-5 w-5" />
+                                    </div>
+                                  </div>
+                                </div>
 
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-3">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full border border-border bg-background/50 px-4 py-2 text-sm text-muted-foreground backdrop-blur-sm transition-all duration-300 group-hover:border-primary/50 group-hover:text-foreground"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                                <div className="mt-4 grid gap-4 sm:grid-cols-[1.25fr_0.75fr]">
+                                  <div>
+                                    <p className="text-sm leading-relaxed text-muted-foreground">
+                                      {project.description}
+                                    </p>
+                                    <div className="mt-4 flex flex-wrap gap-2">
+                                      {project.technologies
+                                        .slice(0, 3)
+                                        .map((tech) => (
+                                          <span
+                                            key={tech}
+                                            className="rounded-full border border-border bg-muted/40 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+                                          >
+                                            {tech}
+                                          </span>
+                                        ))}
+                                    </div>
+                                  </div>
 
-                  {/* View button */}
-                  <div className="absolute bottom-8 right-8 lg:bottom-12 lg:right-12">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full border border-border bg-background/80 text-foreground backdrop-blur-sm transition-all duration-500 group-hover:scale-110 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground lg:h-20 lg:w-20">
-                      <ArrowUpRight className="h-6 w-6 transition-transform duration-500 group-hover:rotate-45 lg:h-8 lg:w-8" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
+                                  <div className="rounded-[1.25rem] border border-border/60 bg-secondary/30 p-4">
+                                    <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+                                      File preview
+                                    </div>
+                                    <div className="mt-3 space-y-2">
+                                      <div className="h-2 w-20 rounded-full bg-primary/70" />
+                                      <div className="h-2 w-full rounded-full bg-border/80" />
+                                      <div className="h-2 w-5/6 rounded-full bg-border/70" />
+                                    </div>
+                                    <div className="mt-4 text-xs text-muted-foreground">
+                                      {project.year} • {project.group}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </article>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </section>
+            );
+          })}
 
-          {/* End card */}
-          <div className="flex h-[50vh] w-full flex-shrink-0 items-center justify-center lg:h-[70vh] lg:w-[40vw]">
-            <div className="text-center">
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
-                Want to see more?
-              </p>
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-3 font-serif text-3xl font-bold text-foreground transition-colors hover:text-primary md:text-4xl"
-              >
-                Let's Talk
-                <ArrowRight className="h-8 w-8 transition-transform group-hover:translate-x-2" />
-              </a>
-            </div>
+          <div className="rounded-[2rem] border border-border/60 bg-card/80 p-8 text-center backdrop-blur-xl md:p-12">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+              Want to see more?
+            </p>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-3 font-serif text-3xl font-bold text-foreground transition-colors hover:text-primary md:text-4xl"
+            >
+              Let's Talk
+              <ArrowRight className="h-8 w-8 transition-transform group-hover:translate-x-2" />
+            </a>
           </div>
-        </div>
-
-        {/* Progress indicators */}
-        <div className="absolute bottom-12 left-1/2 z-20 hidden -translate-x-1/2 gap-3 lg:flex">
-          {projects.map((_, i) => (
-            <div
-              key={i}
-              className={`h-1 rounded-full transition-all duration-500 ${
-                i === activeIndex ? "w-12 bg-primary" : "w-4 bg-border"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Current project indicator */}
-        <div className="absolute bottom-12 right-12 z-20 hidden items-center gap-4 lg:flex">
-          <span className="font-serif text-4xl font-bold text-primary">
-            0{activeIndex + 1}
-          </span>
-          <span className="text-muted-foreground">/</span>
-          <span className="font-serif text-2xl text-muted-foreground">
-            0{projects.length}
-          </span>
         </div>
       </div>
 
-      {/* Project detail modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -499,7 +528,7 @@ const ProjectsSection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-background/98 p-2 backdrop-blur-xl sm:items-center sm:p-4"
+            className="fixed inset-0 z-[260] flex items-end justify-center overflow-y-auto bg-background/98 p-2 backdrop-blur-xl sm:items-center sm:p-4"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
@@ -507,9 +536,9 @@ const ProjectsSection = () => {
               exit={{ opacity: 0, scale: 0.95, y: 30 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative flex w-full max-w-5xl max-h-[calc(100vh-1rem)] flex-col overflow-hidden rounded-t-3xl border border-border bg-card shadow-2xl sm:rounded-3xl sm:max-h-[calc(100vh-2rem)]"
+              className="relative flex w-full max-w-5xl max-h-[calc(100vh-1rem)] flex-col overflow-y-auto overscroll-contain rounded-t-3xl border border-border bg-card shadow-2xl sm:rounded-3xl sm:max-h-[calc(100vh-2rem)]"
+              style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
             >
-              {/* Close button */}
               <button
                 onClick={() => setSelectedProject(null)}
                 className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground backdrop-blur-sm transition-all hover:border-primary hover:text-primary sm:right-6 sm:top-6 sm:h-14 sm:w-14"
@@ -517,10 +546,11 @@ const ProjectsSection = () => {
                 <X className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
 
-              {/* Header */}
               <div
-                className="relative aspect-[4/3] sm:aspect-video"
-                style={{ background: getBackground(selectedProject.image) }}
+                className="relative aspect-[4/3] sm:aspect-video bg-cover bg-center"
+                style={{
+                  backgroundImage: getBackgroundImage(selectedProject.image),
+                }}
               >
                 <div className="absolute inset-0 opacity-20">
                   <div
@@ -550,14 +580,7 @@ const ProjectsSection = () => {
                 </div>
               </div>
 
-              {/* Content */}
-              <div
-                className="flex-1 overflow-y-auto p-5 sm:p-10"
-                style={{
-                  WebkitOverflowScrolling: "touch",
-                  touchAction: "pan-y",
-                }}
-              >
+              <div className="p-5 sm:p-10">
                 <p className="mb-8 text-base text-muted-foreground sm:mb-12 sm:text-xl">
                   {selectedProject.description}
                 </p>
@@ -625,7 +648,6 @@ const ProjectsSection = () => {
                   </div>
                 </div>
 
-                {/* Results */}
                 <div className="mb-8 sm:mb-12">
                   <h4 className="mb-4 font-serif text-lg font-bold text-foreground sm:mb-6 sm:text-xl">
                     Key Results
@@ -644,7 +666,6 @@ const ProjectsSection = () => {
                   </div>
                 </div>
 
-                {/* Technologies */}
                 <div>
                   <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
                     Technologies Used

@@ -98,12 +98,16 @@ const ContactSection = () => {
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const hasPlaceholderConfig =
+      serviceId === "service_your_service_id" ||
+      templateId === "template_your_template_id" ||
+      publicKey === "public_key_your_public_key";
 
-    if (!serviceId || !templateId || !publicKey) {
+    if (!serviceId || !templateId || !publicKey || hasPlaceholderConfig) {
       toast({
         title: "Email is not configured",
         description:
-          "Please set EmailJS service, template, and public key in environment variables.",
+          "Please set valid EmailJS service, template, and public key in environment variables.",
         variant: "destructive",
       });
       return;
@@ -262,10 +266,15 @@ const ContactSection = () => {
       setFormErrors({ name: "", email: "", message: "" });
       setFocusedField(null);
     } catch (error) {
+      const isNetworkError =
+        error instanceof TypeError &&
+        error.message.toLowerCase().includes("failed to fetch");
+
       toast({
         title: "Could not send message",
-        description:
-          "Please try again or email alvin69david@gmail.com directly.",
+        description: isNetworkError
+          ? "Network request to EmailJS failed. Check your Service ID and EmailJS allowed domains, then try again."
+          : "Please try again or email alvin69david@gmail.com directly.",
         variant: "destructive",
       });
       console.error("EmailJS send failed", error);

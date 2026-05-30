@@ -22,6 +22,7 @@ import BibleAppImage from "@/assets/images/BibleApp.png";
 import VeritasImage from "@/assets/images/Veritas.png";
 import EdwinsBakeHouseImage from "@/assets/images/EdwinsBakeHouse.png";
 import JamboPOSImage from "@/assets/images/JamboPOS.png";
+import StudentUniversityPortal from "@/assets/images/StudentUniversityPortal.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -224,6 +225,28 @@ const projects: Project[] = [
     technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     year: "2026",
     webUrl: "https://jambo-pos-system-prototype.netlify.app/",
+  },
+  {
+    id: 9,
+    title: "Student University Portal",
+    category: "Education",
+    group: "Web Apps",
+    description:
+      "A student portal designed to bring academic information, services, and university updates into one place.",
+    challenge:
+      "Students need a single destination for academic resources, updates, and everyday university workflows.",
+    solution:
+      "Built a clean portal experience that organizes key student actions and information into one accessible interface.",
+    results: [
+      "Centralized student access",
+      "Simplified information discovery",
+      "Clearer university communication",
+    ],
+    image: "StudentUniversityPortal.png",
+    accentColor: "blue",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    year: "2026",
+    webUrl: "https://universityportal2026.web.app/",
   },
 ];
 

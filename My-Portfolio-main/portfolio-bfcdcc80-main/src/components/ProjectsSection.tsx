@@ -232,7 +232,7 @@ const projects: Project[] = [
     category: "Education",
     group: "Web Apps",
     description:
-      "A student portal designed to bring academic information, services, and university updates into one place.",
+      "A student portal designed to bring academic information, services, and university updates into one place with a Firebase backend.",
     challenge:
       "Students need a single destination for academic resources, updates, and everyday university workflows.",
     solution:
@@ -244,7 +244,7 @@ const projects: Project[] = [
     ],
     image: StudentUniversityPortal,
     accentColor: "blue",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "Firebase"],
     year: "2026",
     webUrl: "https://universityportal2026.web.app/",
   },

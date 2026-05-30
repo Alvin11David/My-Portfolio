@@ -3,7 +3,9 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import {
   Coffee,
+  Minus,
   Heart,
+  Plus,
   Sparkles,
   MessageCircle,
   DollarSign,
@@ -27,6 +29,10 @@ const CoffeeSection = () => {
   const [message, setMessage] = useState("");
   const [isCoffeeDialogOpen, setIsCoffeeDialogOpen] = useState(false);
   const coffeePrice = 5;
+
+  const adjustCoffees = (delta: number) => {
+    setCoffees((prev) => Math.max(1, prev + delta));
+  };
 
   useGSAP(
     () => {
@@ -116,6 +122,8 @@ const CoffeeSection = () => {
                 </DialogTrigger>
                 <DialogContent className="max-h-[92vh] overflow-hidden rounded-t-[2rem] border-border bg-background p-0 backdrop-blur-2xl sm:max-w-[440px] sm:rounded-[2.5rem]">
                   <div className="h-2 w-full bg-gradient-to-r from-primary/80 via-blue-500/70 to-primary/80" />
+                  <div className="pointer-events-none absolute -left-24 top-20 h-40 w-40 rounded-full bg-primary/15 blur-3xl" />
+                  <div className="pointer-events-none absolute -right-20 bottom-24 h-44 w-44 rounded-full bg-blue-500/15 blur-3xl" />
 
                   <div
                     className="max-h-[calc(92vh-0.5rem)] overflow-y-auto overscroll-contain px-5 pb-5 pt-6 sm:px-8 sm:pb-8"
@@ -126,17 +134,23 @@ const CoffeeSection = () => {
                         Fuel Creativity
                       </DialogTitle>
                       <DialogDescription className="mt-2 text-center text-sm text-muted-foreground sm:text-base">
-                        Choose how many coffees you'd like to send my way. $5 per
-                        coffee.
+                        Choose how many coffees you'd like to send my way. $5
+                        per coffee.
                       </DialogDescription>
                     </DialogHeader>
 
-                    <div className="mb-5 flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary animate-in fade-in-0 slide-in-from-top-1 duration-500 sm:text-sm" style={{ animationDelay: "90ms" }}>
+                    <div
+                      className="mb-5 flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary animate-in fade-in-0 slide-in-from-top-1 duration-500 sm:text-sm"
+                      style={{ animationDelay: "90ms" }}
+                    >
                       <Sparkles className="h-4 w-4" />
                       Quick support, huge impact
                     </div>
 
-                    <div className="grid gap-6 py-1 animate-in fade-in-0 slide-in-from-bottom-1 duration-500 sm:gap-8 sm:py-3" style={{ animationDelay: "140ms" }}>
+                    <div
+                      className="grid gap-6 py-1 animate-in fade-in-0 slide-in-from-bottom-1 duration-500 sm:gap-8 sm:py-3"
+                      style={{ animationDelay: "140ms" }}
+                    >
                       <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
                         {[1, 3, 5].map((num) => (
                           <button
@@ -149,7 +163,9 @@ const CoffeeSection = () => {
                             }`}
                             style={{ animationDelay: `${180 + num * 35}ms` }}
                           >
-                            <span className="mb-1 text-2xl sm:text-3xl">☕</span>
+                            <span className="mb-1 text-2xl sm:text-3xl">
+                              ☕
+                            </span>
                             <span className="text-lg font-black sm:text-xl">
                               x{num}
                             </span>
@@ -162,19 +178,54 @@ const CoffeeSection = () => {
                           <label className="ml-1 text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
                             Custom Amount
                           </label>
-                          <div className="relative">
-                            <DollarSign className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
-                            <Input
-                              type="number"
-                              value={coffees}
-                              onChange={(e) =>
-                                setCoffees(
-                                  Math.max(1, parseInt(e.target.value) || 1),
-                                )
-                              }
-                              className="h-12 rounded-2xl border-border bg-secondary pl-12 text-base text-foreground focus:ring-primary/50 sm:h-14 sm:text-lg"
-                              placeholder="Enter number of coffees"
-                            />
+                          <div className="rounded-[1.35rem] border border-border bg-secondary/70 p-2 shadow-inner transition-all duration-300 focus-within:border-primary/50 focus-within:shadow-primary/10 focus-within:shadow-lg">
+                            <div className="flex items-center gap-2">
+                              <Button
+                                type="button"
+                                variant="secondary"
+                                onClick={() => adjustCoffees(-1)}
+                                disabled={coffees <= 1}
+                                className="h-11 w-11 shrink-0 rounded-xl border border-border/80 bg-background/80 p-0 text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                                aria-label="Decrease coffee amount"
+                              >
+                                <Minus className="h-4 w-4" />
+                              </Button>
+
+                              <div className="relative flex-1">
+                                <DollarSign className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
+                                <Input
+                                  type="number"
+                                  min={1}
+                                  step={1}
+                                  inputMode="numeric"
+                                  value={coffees}
+                                  onChange={(e) =>
+                                    setCoffees(
+                                      Math.max(1, parseInt(e.target.value) || 1),
+                                    )
+                                  }
+                                  className="h-11 rounded-xl border-border bg-background pl-9 pr-11 text-center text-base font-semibold text-foreground [appearance:textfield] focus-visible:ring-primary/50 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                                  placeholder="Coffees"
+                                />
+                                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                                  cups
+                                </span>
+                              </div>
+
+                              <Button
+                                type="button"
+                                variant="secondary"
+                                onClick={() => adjustCoffees(1)}
+                                className="h-11 w-11 shrink-0 rounded-xl border border-primary/30 bg-primary/10 p-0 text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                                aria-label="Increase coffee amount"
+                              >
+                                <Plus className="h-4 w-4" />
+                              </Button>
+                            </div>
+
+                            <p className="mt-2 px-1 text-[11px] font-medium text-muted-foreground">
+                              Tip: use +/- for quick changes.
+                            </p>
                           </div>
                         </div>
 
@@ -194,7 +245,7 @@ const CoffeeSection = () => {
                         </div>
                       </div>
 
-                      <div className="rounded-[1.5rem] border border-primary/20 bg-gradient-to-br from-primary/10 to-secondary p-4 shadow-inner sm:p-6">
+                      <div className="rounded-[1.5rem] border border-primary/20 bg-gradient-to-br from-primary/10 to-secondary p-4 shadow-inner animate-in fade-in-0 slide-in-from-bottom-2 duration-500 sm:p-6" style={{ animationDelay: "220ms" }}>
                         <div className="flex items-center justify-between">
                           <div>
                             <p className="text-sm font-medium text-muted-foreground">
@@ -204,13 +255,16 @@ const CoffeeSection = () => {
                               Support helps a lot!
                             </p>
                           </div>
-                          <span className="text-3xl font-black text-primary drop-shadow-glow sm:text-4xl">
+                          <span
+                            key={coffees}
+                            className="text-3xl font-black text-primary drop-shadow-glow animate-in fade-in-0 zoom-in-95 duration-300 sm:text-4xl"
+                          >
                             ${coffees * coffeePrice}
                           </span>
                         </div>
                       </div>
 
-                      <div className="sticky bottom-0 z-10 -mx-5 bg-background/95 px-5 pb-1 pt-3 backdrop-blur sm:-mx-8 sm:px-8">
+                      <div className="sticky bottom-0 z-10 -mx-5 bg-background/95 px-5 pb-1 pt-3 backdrop-blur animate-in fade-in-0 slide-in-from-bottom-1 duration-500 sm:-mx-8 sm:px-8" style={{ animationDelay: "260ms" }}>
                         <Button
                           onClick={handleSupport}
                           className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-primary font-black text-lg text-background shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90 sm:h-16 sm:text-xl"

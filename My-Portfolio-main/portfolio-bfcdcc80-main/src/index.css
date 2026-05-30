@@ -419,6 +419,71 @@
     animation: gradient-shift 3s ease infinite;
   }
 
+  @keyframes button-wave-drift {
+    0% {
+      transform: translateX(0) translateY(0);
+    }
+
+    50% {
+      transform: translateX(-32px) translateY(-3px);
+    }
+
+    100% {
+      transform: translateX(-64px) translateY(0);
+    }
+  }
+
+  @keyframes fish-wiggle {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+      transform: translateY(-1px) rotate(-8deg);
+    }
+  }
+
+  .water-wave-layer {
+    position: absolute;
+    inset: auto -90px 0 -90px;
+    height: 56px;
+    border-radius: 999px;
+    background-repeat: repeat-x;
+    background-size: 140px 56px;
+    opacity: 0.45;
+    animation: button-wave-drift 2.4s linear infinite;
+  }
+
+  .water-wave-layer--back {
+    bottom: 26px;
+    height: 50px;
+    opacity: 0.36;
+    background-image: radial-gradient(
+      ellipse at 50% 85%,
+      rgba(220, 250, 255, 0.34) 0%,
+      rgba(220, 250, 255, 0.06) 65%,
+      transparent 70%
+    );
+    animation-duration: 3.2s;
+  }
+
+  .water-wave-layer--front {
+    bottom: 8px;
+    background-image: radial-gradient(
+      ellipse at 50% 85%,
+      rgba(240, 255, 255, 0.44) 0%,
+      rgba(240, 255, 255, 0.1) 64%,
+      transparent 71%
+    );
+    animation-duration: 2.2s;
+  }
+
+  .water-fish {
+    display: inline-block;
+    animation: fish-wiggle 0.8s ease-in-out infinite;
+  }
+
   /* Background gradient radial */
   .bg-gradient-radial {
     background: radial-gradient(ellipse at center, var(--tw-gradient-stops));

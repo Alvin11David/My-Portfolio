@@ -45,6 +45,7 @@ const ContactSection = () => {
   const waterFillRef = useRef<HTMLDivElement>(null);
   const waterSurfaceRef = useRef<HTMLDivElement>(null);
   const waterBubblesRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const waterFishRef = useRef<(HTMLSpanElement | null)[]>([]);
   const { toast } = useToast();
 
   // Initialize EmailJS
@@ -116,6 +117,7 @@ const ContactSection = () => {
     const waterFill = waterFillRef.current;
     const waterSurface = waterSurfaceRef.current;
     const bubbles = waterBubblesRef.current.filter(Boolean);
+    const fish = waterFishRef.current.filter(Boolean);
 
     const deliveryTimeline = gsap.timeline();
 
@@ -153,74 +155,82 @@ const ContactSection = () => {
 
     if (waterFill) {
       deliveryTimeline
-        .set(waterFill, {
-          opacity: 0,
-          scaleY: 0,
-          transformOrigin: "bottom center",
-        }, 0.05)
+        .set(
+          waterFill,
+          {
+            opacity: 0,
+            scaleY: 0.04,
+            transformOrigin: "bottom center",
+          },
+          0.05,
+        )
         .to(
           waterFill,
           {
             opacity: 1,
             scaleY: 1,
-            duration: 0.85,
-            ease: "power2.out",
+            duration: 1.35,
+            ease: "power2.inOut",
           },
           0.08,
         )
         .to(
           waterFill,
           {
-            scaleY: 0.94,
-            duration: 0.18,
+            scaleY: 0.97,
+            duration: 0.25,
             ease: "power1.inOut",
           },
-          0.92,
+          1.2,
         );
     }
 
     if (waterSurface) {
       deliveryTimeline
-        .set(waterSurface, {
-          opacity: 0,
-          scaleY: 0,
-          y: 12,
-          transformOrigin: "bottom center",
-        }, 0.12)
+        .set(
+          waterSurface,
+          {
+            opacity: 0,
+            scaleY: 0.2,
+            y: 14,
+            transformOrigin: "bottom center",
+          },
+          0.12,
+        )
         .to(
           waterSurface,
           {
             opacity: 1,
             scaleY: 1,
             y: 0,
-            duration: 0.75,
+            duration: 1.15,
             ease: "power2.out",
           },
-          0.2,
+          0.26,
         )
         .to(
           waterSurface,
           {
-            y: -2,
-            duration: 0.18,
+            y: -3,
+            duration: 0.22,
             ease: "power1.inOut",
           },
-          0.9,
+          1.18,
         );
     }
 
     if (bubbles.length > 0) {
       bubbles.forEach((bubble, index) => {
-        const delay = 0.18 + index * 0.07;
+        const delay = 0.35 + index * 0.08;
         deliveryTimeline
-          .set(bubble, { opacity: 0, scale: 0.1, y: 18 }, delay)
+          .set(bubble, { opacity: 0, scale: 0.1, y: 20 }, delay)
           .to(
             bubble,
             {
               opacity: 0.75,
               scale: 1,
-              y: -10 - index * 4,
-              duration: 0.45,
+              y: -12 - index * 4,
+              duration: 0.55,
               ease: "power2.out",
             },
             delay,
@@ -230,11 +240,54 @@ const ContactSection = () => {
             {
               opacity: 0,
               scale: 0.5,
-              y: -34 - index * 6,
-              duration: 0.45,
+              y: -38 - index * 6,
+              duration: 0.5,
               ease: "power1.in",
             },
-            delay + 0.38,
+            delay + 0.44,
+          );
+      });
+    }
+
+    if (fish.length > 0) {
+      fish.forEach((fishNode, index) => {
+        const fromLeft = index % 2 === 0;
+        const delay = 0.5 + index * 0.12;
+        deliveryTimeline
+          .set(
+            fishNode,
+            {
+              opacity: 0,
+              x: fromLeft ? -26 : 26,
+              y: 16 + index * 2,
+              rotate: fromLeft ? 8 : -8,
+              scale: 0.82,
+            },
+            delay,
+          )
+          .to(
+            fishNode,
+            {
+              opacity: 0.8,
+              x: fromLeft ? 36 : -36,
+              y: -6 - index * 3,
+              rotate: fromLeft ? -6 : 6,
+              scale: 1,
+              duration: 0.8,
+              ease: "sine.inOut",
+            },
+            delay,
+          )
+          .to(
+            fishNode,
+            {
+              opacity: 0,
+              x: fromLeft ? 54 : -54,
+              y: -20 - index * 4,
+              duration: 0.35,
+              ease: "power1.in",
+            },
+            delay + 0.72,
           );
       });
     }
@@ -635,7 +688,9 @@ const ContactSection = () => {
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="submit-button group relative w-full overflow-hidden rounded-xl bg-primary py-4 font-semibold text-primary-foreground transition-all duration-500 hover:shadow-xl hover:shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-70"
+                    className={`submit-button group relative w-full overflow-hidden rounded-xl border-2 border-cyan-400/75 bg-transparent py-4 font-semibold transition-all duration-500 hover:border-cyan-300 hover:shadow-xl hover:shadow-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-80 ${
+                      isSending ? "text-primary-foreground" : "text-primary"
+                    }`}
                   >
                     <div
                       ref={deliveryTrailRef}
@@ -647,15 +702,33 @@ const ContactSection = () => {
                       ref={waterFillRef}
                       className="absolute inset-x-0 bottom-0 top-0 z-0 origin-bottom scale-y-0 opacity-0"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-t from-cyan-700 via-sky-500 to-cyan-300/95" />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.32),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-cyan-800 via-sky-600 to-cyan-300/95" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_100%,rgba(255,255,255,0.22),transparent_44%),radial-gradient(circle_at_78%_95%,rgba(255,255,255,0.28),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.02))]" />
+
+                      <div className="water-wave-layer water-wave-layer--back" />
+                      <div className="water-wave-layer water-wave-layer--front" />
+
+                      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
+                        {[...Array(4)].map((_, i) => (
+                          <span
+                            key={i}
+                            ref={(node) => {
+                              waterFishRef.current[i] = node;
+                            }}
+                            className="absolute bottom-5 text-[10px] sm:text-xs text-cyan-100/80 opacity-0 drop-shadow-[0_0_6px_rgba(186,255,255,0.45)]"
+                            style={{ left: `${16 + i * 18}%` }}
+                          >
+                            <span className="water-fish">&gt;&lt;(((('&gt;</span>
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
                     <div
                       ref={waterSurfaceRef}
                       className="absolute inset-x-0 bottom-0 z-0 origin-bottom scale-y-0 opacity-0"
                     >
-                      <div className="absolute -top-2 left-0 right-0 h-5 rounded-full bg-cyan-200/70 blur-md" />
+                      <div className="absolute -top-2 left-0 right-0 h-5 rounded-full bg-cyan-100/80 blur-md" />
                       <div className="absolute inset-x-0 bottom-0 h-8 bg-[radial-gradient(circle_at_15%_0%,rgba(255,255,255,0.45),transparent_28%),radial-gradient(circle_at_35%_0%,rgba(255,255,255,0.25),transparent_22%),radial-gradient(circle_at_65%_0%,rgba(255,255,255,0.35),transparent_24%),radial-gradient(circle_at_85%_0%,rgba(255,255,255,0.2),transparent_22%)]" />
                     </div>
 

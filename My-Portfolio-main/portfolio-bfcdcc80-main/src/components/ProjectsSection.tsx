@@ -242,7 +242,7 @@ const projects: Project[] = [
       "Simplified information discovery",
       "Clearer university communication",
     ],
-    image: "StudentUniversityPortal.png",
+    image: StudentUniversityPortal,
     accentColor: "blue",
     technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     year: "2026",

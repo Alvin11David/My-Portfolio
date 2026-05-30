@@ -25,9 +25,12 @@ import CloudWave from "./CloudWave";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "r1x2A2YyfHtXLLHR0";
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_b6hthi8";
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_mlr9hp4";
+const EMAILJS_PUBLIC_KEY =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "r1x2A2YyfHtXLLHR0";
+const EMAILJS_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_b6hthi8";
+const EMAILJS_SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_mlr9hp4";
 
 const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -39,6 +42,9 @@ const ContactSection = () => {
   const deliveryTrailRef = useRef<HTMLDivElement>(null);
   const deliveryCarRef = useRef<HTMLDivElement>(null);
   const dustParticlesRef = useRef<HTMLDivElement>(null);
+  const waterFillRef = useRef<HTMLDivElement>(null);
+  const waterSurfaceRef = useRef<HTMLDivElement>(null);
+  const waterBubblesRef = useRef<(HTMLSpanElement | null)[]>([]);
   const { toast } = useToast();
 
   // Initialize EmailJS
@@ -107,6 +113,9 @@ const ContactSection = () => {
     const trail = deliveryTrailRef.current;
     const car = deliveryCarRef.current;
     const dust = dustParticlesRef.current;
+    const waterFill = waterFillRef.current;
+    const waterSurface = waterSurfaceRef.current;
+    const bubbles = waterBubblesRef.current.filter(Boolean);
 
     const deliveryTimeline = gsap.timeline();
 
@@ -142,49 +151,124 @@ const ContactSection = () => {
         );
     }
 
-    // Delivery car animation
-    if (car) {
+    if (waterFill) {
       deliveryTimeline
-        .set(car, { opacity: 1, x: 0, scaleX: 1, rotate: 0 }, 0.1)
+        .set(waterFill, {
+          opacity: 0,
+          scaleY: 0,
+          transformOrigin: "bottom center",
+        }, 0.05)
         .to(
-          car,
+          waterFill,
           {
-            x: 420,
-            duration: 1.8,
-            ease: "none",
+            opacity: 1,
+            scaleY: 1,
+            duration: 0.85,
+            ease: "power2.out",
           },
-          0.1,
+          0.08,
         )
         .to(
-          car,
+          waterFill,
           {
-            opacity: 0,
-            scale: 0.92,
-            duration: 0.2,
-            ease: "power2.in",
+            scaleY: 0.94,
+            duration: 0.18,
+            ease: "power1.inOut",
           },
-          1.4,
+          0.92,
         );
     }
 
-    // Dust particles animation
+    if (waterSurface) {
+      deliveryTimeline
+        .set(waterSurface, {
+          opacity: 0,
+          scaleY: 0,
+          y: 12,
+          transformOrigin: "bottom center",
+        }, 0.12)
+        .to(
+          waterSurface,
+          {
+            opacity: 1,
+            scaleY: 1,
+            y: 0,
+            duration: 0.75,
+            ease: "power2.out",
+          },
+          0.2,
+        )
+        .to(
+          waterSurface,
+          {
+            y: -2,
+            duration: 0.18,
+            ease: "power1.inOut",
+          },
+          0.9,
+        );
+    }
+
+    if (bubbles.length > 0) {
+      bubbles.forEach((bubble, index) => {
+        const delay = 0.18 + index * 0.07;
+        deliveryTimeline
+          .set(bubble, { opacity: 0, scale: 0.1, y: 18 }, delay)
+          .to(
+            bubble,
+            {
+              opacity: 0.75,
+              scale: 1,
+              y: -10 - index * 4,
+              duration: 0.45,
+              ease: "power2.out",
+            },
+            delay,
+          )
+          .to(
+            bubble,
+            {
+              opacity: 0,
+              scale: 0.5,
+              y: -34 - index * 6,
+              duration: 0.45,
+              ease: "power1.in",
+            },
+            delay + 0.38,
+          );
+      });
+    }
+
+    if (car) {
+      deliveryTimeline.to(
+        car,
+        {
+          opacity: 0,
+          y: 10,
+          duration: 0.2,
+          ease: "power2.in",
+        },
+        0.2,
+      );
+    }
+
     if (dust) {
       const particles = dust.querySelectorAll(".dust-particle");
       particles.forEach((particle, index) => {
-        const delay = index * 0.08;
+        const delay = index * 0.04;
         deliveryTimeline
-          .set(particle, { opacity: 1, x: 0, y: 0, scale: 1 }, 0.2 + delay)
+          .set(particle, { opacity: 1, x: 0, y: 0, scale: 1 }, 0.12 + delay)
           .to(
             particle,
             {
-              x: 450 + Math.random() * 100,
-              y: -30 + (Math.random() - 0.5) * 40,
+              x: 16 + Math.random() * 20,
+              y: -6 + (Math.random() - 0.5) * 16,
               opacity: 0,
               scale: 0,
-              duration: 0.8 + Math.random() * 0.3,
+              duration: 0.45 + Math.random() * 0.15,
               ease: "power1.out",
             },
-            0.2 + delay,
+            0.12 + delay,
           );
       });
     }
@@ -195,24 +279,22 @@ const ContactSection = () => {
         .to(
           icon,
           {
-            x: 30,
-            y: -15,
-            rotate: 8,
-            opacity: 0.5,
-            duration: 0.4,
+            y: -3,
+            opacity: 0.35,
+            duration: 0.2,
             ease: "power2.out",
           },
-          0.1,
+          0.12,
         )
         .to(
           icon,
           {
             opacity: 0,
             scale: 0.6,
-            duration: 0.2,
+            duration: 0.18,
             ease: "power2.in",
           },
-          0.4,
+          0.34,
         )
         .set(icon, { x: 0, y: 0, rotate: 0, opacity: 1, scale: 1 });
     }
@@ -560,10 +642,27 @@ const ContactSection = () => {
                       className="absolute inset-y-1/2 left-6 h-px w-[calc(100%-3rem)] -translate-y-1/2 bg-gradient-to-r from-transparent via-primary-foreground/60 to-transparent opacity-0"
                     />
 
+                    {/* Water fill animation */}
+                    <div
+                      ref={waterFillRef}
+                      className="absolute inset-x-0 bottom-0 top-0 z-0 origin-bottom scale-y-0 opacity-0"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-t from-cyan-700 via-sky-500 to-cyan-300/95" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.32),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0))]" />
+                    </div>
+
+                    <div
+                      ref={waterSurfaceRef}
+                      className="absolute inset-x-0 bottom-0 z-0 origin-bottom scale-y-0 opacity-0"
+                    >
+                      <div className="absolute -top-2 left-0 right-0 h-5 rounded-full bg-cyan-200/70 blur-md" />
+                      <div className="absolute inset-x-0 bottom-0 h-8 bg-[radial-gradient(circle_at_15%_0%,rgba(255,255,255,0.45),transparent_28%),radial-gradient(circle_at_35%_0%,rgba(255,255,255,0.25),transparent_22%),radial-gradient(circle_at_65%_0%,rgba(255,255,255,0.35),transparent_24%),radial-gradient(circle_at_85%_0%,rgba(255,255,255,0.2),transparent_22%)]" />
+                    </div>
+
                     {/* Delivery car animation */}
                     <div
                       ref={deliveryCarRef}
-                      className="absolute inset-y-1/2 left-6 -translate-y-1/2 text-2xl opacity-0 whitespace-nowrap"
+                      className="absolute inset-y-1/2 left-6 z-10 -translate-y-1/2 text-2xl opacity-0 whitespace-nowrap"
                     >
                       <Truck className="h-6 w-6" />
                     </div>
@@ -571,7 +670,7 @@ const ContactSection = () => {
                     {/* Dust particles */}
                     <div
                       ref={dustParticlesRef}
-                      className="absolute inset-0 pointer-events-none"
+                      className="absolute inset-0 z-10 pointer-events-none"
                     >
                       {[...Array(6)].map((_, i) => (
                         <div
@@ -586,7 +685,7 @@ const ContactSection = () => {
                     </div>
 
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,_hsl(var(--primary-foreground)/0.2),_transparent_35%),radial-gradient(circle_at_80%_50%,_hsl(var(--glow-secondary)/0.18),_transparent_32%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                    <span className="relative z-10 flex items-center justify-center gap-3">
+                    <span className="relative z-20 flex items-center justify-center gap-3">
                       <span className="flex flex-col items-center leading-none sm:flex-row sm:gap-3">
                         <span>
                           {isSending ? "Sending Message" : "Send Message"}
@@ -598,6 +697,21 @@ const ContactSection = () => {
                       />
                     </span>
                     <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary via-glow-secondary to-primary bg-[length:200%_100%] opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:animate-gradient-shift" />
+                    <div
+                      className="absolute inset-0 z-10 pointer-events-none overflow-hidden rounded-xl"
+                      aria-hidden="true"
+                    >
+                      {[...Array(4)].map((_, i) => (
+                        <span
+                          key={i}
+                          ref={(node) => {
+                            waterBubblesRef.current[i] = node;
+                          }}
+                          className="absolute bottom-4 h-2 w-2 rounded-full bg-white/70 opacity-0 blur-[0.5px]"
+                          style={{ left: `${18 + i * 18}%` }}
+                        />
+                      ))}
+                    </div>
                   </button>
                 </div>
               </form>

@@ -99,7 +99,7 @@ const projects: Project[] = [
   {
     id: 3,
     title: "C-Helper App",
-    category: "Healthcare",
+    category: "On-Demand Services",
     group: "Mobile Apps",
     description:
       "Find trusted help fast or earn more work—match, chat, and get paid in one place.",

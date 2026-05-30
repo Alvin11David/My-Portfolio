@@ -8,6 +8,7 @@ import {
   FolderOpen,
   Globe2,
   LayoutGrid,
+  Cpu,
   Smartphone,
   X,
 } from "lucide-react";
@@ -23,6 +24,7 @@ import VeritasImage from "@/assets/images/Veritas.png";
 import EdwinsBakeHouseImage from "@/assets/images/EdwinsBakeHouse.png";
 import JamboPOSImage from "@/assets/images/JamboPOS.png";
 import StudentUniversityPortal from "@/assets/images/StudentUniversityPortal.png";
+import SunbirdGenAIImage from "@/assets/images/Sunbird GenAI App.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -248,6 +250,28 @@ const projects: Project[] = [
     year: "2026",
     webUrl: "https://universityportal2026.web.app/",
   },
+  {
+    id: 10,
+    title: "Sunbird GenAI App",
+    category: "AI Platform",
+    group: "AI Platforms",
+    description:
+      "A GenAI app that summarizes text, translates it, and generates audio output from both text and audio input pipelines.",
+    challenge:
+      "Users needed a single tool to handle text and audio workflows across multiple local languages.",
+    solution:
+      "Built an AI workflow that supports text summarization, translation, transcription, and audio generation in one interface.",
+    results: [
+      "Text and audio pipelines",
+      "Multi-language support",
+      "End-to-end AI workflow",
+    ],
+    image: SunbirdGenAIImage,
+    accentColor: "violet",
+    technologies: ["React", "TypeScript", "Firebase", "AI/ML"],
+    year: "2026",
+    webUrl: "https://internship-assessment-steel.vercel.app/",
+  },
 ];
 
 const getBackgroundImage = (image: string) =>
@@ -265,6 +289,12 @@ const projectGroups = [
     description:
       "Modern web experiences, dashboards, and polished business sites.",
     icon: Globe2,
+  },
+  {
+    title: "AI Platforms",
+    description:
+      "Generative AI tools, assistants, and intelligent workflow platforms.",
+    icon: Cpu,
   },
   {
     title: "Enterprise Systems",

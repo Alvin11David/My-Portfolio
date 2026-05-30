@@ -82,6 +82,15 @@ const Navigation = () => {
     { href: "#contact", label: "Contact", number: "05" },
   ];
 
+  const socialLinks = [
+    { label: "GitHub", href: "https://github.com/Alvin11David" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/waluube-alvin-david-75778336b/",
+    },
+    { label: "Twitter", href: "https://twitter.com/Alvin1_1David" },
+  ];
+
   return (
     <>
       {/* Progress bar */}
@@ -239,13 +248,15 @@ const Navigation = () => {
               transition={{ delay: 0.7 }}
               className="mt-20 flex gap-8"
             >
-              {["GitHub", "LinkedIn", "Twitter"].map((social) => (
+              {socialLinks.map((social) => (
                 <a
-                  key={social}
-                  href="#"
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  {social}
+                  {social.label}
                 </a>
               ))}
             </motion.div>

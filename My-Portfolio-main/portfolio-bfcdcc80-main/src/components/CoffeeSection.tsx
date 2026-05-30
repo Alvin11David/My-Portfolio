@@ -201,7 +201,10 @@ const CoffeeSection = () => {
                                   value={coffees}
                                   onChange={(e) =>
                                     setCoffees(
-                                      Math.max(1, parseInt(e.target.value) || 1),
+                                      Math.max(
+                                        1,
+                                        parseInt(e.target.value) || 1,
+                                      ),
                                     )
                                   }
                                   className="h-11 rounded-xl border-border bg-background pl-9 pr-11 text-center text-base font-semibold text-foreground [appearance:textfield] focus-visible:ring-primary/50 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
@@ -245,7 +248,10 @@ const CoffeeSection = () => {
                         </div>
                       </div>
 
-                      <div className="rounded-[1.5rem] border border-primary/20 bg-gradient-to-br from-primary/10 to-secondary p-4 shadow-inner animate-in fade-in-0 slide-in-from-bottom-2 duration-500 sm:p-6" style={{ animationDelay: "220ms" }}>
+                      <div
+                        className="rounded-[1.5rem] border border-primary/20 bg-gradient-to-br from-primary/10 to-secondary p-4 shadow-inner animate-in fade-in-0 slide-in-from-bottom-2 duration-500 sm:p-6"
+                        style={{ animationDelay: "220ms" }}
+                      >
                         <div className="flex items-center justify-between">
                           <div>
                             <p className="text-sm font-medium text-muted-foreground">
@@ -264,7 +270,10 @@ const CoffeeSection = () => {
                         </div>
                       </div>
 
-                      <div className="sticky bottom-0 z-10 -mx-5 bg-background/95 px-5 pb-1 pt-3 backdrop-blur animate-in fade-in-0 slide-in-from-bottom-1 duration-500 sm:-mx-8 sm:px-8" style={{ animationDelay: "260ms" }}>
+                      <div
+                        className="sticky bottom-0 z-10 -mx-5 bg-background/95 px-5 pb-1 pt-3 backdrop-blur animate-in fade-in-0 slide-in-from-bottom-1 duration-500 sm:-mx-8 sm:px-8"
+                        style={{ animationDelay: "260ms" }}
+                      >
                         <Button
                           onClick={handleSupport}
                           className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-primary font-black text-lg text-background shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90 sm:h-16 sm:text-xl"

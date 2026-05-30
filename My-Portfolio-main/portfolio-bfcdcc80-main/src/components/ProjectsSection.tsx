@@ -559,7 +559,7 @@ const ProjectsSection = () => {
               exit={{ opacity: 0, scale: 0.95, y: 30 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative flex w-full max-w-5xl max-h-[calc(100vh-1rem)] flex-col overflow-y-auto overscroll-contain rounded-t-3xl border border-border bg-card shadow-2xl sm:rounded-3xl sm:max-h-[calc(100vh-2rem)]"
+              className="relative flex w-full max-w-5xl max-h-[calc(100vh-1rem)] flex-col overflow-hidden rounded-t-3xl border border-border bg-card shadow-2xl sm:rounded-3xl sm:max-h-[calc(100vh-2rem)]"
               style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
             >
               <button
@@ -570,138 +570,147 @@ const ProjectsSection = () => {
               </button>
 
               <div
-                className="relative aspect-[4/3] sm:aspect-video bg-cover bg-center"
+                className="flex-1 min-h-0 overflow-y-auto overscroll-contain sm:max-h-[calc(100vh-2rem)]"
                 style={{
-                  backgroundImage: getBackgroundImage(selectedProject.image),
+                  WebkitOverflowScrolling: "touch",
+                  touchAction: "pan-y",
                 }}
+                onWheelCapture={(e) => e.stopPropagation()}
               >
-                <div className="absolute inset-0 opacity-20">
-                  <div
-                    className="h-full w-full"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
-                      backgroundSize: "80px 80px",
-                    }}
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-
-                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-10">
-                  <div className="mb-3 flex flex-wrap items-center gap-3 sm:gap-4">
-                    <span className="h-px w-8 bg-primary sm:w-10" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-primary sm:text-sm">
-                      {selectedProject.category}
-                    </span>
-                    <span className="ml-auto rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground backdrop-blur-sm sm:px-4 sm:py-2 sm:text-sm">
-                      {selectedProject.year}
-                    </span>
+                <div
+                  className="relative aspect-[4/3] sm:aspect-video bg-cover bg-center"
+                  style={{
+                    backgroundImage: getBackgroundImage(selectedProject.image),
+                  }}
+                >
+                  <div className="absolute inset-0 opacity-20">
+                    <div
+                      className="h-full w-full"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+                        backgroundSize: "80px 80px",
+                      }}
+                    />
                   </div>
-                  <h3 className="max-w-3xl font-serif text-3xl font-bold leading-tight text-foreground sm:text-5xl md:text-6xl">
-                    {selectedProject.title}
-                  </h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-10">
+                    <div className="mb-3 flex flex-wrap items-center gap-3 sm:gap-4">
+                      <span className="h-px w-8 bg-primary sm:w-10" />
+                      <span className="text-xs font-bold uppercase tracking-wider text-primary sm:text-sm">
+                        {selectedProject.category}
+                      </span>
+                      <span className="ml-auto rounded-full bg-background/80 px-3 py-1.5 text-xs text-foreground backdrop-blur-sm sm:px-4 sm:py-2 sm:text-sm">
+                        {selectedProject.year}
+                      </span>
+                    </div>
+                    <h3 className="max-w-3xl font-serif text-3xl font-bold leading-tight text-foreground sm:text-5xl md:text-6xl">
+                      {selectedProject.title}
+                    </h3>
+                  </div>
                 </div>
-              </div>
 
-              <div className="p-5 sm:p-10">
-                <p className="mb-8 text-base text-muted-foreground sm:mb-12 sm:text-xl">
-                  {selectedProject.description}
-                </p>
+                <div className="p-5 sm:p-10">
+                  <p className="mb-8 text-base text-muted-foreground sm:mb-12 sm:text-xl">
+                    {selectedProject.description}
+                  </p>
 
-                {(selectedProject.liveUrl ||
-                  selectedProject.webUrl ||
-                  selectedProject.playStoreUrl) && (
-                  <div className="mb-8 sm:mb-12">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                      {selectedProject.liveUrl && (
-                        <a
-                          href={selectedProject.liveUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground sm:w-auto"
-                        >
-                          View on App Store
-                          <ArrowUpRight className="h-4 w-4" />
-                        </a>
-                      )}
+                  {(selectedProject.liveUrl ||
+                    selectedProject.webUrl ||
+                    selectedProject.playStoreUrl) && (
+                    <div className="mb-8 sm:mb-12">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                        {selectedProject.liveUrl && (
+                          <a
+                            href={selectedProject.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground sm:w-auto"
+                          >
+                            View on App Store
+                            <ArrowUpRight className="h-4 w-4" />
+                          </a>
+                        )}
 
-                      {selectedProject.playStoreUrl && (
-                        <a
-                          href={selectedProject.playStoreUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground sm:w-auto"
-                        >
-                          Get on Google Play
-                          <ArrowUpRight className="h-4 w-4" />
-                        </a>
-                      )}
+                        {selectedProject.playStoreUrl && (
+                          <a
+                            href={selectedProject.playStoreUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground sm:w-auto"
+                          >
+                            Get on Google Play
+                            <ArrowUpRight className="h-4 w-4" />
+                          </a>
+                        )}
 
-                      {selectedProject.webUrl && (
-                        <a
-                          href={selectedProject.webUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-secondary/30 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-foreground transition-colors hover:border-primary hover:text-primary sm:w-auto"
-                        >
-                          Visit Web App
-                          <ArrowUpRight className="h-4 w-4" />
-                        </a>
-                      )}
+                        {selectedProject.webUrl && (
+                          <a
+                            href={selectedProject.webUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-secondary/30 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-foreground transition-colors hover:border-primary hover:text-primary sm:w-auto"
+                          >
+                            Visit Web App
+                            <ArrowUpRight className="h-4 w-4" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mb-8 grid gap-6 md:mb-12 md:grid-cols-2 md:gap-10">
+                    <div>
+                      <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
+                        The Challenge
+                      </h4>
+                      <p className="text-muted-foreground">
+                        {selectedProject.challenge}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
+                        The Solution
+                      </h4>
+                      <p className="text-muted-foreground">
+                        {selectedProject.solution}
+                      </p>
                     </div>
                   </div>
-                )}
 
-                <div className="mb-8 grid gap-6 md:mb-12 md:grid-cols-2 md:gap-10">
+                  <div className="mb-8 sm:mb-12">
+                    <h4 className="mb-4 font-serif text-lg font-bold text-foreground sm:mb-6 sm:text-xl">
+                      Key Results
+                    </h4>
+                    <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+                      {selectedProject.results.map((result, i) => (
+                        <div
+                          key={i}
+                          className="rounded-2xl border border-border bg-secondary/30 p-4 text-center sm:p-6"
+                        >
+                          <span className="text-sm font-medium text-foreground sm:text-lg">
+                            {result}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   <div>
                     <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
-                      The Challenge
+                      Technologies Used
                     </h4>
-                    <p className="text-muted-foreground">
-                      {selectedProject.challenge}
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
-                      The Solution
-                    </h4>
-                    <p className="text-muted-foreground">
-                      {selectedProject.solution}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mb-8 sm:mb-12">
-                  <h4 className="mb-4 font-serif text-lg font-bold text-foreground sm:mb-6 sm:text-xl">
-                    Key Results
-                  </h4>
-                  <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
-                    {selectedProject.results.map((result, i) => (
-                      <div
-                        key={i}
-                        className="rounded-2xl border border-border bg-secondary/30 p-4 text-center sm:p-6"
-                      >
-                        <span className="text-sm font-medium text-foreground sm:text-lg">
-                          {result}
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {selectedProject.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full border border-primary/50 bg-primary/10 px-4 py-2 text-xs font-medium text-primary sm:px-5 sm:text-sm"
+                        >
+                          {tech}
                         </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
-                    Technologies Used
-                  </h4>
-                  <div className="flex flex-wrap gap-2 sm:gap-3">
-                    {selectedProject.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full border border-primary/50 bg-primary/10 px-4 py-2 text-xs font-medium text-primary sm:px-5 sm:text-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

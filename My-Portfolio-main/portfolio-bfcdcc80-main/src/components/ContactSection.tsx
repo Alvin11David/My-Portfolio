@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import {
   Send,
+  Truck,
   Github,
   Linkedin,
   Twitter,
@@ -144,13 +145,13 @@ const ContactSection = () => {
     // Delivery car animation
     if (car) {
       deliveryTimeline
-        .set(car, { opacity: 1, x: 0, scaleX: 1 }, 0.1)
+        .set(car, { opacity: 1, x: 0, scaleX: 1, rotate: 0 }, 0.1)
         .to(
           car,
           {
-            x: 600,
-            duration: 1.2,
-            ease: "power2.inOut",
+            x: 420,
+            duration: 1.8,
+            ease: "none",
           },
           0.1,
         )
@@ -158,11 +159,11 @@ const ContactSection = () => {
           car,
           {
             opacity: 0,
-            scaleX: 0.7,
-            duration: 0.3,
+            scale: 0.92,
+            duration: 0.2,
             ease: "power2.in",
           },
-          0.9,
+          1.4,
         );
     }
 
@@ -564,7 +565,7 @@ const ContactSection = () => {
                       ref={deliveryCarRef}
                       className="absolute inset-y-1/2 left-6 -translate-y-1/2 text-2xl opacity-0 whitespace-nowrap"
                     >
-                      🚚
+                      <Truck className="h-6 w-6" />
                     </div>
 
                     {/* Dust particles */}

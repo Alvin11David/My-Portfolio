@@ -538,6 +538,8 @@ const ContactSection = () => {
                     <MagneticButton
                       key={social.label}
                       href={social.href}
+                      target="_blank"
+                      rel="noreferrer"
                       className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl border border-border bg-card/50 text-muted-foreground transition-all duration-300 hover:border-primary hover:bg-primary/10 hover:text-primary"
                     >
                       <social.icon className="h-5 w-5" />

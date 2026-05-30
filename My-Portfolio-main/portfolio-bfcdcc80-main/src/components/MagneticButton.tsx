@@ -6,6 +6,8 @@ interface MagneticButtonProps {
   className?: string;
   strength?: number;
   href?: string;
+  target?: string;
+  rel?: string;
   onClick?: () => void;
 }
 
@@ -14,6 +16,8 @@ const MagneticButton = ({
   className = '', 
   strength = 0.4,
   href,
+  target,
+  rel,
   onClick 
 }: MagneticButtonProps) => {
   const buttonRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
@@ -65,6 +69,8 @@ const MagneticButton = ({
     <Component
       ref={buttonRef as any}
       href={href}
+      target={target}
+      rel={rel}
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

@@ -601,6 +601,7 @@ const ProjectsSection = () => {
 
               <div
                 className="flex-1 min-h-0 overflow-y-auto overscroll-contain sm:max-h-[calc(100vh-2rem)]"
+                data-lenis-prevent
                 style={{
                   WebkitOverflowScrolling: "touch",
                   touchAction: "pan-y",

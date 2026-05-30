@@ -47,7 +47,7 @@ const Index = () => {
         if (href && href !== "#" && href.length > 1) {
           const element = document.querySelector(href);
           if (element) {
-            lenis.scrollTo(element as HTMLElement, { offset: 0 });
+            lenis.scrollTo(element as HTMLElement, { offset: -80 });
           }
         }
       }

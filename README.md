@@ -22,12 +22,20 @@ The project showcase currently includes:
 3. C-Helper App
 4. Time Sync
 5. Bible App
+6. Veritas Institute
+7. Edwin's Bake House
+8. JamboPOS
 
-Project modals support external links where available, including:
+Project links currently available:
 
-- App Store links
-- Google Play links
-- Web app or website links
+- MUBS Locator: App Store + Web
+- Mchencuzi Audit: Internal showcase (no public live link listed)
+- C-Helper App: App Store + Google Play + Web
+- Time Sync: Web
+- Bible App: Web
+- Veritas Institute: Web
+- Edwin's Bake House: Web
+- JamboPOS: Web
 
 ## Tech Stack
 

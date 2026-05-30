@@ -13,7 +13,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogClose,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -26,6 +25,7 @@ const CoffeeSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [coffees, setCoffees] = useState(1);
   const [message, setMessage] = useState("");
+  const [isCoffeeDialogOpen, setIsCoffeeDialogOpen] = useState(false);
   const coffeePrice = 5;
 
   useGSAP(
@@ -99,7 +99,10 @@ const CoffeeSection = () => {
             </p>
 
             <div className="coffee-animate">
-              <Dialog>
+              <Dialog
+                open={isCoffeeDialogOpen}
+                onOpenChange={setIsCoffeeDialogOpen}
+              >
                 <DialogTrigger asChild>
                   <Button
                     size="lg"
@@ -111,112 +114,112 @@ const CoffeeSection = () => {
                     </span>
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-h-[calc(100vh-1.5rem)] overflow-y-auto rounded-t-[2rem] border-border bg-background p-5 backdrop-blur-2xl sm:max-w-[425px] sm:rounded-[2.5rem] sm:p-8">
-                  <DialogClose className="absolute right-4 top-4 rounded-full border border-border bg-background/90 p-2 text-muted-foreground shadow-sm transition-colors hover:border-primary hover:text-primary sm:right-4 sm:top-4">
-                    <span className="sr-only">Close</span>
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M18 6 6 18" />
-                      <path d="m6 6 12 12" />
-                    </svg>
-                  </DialogClose>
+                <DialogContent className="max-h-[92vh] overflow-hidden rounded-t-[2rem] border-border bg-background p-0 backdrop-blur-2xl sm:max-w-[440px] sm:rounded-[2.5rem]">
+                  <div className="h-2 w-full bg-gradient-to-r from-primary/80 via-blue-500/70 to-primary/80" />
 
-                  <DialogHeader className="mb-6 pr-10 sm:pr-0">
-                    <DialogTitle className="text-center font-serif text-2xl text-foreground sm:text-3xl">
-                      Fuel Creativity
-                    </DialogTitle>
-                    <DialogDescription className="mt-2 text-center text-sm text-muted-foreground sm:text-base">
-                      Choose how many coffees you'd like to send my way. $5 per
-                      coffee.
-                    </DialogDescription>
-                  </DialogHeader>
+                  <div
+                    className="max-h-[calc(92vh-0.5rem)] overflow-y-auto overscroll-contain px-5 pb-5 pt-6 sm:px-8 sm:pb-8"
+                    onWheelCapture={(e) => e.stopPropagation()}
+                  >
+                    <DialogHeader className="mb-6 pr-10 animate-in fade-in-0 slide-in-from-top-1 duration-300">
+                      <DialogTitle className="text-center font-serif text-2xl text-foreground sm:text-3xl">
+                        Fuel Creativity
+                      </DialogTitle>
+                      <DialogDescription className="mt-2 text-center text-sm text-muted-foreground sm:text-base">
+                        Choose how many coffees you'd like to send my way. $5 per
+                        coffee.
+                      </DialogDescription>
+                    </DialogHeader>
 
-                  <div className="grid gap-6 py-2 sm:gap-8 sm:py-4">
-                    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
-                      {[1, 3, 5].map((num) => (
-                        <button
-                          key={num}
-                          onClick={() => setCoffees(num)}
-                          className={`flex h-24 w-20 flex-col items-center justify-center rounded-3xl border transition-all duration-500 sm:h-28 sm:w-24 ${
-                            coffees === num
-                              ? "bg-primary border-primary text-primary-foreground shadow-2xl shadow-primary/40 scale-110 -translate-y-2"
-                              : "bg-secondary border-border text-muted-foreground hover:bg-secondary/80 hover:border-primary/50"
-                          }`}
-                        >
-                          <span className="mb-1 text-2xl sm:text-3xl">☕</span>
-                          <span className="text-lg font-black sm:text-xl">
-                            x{num}
+                    <div className="mb-5 flex items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary animate-in fade-in-0 slide-in-from-top-1 duration-500 sm:text-sm" style={{ animationDelay: "90ms" }}>
+                      <Sparkles className="h-4 w-4" />
+                      Quick support, huge impact
+                    </div>
+
+                    <div className="grid gap-6 py-1 animate-in fade-in-0 slide-in-from-bottom-1 duration-500 sm:gap-8 sm:py-3" style={{ animationDelay: "140ms" }}>
+                      <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
+                        {[1, 3, 5].map((num) => (
+                          <button
+                            key={num}
+                            onClick={() => setCoffees(num)}
+                            className={`flex h-24 w-20 flex-col items-center justify-center rounded-3xl border transition-all duration-500 animate-in fade-in-0 zoom-in-95 sm:h-28 sm:w-24 ${
+                              coffees === num
+                                ? "scale-110 -translate-y-2 border-primary bg-primary text-primary-foreground shadow-2xl shadow-primary/40"
+                                : "border-border bg-secondary text-muted-foreground hover:border-primary/50 hover:bg-secondary/80"
+                            }`}
+                            style={{ animationDelay: `${180 + num * 35}ms` }}
+                          >
+                            <span className="mb-1 text-2xl sm:text-3xl">☕</span>
+                            <span className="text-lg font-black sm:text-xl">
+                              x{num}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="space-y-5 sm:space-y-6">
+                        <div className="space-y-2">
+                          <label className="ml-1 text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
+                            Custom Amount
+                          </label>
+                          <div className="relative">
+                            <DollarSign className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
+                            <Input
+                              type="number"
+                              value={coffees}
+                              onChange={(e) =>
+                                setCoffees(
+                                  Math.max(1, parseInt(e.target.value) || 1),
+                                )
+                              }
+                              className="h-12 rounded-2xl border-border bg-secondary pl-12 text-base text-foreground focus:ring-primary/50 sm:h-14 sm:text-lg"
+                              placeholder="Enter number of coffees"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="ml-1 text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
+                            Your Message
+                          </label>
+                          <div className="relative">
+                            <MessageCircle className="absolute left-4 top-4 h-4 w-4 text-primary" />
+                            <Textarea
+                              placeholder="I love your work! Keep it up..."
+                              value={message}
+                              onChange={(e) => setMessage(e.target.value)}
+                              className="min-h-[110px] rounded-2xl border-border bg-secondary py-4 pl-12 text-base text-foreground focus:ring-primary/50 sm:min-h-[120px]"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="rounded-[1.5rem] border border-primary/20 bg-gradient-to-br from-primary/10 to-secondary p-4 shadow-inner sm:p-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm font-medium text-muted-foreground">
+                              Total Contribution
+                            </p>
+                            <p className="text-xs font-medium italic text-primary/60">
+                              Support helps a lot!
+                            </p>
+                          </div>
+                          <span className="text-3xl font-black text-primary drop-shadow-glow sm:text-4xl">
+                            ${coffees * coffeePrice}
                           </span>
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="space-y-5 sm:space-y-6">
-                      <div className="space-y-2">
-                        <label className="ml-1 text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
-                          Custom Amount
-                        </label>
-                        <div className="relative">
-                          <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" />
-                          <Input
-                            type="number"
-                            value={coffees}
-                            onChange={(e) =>
-                              setCoffees(
-                                Math.max(1, parseInt(e.target.value) || 1),
-                              )
-                            }
-                            className="h-12 rounded-2xl border-border bg-secondary pl-12 text-base text-foreground focus:ring-primary/50 sm:h-14 sm:text-lg"
-                            placeholder="Enter number of coffees"
-                          />
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <label className="ml-1 text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
-                          Your Message
-                        </label>
-                        <div className="relative">
-                          <MessageCircle className="absolute left-4 top-4 h-4 w-4 text-primary" />
-                          <Textarea
-                            placeholder="I love your work! Keep it up..."
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            className="min-h-[110px] rounded-2xl border-border bg-secondary py-4 pl-12 text-base text-foreground focus:ring-primary/50 sm:min-h-[120px]"
-                          />
-                        </div>
+                      <div className="sticky bottom-0 z-10 -mx-5 bg-background/95 px-5 pb-1 pt-3 backdrop-blur sm:-mx-8 sm:px-8">
+                        <Button
+                          onClick={handleSupport}
+                          className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-primary font-black text-lg text-background shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90 sm:h-16 sm:text-xl"
+                        >
+                          Support Now
+                          <Heart className="h-5 w-5 fill-background transition-transform duration-500 group-hover:scale-125 sm:h-6 sm:w-6" />
+                        </Button>
                       </div>
                     </div>
-
-                    <div className="flex items-center justify-between rounded-[1.5rem] border border-primary/20 bg-gradient-to-br from-primary/10 to-secondary p-4 shadow-inner sm:p-6">
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">
-                          Total Contribution
-                        </p>
-                        <p className="text-xs font-medium italic text-primary/60">
-                          Support helps a lot!
-                        </p>
-                      </div>
-                      <span className="text-3xl font-black text-primary drop-shadow-glow sm:text-4xl">
-                        ${coffees * coffeePrice}
-                      </span>
-                    </div>
-
-                    <Button
-                      onClick={handleSupport}
-                      className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-primary font-black text-lg text-background shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90 sm:h-16 sm:text-xl"
-                    >
-                      Support Now
-                      <Heart className="h-5 w-5 fill-background transition-transform duration-500 group-hover:scale-125 sm:h-6 sm:w-6" />
-                    </Button>
                   </div>
                 </DialogContent>
               </Dialog>

@@ -708,7 +708,10 @@ const ContactSection = () => {
                       <div className="water-wave-layer water-wave-layer--back" />
                       <div className="water-wave-layer water-wave-layer--front" />
 
-                      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden" aria-hidden="true">
+                      <div
+                        className="absolute inset-0 z-[1] pointer-events-none overflow-hidden"
+                        aria-hidden="true"
+                      >
                         {[...Array(4)].map((_, i) => (
                           <span
                             key={i}
@@ -718,7 +721,9 @@ const ContactSection = () => {
                             className="absolute bottom-5 text-[10px] sm:text-xs text-cyan-100/80 opacity-0 drop-shadow-[0_0_6px_rgba(186,255,255,0.45)]"
                             style={{ left: `${16 + i * 18}%` }}
                           >
-                            <span className="water-fish">&gt;&lt;(((('&gt;</span>
+                            <span className="water-fish">
+                              &gt;&lt;(((('&gt;
+                            </span>
                           </span>
                         ))}
                       </div>

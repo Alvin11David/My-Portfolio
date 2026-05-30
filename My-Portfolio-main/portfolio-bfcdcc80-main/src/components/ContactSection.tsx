@@ -24,6 +24,10 @@ import CloudWave from "./CloudWave";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "r1x2A2YyfHtXLLHR0";
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_b6hthi8";
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_mlr9hp4";
+
 const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -38,10 +42,7 @@ const ContactSection = () => {
 
   // Initialize EmailJS
   useEffect(() => {
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    if (publicKey) {
-      emailjs.init(publicKey);
-    }
+    emailjs.init(EMAILJS_PUBLIC_KEY);
   }, []);
 
   const [formData, setFormData] = useState({
@@ -94,24 +95,6 @@ const ContactSection = () => {
     e.preventDefault();
 
     if (isSending) return;
-
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-    const hasPlaceholderConfig =
-      serviceId === "service_your_service_id" ||
-      templateId === "template_your_template_id" ||
-      publicKey === "public_key_your_public_key";
-
-    if (!serviceId || !templateId || !publicKey || hasPlaceholderConfig) {
-      toast({
-        title: "Email is not configured",
-        description:
-          "Please set valid EmailJS service, template, and public key in environment variables.",
-        variant: "destructive",
-      });
-      return;
-    }
 
     // Validate form
     if (!validateForm()) {
@@ -245,8 +228,8 @@ const ContactSection = () => {
 
     try {
       await emailjs.send(
-        serviceId,
-        templateId,
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         {
           name: formData.name,
           email: formData.email,
@@ -254,7 +237,7 @@ const ContactSection = () => {
           title: "New Contact Message",
         },
         {
-          publicKey,
+          publicKey: EMAILJS_PUBLIC_KEY,
         },
       );
 

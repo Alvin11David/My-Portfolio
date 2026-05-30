@@ -1,73 +1,75 @@
 # Alvin Portfolio
 
-A modern personal portfolio built to present professional profile, technical skills, and selected products in a highly visual way.
+A polished personal portfolio for showing design work, engineering projects, and product thinking in one place.
 
-## What Is Inside
+## Overview
 
-This portfolio includes:
+This portfolio is built to present selected work in a visually rich layout with strong motion, clear content hierarchy, and smooth interactions. It highlights apps, web experiences, and systems across mobile, web, and AI-driven products.
 
-- Hero section with personal introduction and call-to-action
-- About section with background and profile story
-- Skills section grouped by frontend, backend, and infrastructure
-- Project showcase with rich cards and modal details
-- Contact section for inquiries and collaboration
-- Smooth scroll, custom cursor, progress indicators, and animated reveals
+## What It Includes
 
-## Featured Projects
+- Hero section with introduction and call to action
+- About section with background and profile summary
+- Skills section grouped by frontend, backend, and tools
+- Project showcase with folder-style grouping and detailed modals
+- Contact section for freelance, collaboration, and hiring inquiries
+- Custom cursor, scroll progress, animations, and smooth navigation
 
-The project showcase currently includes:
+## Featured Work
 
-1. MUBS Locator
-2. Mchencuzi Audit
-3. C-Helper App
-4. Time Sync
-5. Bible App
-6. Veritas Institute
-7. Edwin's Bake House
-8. JamboPOS
+- MUBS Locator
+- Mchencuzi Audit
+- C-Helper App
+- Time Sync
+- Bible App
+- Veritas Institute
+- Edwin's Bake House
+- JamboPOS
+- Student University Portal
+- Sunbird GenAI App
 
-Project links currently available:
+## Project Highlights
 
-- MUBS Locator: App Store + Web
-- Mchencuzi Audit: Internal showcase (no public live link listed)
-- C-Helper App: App Store + Google Play + Web
-- Time Sync: Web
-- Bible App: Web
-- Veritas Institute: Web
-- Edwin's Bake House: Web
-- JamboPOS: Web
+### Student University Portal
+
+A student portal designed to bring academic information, services, and university updates into one place with a Firebase backend.
+
+### Sunbird GenAI App
+
+An AI workflow app that can summarize text, translate it, generate audio, transcribe audio, and support multiple languages including Luganda, Runyankole, Ateso, Lugbara, and Acholi.
 
 ## Tech Stack
 
-Core technologies used in the frontend:
-
-- React + TypeScript
+- React
+- TypeScript
 - Vite
 - Tailwind CSS
-- shadcn/ui components
 - Framer Motion
-- GSAP + ScrollTrigger
+- GSAP and ScrollTrigger
+- shadcn/ui
+- Firebase
 
-## UI And Interaction Style
+## Scripts
 
-Design and motion characteristics:
+From the portfolio app directory:
 
-- Horizontal project storytelling section
-- Card depth, hover transforms, and reveal transitions
-- Glassmorphism overlays and gradient accents
-- Responsive behavior across desktop and mobile layouts
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
 
-## Project Structure
+## Folder Structure
 
-High-level frontend structure:
+- `src/components` - main sections and reusable UI pieces
+- `src/components/ui` - shadcn-based primitives
+- `src/assets/images` - project images and portfolio visuals
+- `src/pages` - route-level pages
+- `src/hooks` - custom hooks
+- `src/lib` - helpers and animation setup
 
-- src/components: Main UI sections and reusable UI blocks
-- src/components/ui: shadcn-based primitives
-- src/assets/images: Portfolio and project images
-- src/pages: Route-level pages
-- src/hooks: Custom React hooks
-- src/lib: Utility and animation setup helpers
+## Notes
 
-## Goal Of This Portfolio
-
-This project is focused on presenting product, design, and engineering capabilities in one place, while making it easy for visitors and potential clients/employers to explore real work quickly.
+This portfolio focuses on presentation, clarity, and motion, while keeping the work easy to browse on desktop and mobile.

@@ -65,6 +65,7 @@ const skillCategories: SkillCategory[] = [
     icon: <Cloud className="h-8 w-8 text-purple-400" />,
     skills: [
       { name: "Docker", level: 42 },
+      { name: "Render", level: 98 },
       { name: "Netlify", level: 95 },
       { name: "Vercel", level: 88 },
       { name: "Firebase / Supabase", level: 87 },

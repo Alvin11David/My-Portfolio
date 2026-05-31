@@ -7,27 +7,56 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "@/components/theme-provider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import { useEffect, useState } from "react";
+import SplashScreen from "@/components/SplashScreen";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <HelmetProvider>
-    <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  </HelmetProvider>
-);
+const App = () => {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const onLoad = () => {
+      // leave a tiny bit of time for the animation to be seen
+      setTimeout(() => setShowSplash(false), 700);
+    };
+
+    if (document.readyState === "complete") {
+      onLoad();
+    } else {
+      window.addEventListener("load", onLoad);
+      // fallback in case load doesn't fire
+      const fallback = setTimeout(onLoad, 2200);
+      return () => {
+        window.removeEventListener("load", onLoad);
+        clearTimeout(fallback);
+      };
+    }
+  }, []);
+
+  if (showSplash) {
+    return <SplashScreen onFinish={() => setShowSplash(false)} />;
+  }
+
+  return (
+    <HelmetProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </HelmetProvider>
+  );
+};
 
 export default App;

@@ -1,289 +1,479 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { gsap } from "gsap";
 
 interface SplashProps {
   onFinish?: () => void;
 }
 
-const LEVELS = [
-  { name: "Warming Up", duration: 700 },
-  { name: "Rendering", duration: 800 },
-  { name: "Polishing", duration: 700 },
-  { name: "Ready", duration: 600 },
+const STAGES = [
+  { name: "Loading Assets",   duration: 700 },
+  { name: "Preparing Layout", duration: 650 },
+  { name: "Applying Styles",  duration: 550 },
+  { name: "Rendering Views",  duration: 500 },
+  { name: "Final Polish",     duration: 400 },
 ];
 
+const MESSAGES = [
+  "Every great design begins with an even better story",
+  "Craft that whispers before it speaks",
+  "Beauty is the argument that wins without words",
+  "Where precision and poetry share the same breath",
+];
+
+// ─── Particle system ────────────────────────────────────────────────────────
+interface Particle {
+  x: number; y: number; r: number;
+  vx: number; vy: number;
+  life: number; maxLife: number;
+  rgb: string;
+}
+
+function makeParticle(cw: number, ch: number, init = false): Particle {
+  const g  = Math.floor(Math.random() * 60  + 120);
+  const rr = Math.floor(Math.random() * 20  + 175);
+  return {
+    x: Math.random() * cw,
+    y: init ? Math.random() * ch : ch + 10,
+    r: Math.random() * 1.4 + 0.3,
+    vx: (Math.random() - 0.5) * 0.18,
+    vy: -(Math.random() * 0.45 + 0.1),
+    life: 0,
+    maxLife: Math.random() * 220 + 100,
+    rgb: `${rr},${g},38`,
+  };
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
 const SplashScreen = ({ onFinish }: SplashProps) => {
-  const [progress, setProgress] = useState(0);
-  const [ready, setReady] = useState(false);
-  const [started, setStarted] = useState(false);
-  const [levelIndex, setLevelIndex] = useState(-1);
-  const [levelProgress, setLevelProgress] = useState(0);
-  const rafRef = useRef<number | null>(null);
+  // refs
+  const rootRef    = useRef<HTMLDivElement>(null);
+  const sceneRef   = useRef<HTMLDivElement>(null);
+  const canvasRef  = useRef<HTMLCanvasElement>(null);
+  const rafBgRef   = useRef<number>(0);
+  const particlesRef = useRef<Particle[]>([]);
+  const msgTimerRef  = useRef<ReturnType<typeof setInterval> | null>(null);
+  const tlRef        = useRef<gsap.core.Timeline | null>(null);
 
-  // initial faux-loading
+  // state
+  const [started,      setStarted]      = useState(false);
+  const [stageIndex,   setStageIndex]   = useState(-1);
+  const [stageProgress,setStageProgress]= useState(0);
+  const [stageLabel,   setStageLabel]   = useState("Initialising");
+  const [msgIndex,     setMsgIndex]     = useState(0);
+  const [showSuccess,  setShowSuccess]  = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
+  const [confetti,     setConfetti]     = useState<{ left: number; delay: number; bg: string }[]>([]);
+
+  // ── Canvas particle loop ──────────────────────────────────────────────────
   useEffect(() => {
-    let raf: number | null = null;
-    let start: number | null = null;
-    const duration = 1200; // ms
+    const canvas = canvasRef.current;
+    const root   = rootRef.current;
+    if (!canvas || !root) return;
 
-    const step = (timestamp: number) => {
-      if (start === null) start = timestamp;
-      const elapsed = timestamp - start;
-      const pct = Math.min(1, elapsed / duration);
-      setProgress(Math.round(pct * 100));
-      if (elapsed < duration) {
-        raf = requestAnimationFrame(step);
-      } else {
-        setProgress(100);
-        setTimeout(() => setReady(true), 180);
-      }
+    const ctx = canvas.getContext("2d")!;
+    const resize = () => {
+      canvas.width  = root.offsetWidth;
+      canvas.height = root.offsetHeight;
     };
+    resize();
+    window.addEventListener("resize", resize);
 
-    raf = requestAnimationFrame(step);
-    rafRef.current = raf;
+    const cw = () => canvas.width;
+    const ch = () => canvas.height;
+    particlesRef.current = Array.from({ length: 90 }, () =>
+      makeParticle(cw(), ch(), true)
+    );
+
+    const loop = () => {
+      rafBgRef.current = requestAnimationFrame(loop);
+      ctx.clearRect(0, 0, cw(), ch());
+
+      const g = ctx.createRadialGradient(
+        cw() / 2, ch() * 0.38, 0,
+        cw() / 2, ch() / 2,    cw() * 0.85
+      );
+      g.addColorStop(0,   "rgba(38,18,8,1)");
+      g.addColorStop(0.5, "rgba(22,10,5,1)");
+      g.addColorStop(1,   "rgba(10,7,3,1)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, cw(), ch());
+
+      particlesRef.current.forEach(p => {
+        p.x += p.vx; p.y += p.vy; p.life++;
+        if (p.life > p.maxLife || p.y < -10) {
+          Object.assign(p, makeParticle(cw(), ch(), false));
+        }
+        const a = Math.sin((p.life / p.maxLife) * Math.PI) * 0.55;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.rgb},${a})`;
+        ctx.fill();
+      });
+    };
+    loop();
+
     return () => {
-      if (raf) cancelAnimationFrame(raf);
+      cancelAnimationFrame(rafBgRef.current);
+      window.removeEventListener("resize", resize);
     };
   }, []);
 
-  // run level sequence when started
+  // ── GSAP entrance timeline ────────────────────────────────────────────────
   useEffect(() => {
-    if (!started) return;
+    const tl = gsap.timeline({ delay: 0.3 });
+    tlRef.current = tl;
 
-    let cancelled = false;
+    tl
+      .to(".sp-corner",    { opacity: 1, duration: 0.7, stagger: 0.15, ease: "power2.out" })
+      .to(".sp-deco-l",    { width: "36%", duration: 1.3, ease: "power3.out" }, 0.3)
+      .to(".sp-deco-r",    { width: "36%", duration: 1.3, ease: "power3.out" }, 0.3)
+      .to("#sp-fc1",       { opacity: 1, y: -12, duration: 2.2, ease: "power2.out" }, 0.2)
+      .to("#sp-fc2",       { opacity: 1, y:  12, duration: 2.2, ease: "power2.out" }, 0.5)
+      .to("#sp-fc3",       { opacity: 1,         duration: 2.2, ease: "power2.out" }, 0.7)
+      .to("#sp-eyebrow",   { opacity: 1, y: 0,   duration: 0.8, ease: "power3.out" }, 0.6)
+      .fromTo("#sp-tl1",
+        { opacity: 0, rotateX: -90, y: 30, transformOrigin: "center bottom" },
+        { opacity: 1, rotateX:   0, y:  0, duration: 1.1, ease: "back.out(1.5)" }, 1.1)
+      .fromTo("#sp-tl2",
+        { opacity: 0, rotateX:  90, y: -30, transformOrigin: "center top" },
+        { opacity: 1, rotateX:   0, y:   0, duration: 1.1, ease: "back.out(1.5)" }, 1.35)
+      .to("#sp-tl3",   { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 1.9)
+      .to("#sp-rule",  { width: 320,        duration: 1.3, ease: "power3.inOut" }, 1.7)
+      .to("#sp-msgs",  { opacity: 1,        duration: 0.7, ease: "power2.out" }, 2.3)
+      .to("#sp-btns",  { opacity: 1, y: 0,  duration: 0.9, ease: "back.out(1.7)" }, 2.5);
 
-    const runLevel = async (index: number) => {
-      setLevelIndex(index);
-      setLevelProgress(0);
-      const { duration } = LEVELS[index];
-      const startTime = performance.now();
+    // Ambient floats
+    gsap.to("#sp-tl1",  { rotateY:  4, duration: 7,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2 });
+    gsap.to("#sp-tl2",  { rotateY: -4, duration: 8,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2.5 });
+    gsap.to("#sp-fc1",  { y: "-=18",   duration: 5,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.2 });
+    gsap.to("#sp-fc2",  { y: "+=14",   duration: 6,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.8 });
+    gsap.to("#sp-fc3",  { y: "-=10",   duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.9 });
 
-      return new Promise<void>((resolve) => {
-        const loop = (now: number) => {
-          if (cancelled) return resolve();
-          const elapsed = now - startTime;
-          const pct = Math.min(1, elapsed / duration);
-          setLevelProgress(Math.round(pct * 100));
-          if (pct < 1) {
-            requestAnimationFrame(loop);
-          } else {
-            // small pause between levels
-            setTimeout(resolve, 260);
-          }
-        };
-        requestAnimationFrame(loop);
-      });
-    };
-
-    (async () => {
-      for (let i = 0; i < LEVELS.length; i++) {
-        // eslint-disable-next-line no-await-in-loop
-        await runLevel(i);
-      }
-      if (!cancelled) {
-        // final flourish before finishing: show confetti then finish
-        setLevelIndex(LEVELS.length - 1);
-        setLevelProgress(100);
-        setShowConfetti(true);
-        setTimeout(() => onFinish && onFinish(), 900);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [started, onFinish]);
-
-  const roles = ["Designer", "Developer", "Creator"];
-  const [roleIndex, setRoleIndex] = useState(0);
-  useEffect(() => {
-    if (started) return; // stop cycling once started
-    const id = setInterval(
-      () => setRoleIndex((i) => (i + 1) % roles.length),
-      1400,
+    // First message fade in
+    gsap.fromTo("#sp-msg-0",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.8, delay: 2.6 }
     );
-    return () => clearInterval(id);
+
+    return () => { tl.kill(); };
+  }, []);
+
+  // ── Message carousel ──────────────────────────────────────────────────────
+  useEffect(() => {
+    if (started) return;
+    msgTimerRef.current = setInterval(() => {
+      setMsgIndex(prev => {
+        const next = (prev + 1) % MESSAGES.length;
+        gsap.to(`#sp-msg-${prev}`, { opacity: 0, y: -12, duration: 0.5, ease: "power2.in" });
+        gsap.fromTo(`#sp-msg-${next}`,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y:  0, duration: 0.7, delay: 0.35, ease: "power2.out" }
+        );
+        return next;
+      });
+    }, 3400);
+    return () => { if (msgTimerRef.current) clearInterval(msgTimerRef.current); };
   }, [started]);
 
-  const [showConfetti, setShowConfetti] = useState(false);
+  // ── 3D mouse tilt ─────────────────────────────────────────────────────────
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const root = rootRef.current;
+    const scene = sceneRef.current;
+    if (!root || !scene) return;
+    const { left, top, width, height } = root.getBoundingClientRect();
+    const mx = (e.clientX - left) / width  - 0.5;
+    const my = (e.clientY - top)  / height - 0.5;
+    gsap.to(scene, {
+      rotateY: mx * 9, rotateX: -my * 6,
+      duration: 0.55, ease: "power2.out",
+      transformPerspective: 1400,
+      transformOrigin: "center center",
+    });
+    gsap.to("#sp-fc1", { x: mx * 28,  duration: 0.8, ease: "power2.out" });
+    gsap.to("#sp-fc2", { x: mx * -22, duration: 0.8, ease: "power2.out" });
+    gsap.to("#sp-fc3", { x: mx * 16,  duration: 0.8, ease: "power2.out" });
+  }, []);
 
-  const handleStart = () => {
-    setStarted(true);
+  const handleMouseLeave = useCallback(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    gsap.to(scene, { rotateY: 0, rotateX: 0, duration: 1.2, ease: "elastic.out(1,0.5)" });
+  }, []);
+
+  // ── Button hover ─────────────────────────────────────────────────────────
+  const handleEnterHover  = () => gsap.to("#sp-enter-btn", { scale: 1.07, y: -3, rotateX: 12, duration: 0.35, ease: "back.out(2)", transformPerspective: 600 });
+  const handleEnterUnhover= () => gsap.to("#sp-enter-btn", { scale: 1,    y:  0, rotateX:  0, duration: 0.5,  ease: "elastic.out(1,0.6)" });
+
+  // ── Progress animation helper ─────────────────────────────────────────────
+  const animateTo = (
+    cur: { v: number },
+    target: number,
+    dur: number,
+    onTick: (v: number) => void,
+    onDone: () => void
+  ) => {
+    const start = cur.v;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p    = Math.min(1, (now - t0) / dur);
+      const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      cur.v = Math.round(start + (target - start) * ease);
+      onTick(cur.v);
+      if (p < 1) requestAnimationFrame(step);
+      else { cur.v = target; onTick(target); onDone(); }
+    };
+    requestAnimationFrame(step);
   };
 
+  // ── Enter sequence ────────────────────────────────────────────────────────
+  const handleEnter = () => {
+    if (msgTimerRef.current) clearInterval(msgTimerRef.current);
+    setStarted(true);
+
+    gsap.to("#sp-msgs", { opacity: 0, y: -8, duration: 0.4 });
+    gsap.to("#sp-btns", { opacity: 0, y:  8, duration: 0.4 });
+
+    setTimeout(() => {
+      setShowProgress(true);
+      gsap.fromTo("#sp-progress",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y:  0, duration: 0.7, ease: "power3.out" }
+      );
+      gsap.to("#sp-prog-glow", { opacity: 1, duration: 0.5, delay: 0.3 });
+
+      const cur = { v: 0 };
+
+      // assign end values inline since STAGES doesn't have them
+      const enriched = STAGES.map((s, i) => ({ ...s, end: [28,54,75,91,100][i] }));
+      const runEnriched = (i: number) => {
+        if (i >= enriched.length) { finishLoad(); return; }
+        const s = enriched[i];
+        setStageIndex(i);
+        setStageLabel(s.name);
+        gsap.fromTo("#sp-stage-label",
+          { opacity: 0, x: -6 },
+          { opacity: 1, x:  0, duration: 0.4 }
+        );
+        animateTo(cur, s.end, s.duration,
+          v => setStageProgress(v),
+          () => setTimeout(() => runEnriched(i + 1), 160)
+        );
+      };
+      runEnriched(0);
+    }, 500);
+  };
+
+  const finishLoad = () => {
+    gsap.to("#sp-progress", {
+      opacity: 0, y: -10, duration: 0.5,
+      onComplete: () => {
+        setShowProgress(false);
+
+        // Confetti
+        setConfetti(
+          Array.from({ length: 42 }, (_, i) => ({
+            left:  Math.random() * 100,
+            delay: Math.random() * 0.7,
+            bg: ["#C9A84C","#D4AF50","#F0D080","#8B3A2A","#A89FE0","#F9F5EE"][i % 6],
+          }))
+        );
+
+        setShowSuccess(true);
+        gsap.fromTo("#sp-success",
+          { opacity: 0, scale: 0.6, y: 24 },
+          { opacity: 1, scale: 1,   y:  0, duration: 0.9, ease: "back.out(1.8)" }
+        );
+        gsap.to("#sp-tl1", { color: "#D4AF50", duration: 0.9, delay: 0.3 });
+        gsap.fromTo("#sp-rule", { opacity: 1 }, { opacity: 0.2, duration: 0.5, yoyo: true, repeat: 3 });
+
+        setTimeout(() => onFinish?.(), 1800);
+      },
+    });
+  };
+
+  // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div
-      aria-hidden={false}
-      role="status"
-      aria-label="Loading portfolio"
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-b from-background to-transparent"
-    >
-      <div className="relative flex w-full max-w-3xl flex-col items-center gap-6 px-6">
-        <div className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className="rounded-full p-4 glow-lg bg-gradient-to-r from-primary to-glow-secondary">
-              <svg
-                width="56"
-                height="56"
-                viewBox="0 0 120 120"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <defs>
-                  <linearGradient id="g" x1="0" x2="1">
-                    <stop offset="0%" stopColor="#00f5d4" />
-                    <stop offset="100%" stopColor="#b76cff" />
-                  </linearGradient>
-                </defs>
-                <circle
-                  cx="60"
-                  cy="60"
-                  r="44"
-                  stroke="url(#g)"
-                  strokeWidth="10"
-                  strokeLinecap="round"
-                  strokeDasharray="200"
-                  strokeDashoffset="0"
-                >
-                  <animate
-                    attributeName="stroke-dashoffset"
-                    from="200"
-                    to="0"
-                    dur="1.4s"
-                    fill="freeze"
-                  />
-                </circle>
-                <text
-                  x="50%"
-                  y="54%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                  fontFamily="Playfair Display, Georgia, serif"
-                  fontSize="34"
-                  fill="#fff"
-                >
-                  P
-                </text>
-              </svg>
-            </div>
+    <>
+      {/* Google Fonts */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Tenor+Sans&family=Crimson+Pro:ital,wght@0,200;0,300;1,200;1,300&display=swap');
 
-            <div className="text-left">
-              <h1 className="font-serif text-3xl font-bold tracking-tight text-foreground">
-                Portfolio<span className="text-primary">.</span>
-              </h1>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Crafting digital experiences — interactive intro
-              </p>
-            </div>
+        .sp-root { font-family: 'Tenor Sans', sans-serif; }
+
+        /* corners */
+        .sp-corner { opacity: 0; position: absolute; width: 28px; height: 28px; border-color: rgba(180,149,42,0.35); border-style: solid; }
+        .sp-corner-tl { top: 28px; left: 28px; border-width: 1px 0 0 1px; }
+        .sp-corner-tr { top: 28px; right: 28px; border-width: 1px 1px 0 0; }
+        .sp-corner-bl { bottom: 28px; left: 28px; border-width: 0 0 1px 1px; }
+        .sp-corner-br { bottom: 28px; right: 28px; border-width: 0 1px 1px 0; }
+
+        /* deco lines */
+        .sp-deco-l, .sp-deco-r { position: absolute; top: 50%; height: 1px; width: 0; opacity: 0.22; }
+        .sp-deco-l { left: 0; background: linear-gradient(90deg, #B8952A, transparent); }
+        .sp-deco-r { right: 0; background: linear-gradient(270deg, #B8952A, transparent); }
+
+        /* floating background chars */
+        .sp-fc { position: absolute; pointer-events: none; opacity: 0; font-family: 'DM Serif Display', serif; font-style: italic; color: rgba(180,149,42,0.055); user-select: none; line-height: 1; transform-style: preserve-3d; }
+
+        /* title */
+        .sp-tl1 { font-family: 'DM Serif Display', serif; font-style: italic; font-weight: 400; color: #F9F5EE; line-height: 0.9; display: block; opacity: 0; transform-style: preserve-3d; }
+        .sp-tl2 { font-family: 'DM Serif Display', serif; font-weight: 400; color: transparent; -webkit-text-stroke: 1px #D4AF50; line-height: 0.9; display: block; opacity: 0; transform-style: preserve-3d; }
+        .sp-tl3 { font-family: 'Crimson Pro', serif; font-weight: 200; font-style: italic; color: #F0D080; letter-spacing: 3px; display: block; opacity: 0; margin-top: 18px; }
+
+        /* gold rule */
+        .sp-rule { height: 1px; width: 0; background: linear-gradient(90deg, transparent 0%, #B8952A 25%, #D4AF50 50%, #B8952A 75%, transparent 100%); margin: 30px auto; }
+
+        /* messages */
+        .sp-msg { position: absolute; width: 100%; font-family: 'Crimson Pro', serif; font-size: 16px; font-weight: 300; font-style: italic; color: #A09070; letter-spacing: 0.5px; opacity: 0; transform: translateY(12px); }
+
+        /* buttons */
+        .sp-enter-btn { font-family: 'Tenor Sans', sans-serif; font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: #1A0F08; background: linear-gradient(135deg,#B8952A,#D4AF50,#F0D080,#D4AF50); background-size: 200% auto; border: none; border-radius: 2px; padding: 15px 48px; cursor: pointer; transform-style: preserve-3d; transition: background-position 0.4s; outline: none; }
+        .sp-enter-btn:hover { background-position: right center; }
+        .sp-ghost-btn { font-family: 'Tenor Sans', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #D4AF50; background: transparent; border: 1px solid rgba(180,149,42,0.3); border-radius: 2px; padding: 15px 36px; cursor: pointer; transition: border-color 0.3s, color 0.3s; outline: none; }
+        .sp-ghost-btn:hover { border-color: #D4AF50; color: #F0D080; }
+
+        /* progress */
+        .sp-prog-track { height: 1px; background: rgba(180,149,42,0.15); position: relative; }
+        .sp-prog-fill  { height: 100%; width: 0%; background: linear-gradient(90deg,#8B3A2A,#B8952A,#D4AF50); position: absolute; top: 0; left: 0; }
+        .sp-prog-glow  { position: absolute; top: -4px; right: 0; width: 8px; height: 8px; border-radius: 50%; background: #D4AF50; box-shadow: 0 0 10px 3px rgba(212,175,80,0.7); opacity: 0; }
+        .sp-stage-label { font-family: 'Tenor Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #6A6050; }
+        .sp-pct-label   { font-family: 'Crimson Pro', serif; font-size: 14px; font-style: italic; color: #D4AF50; }
+
+        /* success */
+        .sp-badge-ring { width: 68px; height: 68px; border-radius: 50%; border: 1px solid #D4AF50; display: flex; align-items: center; justify-content: center; position: relative; }
+        .sp-burst { position: absolute; border-radius: 50%; border: 1px solid #D4AF50; width: 100%; height: 100%; animation: spBurst 1s ease forwards; }
+        @keyframes spBurst { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
+        .sp-badge-text { font-family: 'Crimson Pro', serif; font-size: 15px; font-style: italic; font-weight: 200; color: #D4AF50; letter-spacing: 2px; }
+
+        /* confetti */
+        .sp-confetti-piece { position: absolute; top: -10px; width: 7px; height: 10px; border-radius: 2px; animation: spFall 1.4s ease-in forwards; }
+        @keyframes spFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(560px) rotate(540deg); opacity: 0; } }
+      `}</style>
+
+      <div
+        ref={rootRef}
+        className="sp-root"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          position: "fixed", inset: 0, zIndex: 9999,
+          overflow: "hidden", perspective: "1400px",
+        }}
+      >
+        {/* Particle canvas */}
+        <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }} />
+
+        {/* Corner ornaments */}
+        <div className="sp-corner sp-corner-tl" />
+        <div className="sp-corner sp-corner-tr" />
+        <div className="sp-corner sp-corner-bl" />
+        <div className="sp-corner sp-corner-br" />
+
+        {/* Deco lines */}
+        <div className="sp-deco-l" />
+        <div className="sp-deco-r" />
+
+        {/* Background letterforms */}
+        <div id="sp-fc1" className="sp-fc" style={{ fontSize: "clamp(100px,22vw,200px)", top: "2%", left: "1%" }}>W</div>
+        <div id="sp-fc2" className="sp-fc" style={{ fontSize: "clamp(80px,16vw,150px)", bottom: "4%", right: "2%" }}>P</div>
+        <div id="sp-fc3" className="sp-fc" style={{ fontSize: "clamp(60px,10vw,110px)", top: "18%", right: "6%" }}>&amp;</div>
+
+        {/* Scene (3D tilt target) */}
+        <div
+          ref={sceneRef}
+          style={{
+            position: "relative", zIndex: 2,
+            width: "100%", height: "100%",
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+            transformStyle: "preserve-3d",
+            padding: "60px 40px",
+          }}
+        >
+          {/* Eyebrow */}
+          <div id="sp-eyebrow" style={{ fontFamily: "'Tenor Sans', sans-serif", fontSize: 11, letterSpacing: 6, textTransform: "uppercase", color: "#D4AF50", opacity: 0, marginBottom: 22 }}>
+            Portfolio — Est. 2024
           </div>
 
-          <div className="ml-auto hidden sm:block text-right text-xs text-muted-foreground">
-            Click start to begin
+          {/* Title */}
+          <div style={{ textAlign: "center", transformStyle: "preserve-3d" }}>
+            <span id="sp-tl1" className="sp-tl1" style={{ fontSize: "clamp(52px,9vw,88px)" }}>Welcome</span>
+            <span id="sp-tl2" className="sp-tl2" style={{ fontSize: "clamp(52px,9vw,88px)" }}>Traveller</span>
+            <span id="sp-tl3" className="sp-tl3" style={{ fontSize: "clamp(15px,2vw,21px)" }}>
+              A curated space where design meets intention
+            </span>
           </div>
-        </div>
 
-        {/* Loading or level UI */}
-        {!started ? (
-          <>
-            <div className="w-full rounded-full bg-card/40 p-1">
-              <div
-                className="h-2 rounded-full bg-gradient-to-r from-primary via-glow-secondary to-primary transition-all"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+          {/* Gold rule */}
+          <div id="sp-rule" className="sp-rule" />
 
-            <div className="flex w-full items-center justify-between text-xs text-muted-foreground">
-              <span>
-                {ready ? "Ready — press Start" : "Initializing visuals"}
-              </span>
-              <span>{progress}%</span>
-            </div>
+          {/* Message carousel */}
+          <div id="sp-msgs" style={{ height: 30, overflow: "hidden", position: "relative", width: "min(420px, 90vw)", textAlign: "center", opacity: 0 }}>
+            {MESSAGES.map((msg, i) => (
+              <div key={i} id={`sp-msg-${i}`} className="sp-msg">{msg}</div>
+            ))}
+          </div>
 
-            <div className="mt-4 w-full flex items-center justify-center">
+          {/* Buttons */}
+          {!started && (
+            <div id="sp-btns" style={{ display: "flex", gap: 16, alignItems: "center", marginTop: 36, opacity: 0, flexWrap: "wrap", justifyContent: "center" }}>
               <button
-                className={`rounded-full px-8 py-3 text-sm font-semibold transition-transform duration-300 transform-gpu ${
-                  ready
-                    ? "bg-gradient-to-r from-primary to-glow-secondary text-primary-foreground hover:scale-105 shadow-2xl"
-                    : "bg-card/30 text-muted-foreground cursor-not-allowed opacity-60"
-                }`}
-                onClick={handleStart}
-                disabled={!ready}
-                aria-label="Enter the portfolio"
+                id="sp-enter-btn"
+                className="sp-enter-btn"
+                onMouseEnter={handleEnterHover}
+                onMouseLeave={handleEnterUnhover}
+                onClick={handleEnter}
               >
-                Enter Portfolio
+                Enter
+              </button>
+              <button className="sp-ghost-btn">
+                Discover ↗
               </button>
             </div>
-          </>
-        ) : (
-          <div className="w-full">
-            <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-              <span>
-                {LEVELS[Math.max(0, Math.min(levelIndex, LEVELS.length - 1))]
-                  ?.name || "Starting"}
-              </span>
-              <span>{levelProgress}%</span>
-            </div>
+          )}
 
-            <div className="w-full rounded-full bg-card/40 p-1">
-              <div
-                className="h-2 rounded-full bg-gradient-to-r from-primary via-glow-secondary to-primary transition-all"
-                style={{ width: `${levelProgress}%` }}
-              />
+          {/* Progress */}
+          {showProgress && (
+            <div id="sp-progress" style={{ marginTop: 44, width: "min(320px,80vw)", opacity: 0 }}>
+              <div className="sp-prog-track">
+                <div className="sp-prog-fill" style={{ width: `${stageProgress}%` }} />
+                <div id="sp-prog-glow" className="sp-prog-glow" style={{ left: `${stageProgress}%`, opacity: 0 }} />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12 }}>
+                <span id="sp-stage-label" className="sp-stage-label">{stageLabel}</span>
+                <span className="sp-pct-label">{stageProgress}%</span>
+              </div>
             </div>
+          )}
 
-            <div className="mt-6 flex justify-center gap-4">
-              {LEVELS.map((l, i) => (
-                <div key={l.name} className="flex flex-col items-center gap-2">
-                  <div
-                    className={`h-4 w-4 rounded-full transition-transform duration-300 ${
-                      i <= levelIndex
-                        ? "bg-primary scale-110 shadow-lg"
-                        : "bg-card/30"
-                    }`}
-                    aria-hidden
-                  />
-                  <div className="text-[10px] text-muted-foreground">
-                    {i + 1}
-                  </div>
-                </div>
-              ))}
+          {/* Success */}
+          {showSuccess && (
+            <div id="sp-success" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, marginTop: 44, opacity: 0 }}>
+              <div className="sp-badge-ring">
+                <div className="sp-burst" />
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                  <path d="M5 13L10.5 18.5L21 8" stroke="#D4AF50" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <span className="sp-badge-text">You are most welcome</span>
             </div>
-          </div>
-        )}
-
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="pointer-events-none absolute -left-40 -top-40 h-[420px] w-[420px] rounded-full bg-primary/10 blur-3xl animate-float" />
-          <div className="pointer-events-none absolute -right-40 -bottom-40 h-[360px] w-[360px] rounded-full bg-glow-secondary/8 blur-2xl animate-gradient-shift" />
+          )}
         </div>
-        {/* confetti container */}
-        {showConfetti && (
-          <div className="pointer-events-none confetti-container absolute inset-0 z-40">
-            {Array.from({ length: 36 }).map((_, i) => {
-              const left = Math.random() * 100;
-              const delay = Math.random() * 0.6;
-              const bg = [
-                "#FF6B6B",
-                "#FFD93D",
-                "#6BCB77",
-                "#4D96FF",
-                "#B76CFF",
-              ][i % 5];
-              return (
-                <span
-                  key={i}
-                  className="confetti-piece"
-                  style={{
-                    left: `${left}%`,
-                    background: bg,
-                    animationDelay: `${delay}s`,
-                  }}
-                />
-              );
-            })}
+
+        {/* Confetti */}
+        {confetti.length > 0 && (
+          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 40, overflow: "hidden" }}>
+            {confetti.map((c, i) => (
+              <span
+                key={i}
+                className="sp-confetti-piece"
+                style={{ left: `${c.left}%`, background: c.bg, animationDelay: `${c.delay}s` }}
+              />
+            ))}
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -16,9 +16,11 @@ const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
+    const splashDuration = 5000;
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+
     const onLoad = () => {
-      // leave a tiny bit of time for the animation to be seen
-      setTimeout(() => setShowSplash(false), 700);
+      hideTimer = setTimeout(() => setShowSplash(false), splashDuration);
     };
 
     if (document.readyState === "complete") {
@@ -26,10 +28,10 @@ const App = () => {
     } else {
       window.addEventListener("load", onLoad);
       // fallback in case load doesn't fire
-      const fallback = setTimeout(onLoad, 2200);
+      hideTimer = setTimeout(onLoad, splashDuration);
       return () => {
         window.removeEventListener("load", onLoad);
-        clearTimeout(fallback);
+        if (hideTimer) clearTimeout(hideTimer);
       };
     }
   }, []);

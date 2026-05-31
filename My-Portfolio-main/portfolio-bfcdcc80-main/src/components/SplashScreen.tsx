@@ -22,13 +22,7 @@ const MESSAGES = [
   "Where precision and poetry share the same breath",
 ];
 
-const CONFETTI_COLORS = [
-  "#00E5CE",
-  "#66FFF1",
-  "#E6FFFD",
-  "#00C9B4",
-  "#00E5CE",
-];
+const CONFETTI_COLORS = ["#00E5CE", "#66FFF1", "#E6FFFD", "#00C9B4", "#00E5CE"];
 
 /* ─── Particle system ────────────────────────────────────────────────────── */
 

@@ -727,7 +727,10 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           </div>
 
           {/* Title */}
-          <div className="sp-copy-wrap" style={{ transformStyle: "preserve-3d" }}>
+          <div
+            className="sp-copy-wrap"
+            style={{ transformStyle: "preserve-3d" }}
+          >
             <span
               id="sp-tl1"
               className="sp-tl1"
@@ -749,7 +752,9 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
             >
               A curated space where design meets intention
             </span>
-            <div className="sp-tagline">A dark, premium experience crafted to match the portfolio</div>
+            <div className="sp-tagline">
+              A dark, premium experience crafted to match the portfolio
+            </div>
           </div>
 
           {/* Gold divider */}

@@ -16,24 +16,9 @@ const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    const splashDuration = 5000;
-    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+    const hideTimer = setTimeout(() => setShowSplash(false), 5000);
 
-    const onLoad = () => {
-      hideTimer = setTimeout(() => setShowSplash(false), splashDuration);
-    };
-
-    if (document.readyState === "complete") {
-      onLoad();
-    } else {
-      window.addEventListener("load", onLoad);
-      // fallback in case load doesn't fire
-      hideTimer = setTimeout(onLoad, splashDuration);
-      return () => {
-        window.removeEventListener("load", onLoad);
-        if (hideTimer) clearTimeout(hideTimer);
-      };
-    }
+    return () => clearTimeout(hideTimer);
   }, []);
 
   if (showSplash) {

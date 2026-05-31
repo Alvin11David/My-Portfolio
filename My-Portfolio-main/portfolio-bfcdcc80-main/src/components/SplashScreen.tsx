@@ -11,7 +11,6 @@ const STAGES = [
   { name: "Loading Assets", duration: 700, end: 28 },
   { name: "Preparing Layout", duration: 650, end: 54 },
   { name: "Applying Styles", duration: 550, end: 75 },
-  { name: "Rendering Views", duration: 500, end: 91 },
   { name: "Final Polish", duration: 400, end: 100 },
 ];
 
@@ -88,15 +87,18 @@ const STYLES = `
     font-family: 'DM Serif Display', serif; font-style: italic;
     font-weight: 400; color: #F9F5EE; line-height: 0.9;
     display: block; opacity: 1; transform-style: preserve-3d;
+    margin-bottom: 6px;
   }
   .sp-tl2 {
     font-family: 'DM Serif Display', serif; font-weight: 400;
     color: transparent; -webkit-text-stroke: 1px #00E5CE;
     line-height: 0.9; display: block; opacity: 1; transform-style: preserve-3d;
+    margin-bottom: 14px;
   }
   .sp-tl3 {
     font-family: 'Crimson Pro', serif; font-weight: 200; font-style: italic;
-    color: hsl(173 100% 82%); letter-spacing: 3px; display: block; opacity: 1; margin-top: 18px;
+    color: hsl(173 100% 82%); letter-spacing: 3px; display: block; opacity: 1;
+    margin-top: 20px; max-width: 720px; text-wrap: balance;
   }
 
   .sp-rule {
@@ -106,11 +108,12 @@ const STYLES = `
   }
 
   .sp-msg {
-    position: absolute; width: 100%;
+    position: absolute; top: 0; width: 100%;
     font-family: 'Crimson Pro', serif; font-size: 16px;
     font-weight: 300; font-style: italic;
     color: hsl(0 0% 96% / 0.8); letter-spacing: 0.5px;
     opacity: 0.9; transform: translateY(12px);
+    left: 50%; transform: translate(-50%, 12px); max-width: 420px;
   }
 
   .sp-enter-btn {
@@ -180,13 +183,30 @@ const STYLES = `
   }
 
   .sp-tagline {
-    margin-top: 14px;
+    margin-top: 18px;
     font-family: 'Crimson Pro', serif;
     font-size: 15px;
     font-style: italic;
     color: hsl(173 100% 82% / 0.92);
     letter-spacing: 1px;
     opacity: 0.9;
+  }
+
+  .sp-copy-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: min(860px, 92vw);
+    text-align: center;
+  }
+
+  .sp-actions-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-top: 8px;
   }
 
   .sp-scanline {
@@ -707,18 +727,18 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           </div>
 
           {/* Title */}
-          <div style={{ textAlign: "center", transformStyle: "preserve-3d" }}>
+          <div className="sp-copy-wrap" style={{ transformStyle: "preserve-3d" }}>
             <span
               id="sp-tl1"
               className="sp-tl1"
-              style={{ fontSize: "clamp(52px,9vw,88px)" }}
+              style={{ fontSize: "clamp(52px,9vw,94px)" }}
             >
               Welcome
             </span>
             <span
               id="sp-tl2"
               className="sp-tl2"
-              style={{ fontSize: "clamp(52px,9vw,88px)" }}
+              style={{ fontSize: "clamp(52px,9vw,94px)" }}
             >
               Traveller
             </span>
@@ -729,9 +749,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
             >
               A curated space where design meets intention
             </span>
-            <div className="sp-tagline">
-              A dark, premium experience crafted to match the portfolio
-            </div>
+            <div className="sp-tagline">A dark, premium experience crafted to match the portfolio</div>
           </div>
 
           {/* Gold divider */}
@@ -741,12 +759,13 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           <div
             id="sp-msgs"
             style={{
-              height: 30,
+              height: 44,
               overflow: "hidden",
               position: "relative",
               width: "min(420px, 90vw)",
               textAlign: "center",
               opacity: 0,
+              marginTop: 6,
             }}
           >
             {MESSAGES.map((msg, i) => (
@@ -760,11 +779,12 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           {showBtns && (
             <div
               id="sp-btns"
+              className="sp-actions-wrap"
               style={{
                 display: "flex",
                 gap: 16,
                 alignItems: "center",
-                marginTop: 36,
+                marginTop: 0,
                 opacity: 0, // starts invisible; GSAP fades in
                 flexWrap: "wrap",
                 justifyContent: "center",
@@ -795,7 +815,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           {showProgress && (
             <div
               id="sp-progress"
-              style={{ marginTop: 44, width: "min(320px,80vw)", opacity: 0 }}
+              style={{ marginTop: 40, width: "min(320px,80vw)", opacity: 0 }}
             >
               <div className="sp-prog-track">
                 <div
@@ -833,7 +853,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: 16,
-                marginTop: 44,
+                marginTop: 40,
                 opacity: 0,
               }}
             >

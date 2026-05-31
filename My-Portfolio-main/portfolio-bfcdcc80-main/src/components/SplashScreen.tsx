@@ -122,22 +122,32 @@ const STYLES = `
     color: hsl(240 15% 3%);
     background: linear-gradient(135deg, #00E5CE, #66FFF1, #00E5CE, #00C9B4);
     background-size: 200% auto;
-    border: none; border-radius: 2px;
+    border: 1px solid hsl(173 100% 45% / 0.55); border-radius: 999px;
     padding: 15px 48px; cursor: pointer;
     transform-style: preserve-3d;
-    transition: background-position 0.4s; outline: none;
+    transition: background-position 0.4s, transform 0.2s, box-shadow 0.2s; outline: none;
+    box-shadow: 0 14px 30px hsl(173 100% 45% / 0.16);
   }
-  .sp-enter-btn:hover { background-position: right center; }
+  .sp-enter-btn:hover {
+    background-position: right center;
+    transform: translateY(-1px);
+    box-shadow: 0 18px 34px hsl(173 100% 45% / 0.22);
+  }
 
   .sp-ghost-btn {
     font-family: 'Tenor Sans', sans-serif; font-size: 11px;
     letter-spacing: 3px; text-transform: uppercase;
     color: #00E5CE; background: transparent;
-    border: 1px solid hsl(173 100% 45% / 0.3); border-radius: 2px;
+    border: 1px solid hsl(173 100% 45% / 0.3); border-radius: 999px;
     padding: 15px 36px; cursor: pointer;
-    transition: border-color 0.3s, color 0.3s; outline: none;
+    transition: border-color 0.3s, color 0.3s, transform 0.2s, background-color 0.2s; outline: none;
+    backdrop-filter: blur(10px);
   }
-  .sp-ghost-btn:hover { border-color: #66FFF1; color: #E6FFFD; }
+  .sp-ghost-btn:hover {
+    border-color: #66FFF1; color: #E6FFFD;
+    transform: translateY(-1px);
+    background-color: hsl(173 100% 45% / 0.06);
+  }
 
   .sp-prog-track { height: 1px; background: hsl(0 0% 100% / 0.10); position: relative; }
   .sp-prog-fill  {
@@ -736,24 +746,25 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
               className="sp-tl1"
               style={{ fontSize: "clamp(52px,9vw,94px)" }}
             >
-              Welcome
+              Welcome to
             </span>
             <span
               id="sp-tl2"
               className="sp-tl2"
               style={{ fontSize: "clamp(52px,9vw,94px)" }}
             >
-              Traveller
+              Waluube Alvin David&apos;s Portfolio
             </span>
             <span
               id="sp-tl3"
               className="sp-tl3"
               style={{ fontSize: "clamp(15px,2vw,21px)" }}
             >
-              A curated space where design meets intention
+              A cinematic space where code, motion, and design move as one
             </span>
             <div className="sp-tagline">
-              A dark, premium experience crafted to match the portfolio
+              A crafted introduction to the work, the detail, and the story
+              behind it
             </div>
           </div>
 

@@ -27,36 +27,20 @@ const CONFETTI_COLORS = [
   "#66FFF1",
   "#E6FFFD",
   "#00C9B4",
-            Portfolio — Est. 2024
-          </div>
-          <div
-            id="sp-eyebrow"
-            style={{
-              fontFamily: "'Tenor Sans', sans-serif",
-              fontSize: 11,
-              letterSpacing: 6,
-              textTransform: "uppercase",
-              color: "#00E5CE",
-              opacity: 0,
-              marginBottom: 22,
-            }}
-          >
-            Portfolio — Est. 2024
-          </div>
   "#00E5CE",
 ];
 
 /* ─── Particle system ────────────────────────────────────────────────────── */
 
 interface Particle {
-              Welcome
+  x: number;
   y: number;
   r: number;
   vx: number;
   vy: number;
   life: number;
   maxLife: number;
-              Traveller
+  rgb: string;
 }
 
 function makeParticle(cw: number, ch: number, init = false): Particle {
@@ -610,7 +594,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
               ease: "back.out(1.8)",
             },
           );
-          gsap.to("#sp-tl1", { color: "#D4AF50", duration: 0.9, delay: 0.3 });
+          gsap.to("#sp-tl1", { color: "#00E5CE", duration: 0.9, delay: 0.3 });
           gsap.fromTo(
             "#sp-rule",
             { opacity: 1 },
@@ -720,7 +704,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
               fontSize: 11,
               letterSpacing: 6,
               textTransform: "uppercase",
-              color: "#D4AF50",
+              color: "#00E5CE",
               opacity: 0,
               marginBottom: 22,
             }}

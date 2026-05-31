@@ -8,11 +8,11 @@ interface SplashProps {
 }
 
 const STAGES = [
-  { name: "Loading Assets",   duration: 700, end: 28  },
-  { name: "Preparing Layout", duration: 650, end: 54  },
-  { name: "Applying Styles",  duration: 550, end: 75  },
-  { name: "Rendering Views",  duration: 500, end: 91  },
-  { name: "Final Polish",     duration: 400, end: 100 },
+  { name: "Loading Assets", duration: 700, end: 28 },
+  { name: "Preparing Layout", duration: 650, end: 54 },
+  { name: "Applying Styles", duration: 550, end: 75 },
+  { name: "Rendering Views", duration: 500, end: 91 },
+  { name: "Final Polish", duration: 400, end: 100 },
 ];
 
 const MESSAGES = [
@@ -22,15 +22,41 @@ const MESSAGES = [
   "Where precision and poetry share the same breath",
 ];
 
-const CONFETTI_COLORS = ["#36E7D8", "#22D3EE", "#A855F7", "#C084FC", "#F8FAFC", "#8B5CF6"];
+const CONFETTI_COLORS = [
+  "#00E5CE",
+  "#66FFF1",
+  "#E6FFFD",
+  "#00C9B4",
+            Portfolio — Est. 2024
+          </div>
+          <div
+            id="sp-eyebrow"
+            style={{
+              fontFamily: "'Tenor Sans', sans-serif",
+              fontSize: 11,
+              letterSpacing: 6,
+              textTransform: "uppercase",
+              color: "#00E5CE",
+              opacity: 0,
+              marginBottom: 22,
+            }}
+          >
+            Portfolio — Est. 2024
+          </div>
+  "#00E5CE",
+];
 
 /* ─── Particle system ────────────────────────────────────────────────────── */
 
 interface Particle {
-  x: number; y: number; r: number;
-  vx: number; vy: number;
-  life: number; maxLife: number;
-  rgb: string;
+              Welcome
+  y: number;
+  r: number;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+              Traveller
 }
 
 function makeParticle(cw: number, ch: number, init = false): Particle {
@@ -60,7 +86,7 @@ const STYLES = `
 
   .sp-corner {
     opacity: 0; position: absolute; width: 28px; height: 28px;
-    border-color: hsl(174 100% 45% / 0.35); border-style: solid;
+    border-color: hsl(173 100% 45% / 0.35); border-style: solid;
   }
   .sp-corner-tl { top: 28px; left: 28px;   border-width: 1px 0 0 1px; }
   .sp-corner-tr { top: 28px; right: 28px;  border-width: 1px 1px 0 0; }
@@ -70,13 +96,13 @@ const STYLES = `
   .sp-deco-l, .sp-deco-r {
     position: absolute; top: 50%; height: 1px; width: 0; opacity: 0.22;
   }
-  .sp-deco-l { left: 0;  background: linear-gradient(90deg,  hsl(174 100% 45%), transparent); }
-  .sp-deco-r { right: 0; background: linear-gradient(270deg, hsl(280 100% 60%), transparent); }
+  .sp-deco-l { left: 0;  background: linear-gradient(90deg,  #00E5CE, transparent); }
+  .sp-deco-r { right: 0; background: linear-gradient(270deg, #00E5CE, transparent); }
 
   .sp-fc {
     position: absolute; pointer-events: none; opacity: 0;
     font-family: 'DM Serif Display', serif; font-style: italic;
-    color: hsl(174 100% 45% / 0.06); user-select: none;
+    color: hsl(173 100% 45% / 0.06); user-select: none;
     line-height: 1; transform-style: preserve-3d;
   }
 
@@ -87,17 +113,17 @@ const STYLES = `
   }
   .sp-tl2 {
     font-family: 'DM Serif Display', serif; font-weight: 400;
-    color: transparent; -webkit-text-stroke: 1px hsl(174 100% 45%);
+    color: transparent; -webkit-text-stroke: 1px #00E5CE;
     line-height: 0.9; display: block; opacity: 1; transform-style: preserve-3d;
   }
   .sp-tl3 {
     font-family: 'Crimson Pro', serif; font-weight: 200; font-style: italic;
-    color: hsl(280 100% 80%); letter-spacing: 3px; display: block; opacity: 1; margin-top: 18px;
+    color: hsl(173 100% 82%); letter-spacing: 3px; display: block; opacity: 1; margin-top: 18px;
   }
 
   .sp-rule {
     height: 1px; width: 0;
-    background: linear-gradient(90deg, transparent 0%, hsl(174 100% 45%) 25%, hsl(280 100% 60%) 50%, hsl(174 100% 45%) 75%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, #00E5CE 25%, #66FFF1 50%, #00E5CE 75%, transparent 100%);
     margin: 30px auto;
   }
 
@@ -105,7 +131,7 @@ const STYLES = `
     position: absolute; width: 100%;
     font-family: 'Crimson Pro', serif; font-size: 16px;
     font-weight: 300; font-style: italic;
-    color: hsl(0 0% 92% / 0.72); letter-spacing: 0.5px;
+    color: hsl(0 0% 96% / 0.8); letter-spacing: 0.5px;
     opacity: 0.9; transform: translateY(12px);
   }
 
@@ -113,7 +139,7 @@ const STYLES = `
     font-family: 'Tenor Sans', sans-serif; font-size: 11px;
     letter-spacing: 5px; text-transform: uppercase;
     color: hsl(240 15% 3%);
-    background: linear-gradient(135deg, hsl(174 100% 45%), hsl(190 100% 55%), hsl(280 100% 60%), hsl(174 100% 45%));
+    background: linear-gradient(135deg, #00E5CE, #66FFF1, #00E5CE, #00C9B4);
     background-size: 200% auto;
     border: none; border-radius: 2px;
     padding: 15px 48px; cursor: pointer;
@@ -125,45 +151,45 @@ const STYLES = `
   .sp-ghost-btn {
     font-family: 'Tenor Sans', sans-serif; font-size: 11px;
     letter-spacing: 3px; text-transform: uppercase;
-    color: hsl(174 100% 45%); background: transparent;
-    border: 1px solid hsl(174 100% 45% / 0.3); border-radius: 2px;
+    color: #00E5CE; background: transparent;
+    border: 1px solid hsl(173 100% 45% / 0.3); border-radius: 2px;
     padding: 15px 36px; cursor: pointer;
     transition: border-color 0.3s, color 0.3s; outline: none;
   }
-  .sp-ghost-btn:hover { border-color: hsl(280 100% 60%); color: hsl(280 100% 80%); }
+  .sp-ghost-btn:hover { border-color: #66FFF1; color: #E6FFFD; }
 
   .sp-prog-track { height: 1px; background: hsl(0 0% 100% / 0.10); position: relative; }
   .sp-prog-fill  {
     height: 100%; position: absolute; top: 0; left: 0;
-    background: linear-gradient(90deg, hsl(174 100% 45%), hsl(190 100% 55%), hsl(280 100% 60%));
+    background: linear-gradient(90deg, #00E5CE, #66FFF1, #00E5CE);
     transition: width 0.04s linear;
   }
   .sp-prog-glow {
     position: absolute; top: -4px; width: 8px; height: 8px;
-    border-radius: 50%; background: hsl(174 100% 45%);
-    box-shadow: 0 0 10px 3px hsl(174 100% 45% / 0.7); opacity: 0;
+    border-radius: 50%; background: #00E5CE;
+    box-shadow: 0 0 10px 3px hsl(173 100% 45% / 0.7); opacity: 0;
     transition: left 0.04s linear;
   }
   .sp-stage-lbl {
     font-family: 'Tenor Sans', sans-serif; font-size: 10px;
-    letter-spacing: 3px; text-transform: uppercase; color: hsl(240 5% 65% / 0.8);
+    letter-spacing: 3px; text-transform: uppercase; color: hsl(240 5% 78% / 0.82);
   }
   .sp-pct-lbl {
     font-family: 'Crimson Pro', serif; font-size: 14px;
-    font-style: italic; color: hsl(174 100% 45%);
+    font-style: italic; color: #00E5CE;
     font-variant-numeric: tabular-nums;
   }
 
   .sp-badge-ring {
     width: 68px; height: 68px; border-radius: 50%;
-    border: 1px solid hsl(174 100% 45%);
+    border: 1px solid #00E5CE;
     display: flex; align-items: center; justify-content: center;
     position: relative;
-    box-shadow: 0 0 30px hsl(174 100% 45% / 0.15);
+    box-shadow: 0 0 30px hsl(173 100% 45% / 0.15);
   }
   .sp-burst {
     position: absolute; border-radius: 50%;
-    border: 1px solid hsl(280 100% 60%); width: 100%; height: 100%;
+    border: 1px solid #00E5CE; width: 100%; height: 100%;
     animation: spBurst 1s ease forwards;
   }
   @keyframes spBurst {
@@ -172,7 +198,7 @@ const STYLES = `
   }
   .sp-badge-txt {
     font-family: 'Crimson Pro', serif; font-size: 15px;
-    font-style: italic; font-weight: 200; color: hsl(0 0% 92% / 0.86); letter-spacing: 2px;
+    font-style: italic; font-weight: 200; color: hsl(0 0% 96% / 0.9); letter-spacing: 2px;
   }
 
   .sp-tagline {
@@ -180,7 +206,7 @@ const STYLES = `
     font-family: 'Crimson Pro', serif;
     font-size: 15px;
     font-style: italic;
-    color: hsl(280 100% 80% / 0.88);
+    color: hsl(173 100% 82% / 0.92);
     letter-spacing: 1px;
     opacity: 0.9;
   }
@@ -188,7 +214,7 @@ const STYLES = `
   .sp-scanline {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 0%, hsl(174 100% 45% / 0.06) 48%, transparent 52%);
+    background: linear-gradient(180deg, transparent 0%, hsl(173 100% 45% / 0.06) 48%, transparent 52%);
     background-size: 100% 180px;
     mix-blend-mode: screen;
     pointer-events: none;
@@ -213,51 +239,68 @@ const STYLES = `
 /* ─── Component ──────────────────────────────────────────────────────────── */
 
 const SplashScreen = ({ onFinish }: SplashProps) => {
-  const rootRef      = useRef<HTMLDivElement>(null);
-  const sceneRef     = useRef<HTMLDivElement>(null);
-  const canvasRef    = useRef<HTMLCanvasElement>(null);
-  const rafBgRef     = useRef<number>(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rafBgRef = useRef<number>(0);
   const particlesRef = useRef<Particle[]>([]);
-  const msgTimerRef  = useRef<ReturnType<typeof setInterval> | null>(null);
-  const startedRef   = useRef(false);         // sync flag for handlers
+  const msgTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startedRef = useRef(false); // sync flag for handlers
 
-  const [msgIndex,      setMsgIndex]      = useState(0);
+  const [msgIndex, setMsgIndex] = useState(0);
   const [stageProgress, setStageProgress] = useState(0);
-  const [stageLabel,    setStageLabel]    = useState("Initialising");
-  const [showProgress,  setShowProgress]  = useState(false);
-  const [showSuccess,   setShowSuccess]   = useState(false);
-  const [showBtns,      setShowBtns]      = useState(false); // mount btns AFTER timeline starts
-  const [confetti, setConfetti] = useState<{ left: number; delay: number; bg: string }[]>([]);
+  const [stageLabel, setStageLabel] = useState("Initialising");
+  const [showProgress, setShowProgress] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showBtns, setShowBtns] = useState(false); // mount btns AFTER timeline starts
+  const [confetti, setConfetti] = useState<
+    { left: number; delay: number; bg: string }[]
+  >([]);
 
   /* ── Canvas ── */
   useEffect(() => {
     const canvas = canvasRef.current;
-    const root   = rootRef.current;
+    const root = rootRef.current;
     if (!canvas || !root) return;
     const ctx = canvas.getContext("2d")!;
 
-    const resize = () => { canvas.width = root.offsetWidth; canvas.height = root.offsetHeight; };
+    const resize = () => {
+      canvas.width = root.offsetWidth;
+      canvas.height = root.offsetHeight;
+    };
     resize();
     window.addEventListener("resize", resize);
 
     const cw = () => canvas.width;
     const ch = () => canvas.height;
-    particlesRef.current = Array.from({ length: 90 }, () => makeParticle(cw(), ch(), true));
+    particlesRef.current = Array.from({ length: 90 }, () =>
+      makeParticle(cw(), ch(), true),
+    );
 
     const loop = () => {
       rafBgRef.current = requestAnimationFrame(loop);
       ctx.clearRect(0, 0, cw(), ch());
 
-      const g = ctx.createRadialGradient(cw()/2, ch()*0.38, 0, cw()/2, ch()/2, cw()*0.85);
-      g.addColorStop(0,   "rgba(38,18,8,1)");
+      const g = ctx.createRadialGradient(
+        cw() / 2,
+        ch() * 0.38,
+        0,
+        cw() / 2,
+        ch() / 2,
+        cw() * 0.85,
+      );
+      g.addColorStop(0, "rgba(38,18,8,1)");
       g.addColorStop(0.5, "rgba(22,10,5,1)");
-      g.addColorStop(1,   "rgba(10,7,3,1)");
+      g.addColorStop(1, "rgba(10,7,3,1)");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, cw(), ch());
 
-      particlesRef.current.forEach(p => {
-        p.x += p.vx; p.y += p.vy; p.life++;
-        if (p.life > p.maxLife || p.y < -10) Object.assign(p, makeParticle(cw(), ch(), false));
+      particlesRef.current.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life++;
+        if (p.life > p.maxLife || p.y < -10)
+          Object.assign(p, makeParticle(cw(), ch(), false));
         const a = Math.sin((p.life / p.maxLife) * Math.PI) * 0.55;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -267,7 +310,10 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
     };
     loop();
 
-    return () => { cancelAnimationFrame(rafBgRef.current); window.removeEventListener("resize", resize); };
+    return () => {
+      cancelAnimationFrame(rafBgRef.current);
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
   /* ── GSAP entrance timeline ── */
@@ -279,38 +325,114 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
     const tid = setTimeout(() => {
       const tl = gsap.timeline();
 
-      tl
-        .to(".sp-corner", { opacity: 1, duration: 0.7, stagger: 0.15, ease: "power2.out" })
-        .to(".sp-deco-l",  { width: "36%", duration: 1.3, ease: "power3.out" }, 0.3)
-        .to(".sp-deco-r",  { width: "36%", duration: 1.3, ease: "power3.out" }, 0.3)
-        .to("#sp-fc1",     { opacity: 1, y: -12, duration: 2.2, ease: "power2.out" }, 0.2)
-        .to("#sp-fc2",     { opacity: 1, y:  12, duration: 2.2, ease: "power2.out" }, 0.5)
-        .to("#sp-fc3",     { opacity: 1,         duration: 2.2, ease: "power2.out" }, 0.7)
-        .to("#sp-eyebrow", { opacity: 1, y: 0,   duration: 0.8, ease: "power3.out" }, 0.6)
-        .fromTo("#sp-tl1",
+      tl.to(".sp-corner", {
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.15,
+        ease: "power2.out",
+      })
+        .to(
+          ".sp-deco-l",
+          { width: "36%", duration: 1.3, ease: "power3.out" },
+          0.3,
+        )
+        .to(
+          ".sp-deco-r",
+          { width: "36%", duration: 1.3, ease: "power3.out" },
+          0.3,
+        )
+        .to(
+          "#sp-fc1",
+          { opacity: 1, y: -12, duration: 2.2, ease: "power2.out" },
+          0.2,
+        )
+        .to(
+          "#sp-fc2",
+          { opacity: 1, y: 12, duration: 2.2, ease: "power2.out" },
+          0.5,
+        )
+        .to("#sp-fc3", { opacity: 1, duration: 2.2, ease: "power2.out" }, 0.7)
+        .to(
+          "#sp-eyebrow",
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          0.6,
+        )
+        .fromTo(
+          "#sp-tl1",
           { rotateX: -45, y: 24, transformOrigin: "center bottom" },
-          { rotateX:   0, y:  0, duration: 1.1, ease: "back.out(1.5)" }, 1.1)
-        .fromTo("#sp-tl2",
-          { rotateX:  45, y: -24, transformOrigin: "center top" },
-          { rotateX:   0, y:   0, duration: 1.1, ease: "back.out(1.5)" }, 1.35)
-        .to("#sp-tl3",  { y: 0, duration: 0.9, ease: "power3.out" }, 1.9)
+          { rotateX: 0, y: 0, duration: 1.1, ease: "back.out(1.5)" },
+          1.1,
+        )
+        .fromTo(
+          "#sp-tl2",
+          { rotateX: 45, y: -24, transformOrigin: "center top" },
+          { rotateX: 0, y: 0, duration: 1.1, ease: "back.out(1.5)" },
+          1.35,
+        )
+        .to("#sp-tl3", { y: 0, duration: 0.9, ease: "power3.out" }, 1.9)
         .to(".sp-tagline", { y: 0, duration: 0.8, ease: "power2.out" }, 2.05)
-        .to("#sp-rule", { width: 320,  duration: 1.3, ease: "power3.inOut" }, 1.7)
-        .to("#sp-msgs", { opacity: 1,  duration: 0.7, ease: "power2.out" }, 2.3)
+        .to(
+          "#sp-rule",
+          { width: 320, duration: 1.3, ease: "power3.inOut" },
+          1.7,
+        )
+        .to("#sp-msgs", { opacity: 1, duration: 0.7, ease: "power2.out" }, 2.3)
         // Buttons were already rendered; animate them in from opacity 0
-        .fromTo("#sp-btns",
+        .fromTo(
+          "#sp-btns",
           { opacity: 0, y: 16 },
-          { opacity: 1, y:  0, duration: 0.9, ease: "back.out(1.7)" }, 2.5);
+          { opacity: 1, y: 0, duration: 0.9, ease: "back.out(1.7)" },
+          2.5,
+        );
 
       // Ambient idle loops
-      gsap.to("#sp-tl1", { rotateY:  4, duration: 7,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2 });
-      gsap.to("#sp-tl2", { rotateY: -4, duration: 8,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2.5 });
-      gsap.to("#sp-fc1", { y: "-=18",   duration: 5,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.2 });
-      gsap.to("#sp-fc2", { y: "+=14",   duration: 6,   repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.8 });
-      gsap.to("#sp-fc3", { y: "-=10",   duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.9 });
+      gsap.to("#sp-tl1", {
+        rotateY: 4,
+        duration: 7,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 2,
+      });
+      gsap.to("#sp-tl2", {
+        rotateY: -4,
+        duration: 8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 2.5,
+      });
+      gsap.to("#sp-fc1", {
+        y: "-=18",
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 1.2,
+      });
+      gsap.to("#sp-fc2", {
+        y: "+=14",
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 1.8,
+      });
+      gsap.to("#sp-fc3", {
+        y: "-=10",
+        duration: 4.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 0.9,
+      });
 
       // First message
-      gsap.fromTo("#sp-msg-0", { opacity: 0.2, y: 12 }, { opacity: 0.9, y: 0, duration: 0.8, delay: 2.6 });
+      gsap.fromTo(
+        "#sp-msg-0",
+        { opacity: 0.2, y: 12 },
+        { opacity: 0.9, y: 0, duration: 0.8, delay: 2.6 },
+      );
     }, 50);
 
     return () => clearTimeout(tid);
@@ -320,55 +442,91 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
   useEffect(() => {
     msgTimerRef.current = setInterval(() => {
       if (startedRef.current) return;
-      setMsgIndex(prev => {
+      setMsgIndex((prev) => {
         const next = (prev + 1) % MESSAGES.length;
-        gsap.to(`#sp-msg-${prev}`, { opacity: 0, y: -12, duration: 0.5, ease: "power2.in" });
-        gsap.fromTo(`#sp-msg-${next}`,
+        gsap.to(`#sp-msg-${prev}`, {
+          opacity: 0,
+          y: -12,
+          duration: 0.5,
+          ease: "power2.in",
+        });
+        gsap.fromTo(
+          `#sp-msg-${next}`,
           { opacity: 0, y: 12 },
-          { opacity: 1, y:  0, duration: 0.7, delay: 0.35, ease: "power2.out" });
+          { opacity: 1, y: 0, duration: 0.7, delay: 0.35, ease: "power2.out" },
+        );
         return next;
       });
     }, 3400);
-    return () => { if (msgTimerRef.current) clearInterval(msgTimerRef.current); };
+    return () => {
+      if (msgTimerRef.current) clearInterval(msgTimerRef.current);
+    };
   }, []);
 
   /* ── 3D tilt ── */
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const root  = rootRef.current;
+    const root = rootRef.current;
     const scene = sceneRef.current;
     if (!root || !scene) return;
     const { left, top, width, height } = root.getBoundingClientRect();
-    const mx = (e.clientX - left) / width  - 0.5;
-    const my = (e.clientY - top)  / height - 0.5;
+    const mx = (e.clientX - left) / width - 0.5;
+    const my = (e.clientY - top) / height - 0.5;
     gsap.to(scene, {
-      rotateY: mx * 9, rotateX: -my * 6,
-      duration: 0.55, ease: "power2.out",
-      transformPerspective: 1400, transformOrigin: "center center",
+      rotateY: mx * 9,
+      rotateX: -my * 6,
+      duration: 0.55,
+      ease: "power2.out",
+      transformPerspective: 1400,
+      transformOrigin: "center center",
     });
-    gsap.to("#sp-fc1", { x: mx *  28, duration: 0.8, ease: "power2.out" });
+    gsap.to("#sp-fc1", { x: mx * 28, duration: 0.8, ease: "power2.out" });
     gsap.to("#sp-fc2", { x: mx * -22, duration: 0.8, ease: "power2.out" });
-    gsap.to("#sp-fc3", { x: mx *  16, duration: 0.8, ease: "power2.out" });
+    gsap.to("#sp-fc3", { x: mx * 16, duration: 0.8, ease: "power2.out" });
   }, []);
 
   const handleMouseLeave = useCallback(() => {
     const scene = sceneRef.current;
     if (!scene) return;
-    gsap.to(scene, { rotateY: 0, rotateX: 0, duration: 1.2, ease: "elastic.out(1,0.5)" });
+    gsap.to(scene, {
+      rotateY: 0,
+      rotateX: 0,
+      duration: 1.2,
+      ease: "elastic.out(1,0.5)",
+    });
   }, []);
 
   /* ── Button micro-interactions ── */
-  const onEnterEnter  = () => gsap.to("#sp-enter-btn", { scale: 1.07, y: -3, rotateX: 12, duration: 0.35, ease: "back.out(2)",       transformPerspective: 600 });
-  const onEnterLeave  = () => gsap.to("#sp-enter-btn", { scale: 1,    y:  0, rotateX:  0, duration: 0.5,  ease: "elastic.out(1,0.6)" });
+  const onEnterEnter = () =>
+    gsap.to("#sp-enter-btn", {
+      scale: 1.07,
+      y: -3,
+      rotateX: 12,
+      duration: 0.35,
+      ease: "back.out(2)",
+      transformPerspective: 600,
+    });
+  const onEnterLeave = () =>
+    gsap.to("#sp-enter-btn", {
+      scale: 1,
+      y: 0,
+      rotateX: 0,
+      duration: 0.5,
+      ease: "elastic.out(1,0.6)",
+    });
 
   /* ── Progress rAF helper ── */
   const animateTo = (
-    cur: { v: number }, target: number, dur: number,
-    onTick: (v: number) => void, onDone: () => void
+    cur: { v: number },
+    target: number,
+    dur: number,
+    onTick: (v: number) => void,
+    onDone: () => void,
   ) => {
-    const start = cur.v, t0 = performance.now();
+    const start = cur.v,
+      t0 = performance.now();
     const step = (now: number) => {
-      const p    = Math.min(1, (now - t0) / dur);
-      const ease = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p+2, 2)/2;
+      const p = Math.min(1, (now - t0) / dur);
+      const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
       cur.v = Math.round(start + (target - start) * ease);
       onTick(cur.v);
       p < 1 ? requestAnimationFrame(step) : (onTick(target), onDone());
@@ -383,24 +541,41 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
     if (msgTimerRef.current) clearInterval(msgTimerRef.current);
 
     gsap.to("#sp-msgs", { opacity: 0, y: -8, duration: 0.4 });
-    gsap.to("#sp-btns", { opacity: 0, y:  8, duration: 0.4 });
+    gsap.to("#sp-btns", { opacity: 0, y: 8, duration: 0.4 });
 
     setTimeout(() => {
       setShowProgress(true);
 
       // GSAP targets the element after React renders it
       requestAnimationFrame(() => {
-        gsap.fromTo("#sp-progress", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" });
-        gsap.to("#sp-prog-glow",    { opacity: 1, duration: 0.5, delay: 0.3 });
+        gsap.fromTo(
+          "#sp-progress",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+        );
+        gsap.to("#sp-prog-glow", { opacity: 1, duration: 0.5, delay: 0.3 });
       });
 
       const cur = { v: 0 };
       const run = (i: number) => {
-        if (i >= STAGES.length) { finishLoad(); return; }
+        if (i >= STAGES.length) {
+          finishLoad();
+          return;
+        }
         const s = STAGES[i];
         setStageLabel(s.name);
-        gsap.fromTo("#sp-stage-lbl", { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: 0.4 });
-        animateTo(cur, s.end, s.duration, v => setStageProgress(v), () => setTimeout(() => run(i + 1), 160));
+        gsap.fromTo(
+          "#sp-stage-lbl",
+          { opacity: 0, x: -6 },
+          { opacity: 1, x: 0, duration: 0.4 },
+        );
+        animateTo(
+          cur,
+          s.end,
+          s.duration,
+          (v) => setStageProgress(v),
+          () => setTimeout(() => run(i + 1), 160),
+        );
       };
       run(0);
     }, 500);
@@ -409,22 +584,38 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
   /* ── Finish ── */
   const finishLoad = () => {
     gsap.to("#sp-progress", {
-      opacity: 0, y: -10, duration: 0.5,
+      opacity: 0,
+      y: -10,
+      duration: 0.5,
       onComplete: () => {
         setShowProgress(false);
-        setConfetti(Array.from({ length: 42 }, (_, i) => ({
-          left:  Math.random() * 100,
-          delay: Math.random() * 0.7,
-          bg:    CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-        })));
+        setConfetti(
+          Array.from({ length: 42 }, (_, i) => ({
+            left: Math.random() * 100,
+            delay: Math.random() * 0.7,
+            bg: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+          })),
+        );
         setShowSuccess(true);
 
         requestAnimationFrame(() => {
-          gsap.fromTo("#sp-success",
+          gsap.fromTo(
+            "#sp-success",
             { opacity: 0, scale: 0.6, y: 24 },
-            { opacity: 1, scale: 1,   y:  0, duration: 0.9, ease: "back.out(1.8)" });
+            {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              duration: 0.9,
+              ease: "back.out(1.8)",
+            },
+          );
           gsap.to("#sp-tl1", { color: "#D4AF50", duration: 0.9, delay: 0.3 });
-          gsap.fromTo("#sp-rule", { opacity: 1 }, { opacity: 0.2, duration: 0.5, yoyo: true, repeat: 3 });
+          gsap.fromTo(
+            "#sp-rule",
+            { opacity: 1 },
+            { opacity: 0.2, duration: 0.5, yoyo: true, repeat: 3 },
+          );
         });
 
         setTimeout(() => onFinish?.(), 1800);
@@ -442,14 +633,26 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
         className="sp-root"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", perspective: "1400px" }}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          overflow: "hidden",
+          perspective: "1400px",
+        }}
       >
         <div className="sp-scanline" aria-hidden="true" />
 
         {/* Particle canvas */}
         <canvas
           ref={canvasRef}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+          }}
         />
 
         {/* Corner ornaments */}
@@ -463,18 +666,48 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
         <div className="sp-deco-r" />
 
         {/* Background letterforms */}
-        <div id="sp-fc1" className="sp-fc" style={{ fontSize: "clamp(100px,22vw,200px)", top: "2%",  left:  "1%" }}>W</div>
-        <div id="sp-fc2" className="sp-fc" style={{ fontSize: "clamp(80px,16vw,150px)",  bottom:"4%", right: "2%" }}>P</div>
-        <div id="sp-fc3" className="sp-fc" style={{ fontSize: "clamp(60px,10vw,110px)",  top: "18%", right: "6%" }}>&amp;</div>
+        <div
+          id="sp-fc1"
+          className="sp-fc"
+          style={{ fontSize: "clamp(100px,22vw,200px)", top: "2%", left: "1%" }}
+        >
+          W
+        </div>
+        <div
+          id="sp-fc2"
+          className="sp-fc"
+          style={{
+            fontSize: "clamp(80px,16vw,150px)",
+            bottom: "4%",
+            right: "2%",
+          }}
+        >
+          P
+        </div>
+        <div
+          id="sp-fc3"
+          className="sp-fc"
+          style={{
+            fontSize: "clamp(60px,10vw,110px)",
+            top: "18%",
+            right: "6%",
+          }}
+        >
+          &amp;
+        </div>
 
         {/* 3D scene */}
         <div
           ref={sceneRef}
           style={{
-            position: "relative", zIndex: 2,
-            width: "100%", height: "100%",
-            display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center",
+            position: "relative",
+            zIndex: 2,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             transformStyle: "preserve-3d",
             padding: "60px 40px",
           }}
@@ -483,9 +716,13 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           <div
             id="sp-eyebrow"
             style={{
-              fontFamily: "'Tenor Sans', sans-serif", fontSize: 11,
-              letterSpacing: 6, textTransform: "uppercase",
-              color: "#D4AF50", opacity: 0, marginBottom: 22,
+              fontFamily: "'Tenor Sans', sans-serif",
+              fontSize: 11,
+              letterSpacing: 6,
+              textTransform: "uppercase",
+              color: "#D4AF50",
+              opacity: 0,
+              marginBottom: 22,
             }}
           >
             Portfolio — Est. 2024
@@ -493,12 +730,30 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
 
           {/* Title */}
           <div style={{ textAlign: "center", transformStyle: "preserve-3d" }}>
-            <span id="sp-tl1" className="sp-tl1" style={{ fontSize: "clamp(52px,9vw,88px)" }}>Welcome</span>
-            <span id="sp-tl2" className="sp-tl2" style={{ fontSize: "clamp(52px,9vw,88px)" }}>Traveller</span>
-            <span id="sp-tl3" className="sp-tl3" style={{ fontSize: "clamp(15px,2vw,21px)" }}>
+            <span
+              id="sp-tl1"
+              className="sp-tl1"
+              style={{ fontSize: "clamp(52px,9vw,88px)" }}
+            >
+              Welcome
+            </span>
+            <span
+              id="sp-tl2"
+              className="sp-tl2"
+              style={{ fontSize: "clamp(52px,9vw,88px)" }}
+            >
+              Traveller
+            </span>
+            <span
+              id="sp-tl3"
+              className="sp-tl3"
+              style={{ fontSize: "clamp(15px,2vw,21px)" }}
+            >
               A curated space where design meets intention
             </span>
-            <div className="sp-tagline">A dark, premium experience crafted to match the portfolio</div>
+            <div className="sp-tagline">
+              A dark, premium experience crafted to match the portfolio
+            </div>
           </div>
 
           {/* Gold divider */}
@@ -508,12 +763,18 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           <div
             id="sp-msgs"
             style={{
-              height: 30, overflow: "hidden", position: "relative",
-              width: "min(420px, 90vw)", textAlign: "center", opacity: 0,
+              height: 30,
+              overflow: "hidden",
+              position: "relative",
+              width: "min(420px, 90vw)",
+              textAlign: "center",
+              opacity: 0,
             }}
           >
             {MESSAGES.map((msg, i) => (
-              <div key={i} id={`sp-msg-${i}`} className="sp-msg">{msg}</div>
+              <div key={i} id={`sp-msg-${i}`} className="sp-msg">
+                {msg}
+              </div>
             ))}
           </div>
 
@@ -522,9 +783,13 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
             <div
               id="sp-btns"
               style={{
-                display: "flex", gap: 16, alignItems: "center",
-                marginTop: 36, opacity: 0,           // starts invisible; GSAP fades in
-                flexWrap: "wrap", justifyContent: "center",
+                display: "flex",
+                gap: 16,
+                alignItems: "center",
+                marginTop: 36,
+                opacity: 0, // starts invisible; GSAP fades in
+                flexWrap: "wrap",
+                justifyContent: "center",
                 pointerEvents: startedRef.current ? "none" : "auto",
               }}
             >
@@ -555,11 +820,27 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
               style={{ marginTop: 44, width: "min(320px,80vw)", opacity: 0 }}
             >
               <div className="sp-prog-track">
-                <div className="sp-prog-fill"  style={{ width: `${stageProgress}%` }} />
-                <div id="sp-prog-glow" className="sp-prog-glow" style={{ left: `${stageProgress}%`, opacity: 0 }} />
+                <div
+                  className="sp-prog-fill"
+                  style={{ width: `${stageProgress}%` }}
+                />
+                <div
+                  id="sp-prog-glow"
+                  className="sp-prog-glow"
+                  style={{ left: `${stageProgress}%`, opacity: 0 }}
+                />
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12 }}>
-                <span id="sp-stage-lbl" className="sp-stage-lbl">{stageLabel}</span>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: 12,
+                }}
+              >
+                <span id="sp-stage-lbl" className="sp-stage-lbl">
+                  {stageLabel}
+                </span>
                 <span className="sp-pct-lbl">{stageProgress}%</span>
               </div>
             </div>
@@ -569,12 +850,25 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
           {showSuccess && (
             <div
               id="sp-success"
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, marginTop: 44, opacity: 0 }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 16,
+                marginTop: 44,
+                opacity: 0,
+              }}
             >
               <div className="sp-badge-ring">
                 <div className="sp-burst" />
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-                  <path d="M5 13L10.5 18.5L21 8" stroke="hsl(174 100% 45%)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M5 13L10.5 18.5L21 8"
+                    stroke="hsl(174 100% 45%)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </div>
               <span className="sp-badge-txt">You are most welcome</span>
@@ -584,12 +878,24 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
 
         {/* Confetti */}
         {confetti.length > 0 && (
-          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 40, overflow: "hidden" }}>
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              zIndex: 40,
+              overflow: "hidden",
+            }}
+          >
             {confetti.map((c, i) => (
               <span
                 key={i}
                 className="sp-confetti"
-                style={{ left: `${c.left}%`, background: c.bg, animationDelay: `${c.delay}s` }}
+                style={{
+                  left: `${c.left}%`,
+                  background: c.bg,
+                  animationDelay: `${c.delay}s`,
+                }}
               />
             ))}
           </div>

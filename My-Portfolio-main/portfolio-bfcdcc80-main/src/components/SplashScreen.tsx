@@ -22,7 +22,7 @@ const MESSAGES = [
   "Where precision and poetry share the same breath",
 ];
 
-const CONFETTI_COLORS = ["#C9A84C","#D4AF50","#F0D080","#8B3A2A","#A89FE0","#F9F5EE"];
+const CONFETTI_COLORS = ["#36E7D8", "#22D3EE", "#A855F7", "#C084FC", "#F8FAFC", "#8B5CF6"];
 
 /* ─── Particle system ────────────────────────────────────────────────────── */
 
@@ -51,9 +51,16 @@ function makeParticle(cw: number, ch: number, init = false): Particle {
 const STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Tenor+Sans&family=Crimson+Pro:ital,wght@0,200;0,300;1,200;1,300&display=swap');
 
+  .sp-root {
+    background:
+      radial-gradient(circle at top, hsl(174 100% 45% / 0.12), transparent 32%),
+      radial-gradient(circle at 85% 15%, hsl(280 100% 60% / 0.10), transparent 28%),
+      linear-gradient(180deg, hsl(240 15% 3%), hsl(240 15% 3%));
+  }
+
   .sp-corner {
     opacity: 0; position: absolute; width: 28px; height: 28px;
-    border-color: rgba(180,149,42,0.35); border-style: solid;
+    border-color: hsl(174 100% 45% / 0.35); border-style: solid;
   }
   .sp-corner-tl { top: 28px; left: 28px;   border-width: 1px 0 0 1px; }
   .sp-corner-tr { top: 28px; right: 28px;  border-width: 1px 1px 0 0; }
@@ -63,34 +70,34 @@ const STYLES = `
   .sp-deco-l, .sp-deco-r {
     position: absolute; top: 50%; height: 1px; width: 0; opacity: 0.22;
   }
-  .sp-deco-l { left: 0;  background: linear-gradient(90deg,  #B8952A, transparent); }
-  .sp-deco-r { right: 0; background: linear-gradient(270deg, #B8952A, transparent); }
+  .sp-deco-l { left: 0;  background: linear-gradient(90deg,  hsl(174 100% 45%), transparent); }
+  .sp-deco-r { right: 0; background: linear-gradient(270deg, hsl(280 100% 60%), transparent); }
 
   .sp-fc {
     position: absolute; pointer-events: none; opacity: 0;
     font-family: 'DM Serif Display', serif; font-style: italic;
-    color: rgba(180,149,42,0.055); user-select: none;
+    color: hsl(174 100% 45% / 0.06); user-select: none;
     line-height: 1; transform-style: preserve-3d;
   }
 
   .sp-tl1 {
     font-family: 'DM Serif Display', serif; font-style: italic;
     font-weight: 400; color: #F9F5EE; line-height: 0.9;
-    display: block; opacity: 0; transform-style: preserve-3d;
+    display: block; opacity: 1; transform-style: preserve-3d;
   }
   .sp-tl2 {
     font-family: 'DM Serif Display', serif; font-weight: 400;
-    color: transparent; -webkit-text-stroke: 1px #D4AF50;
-    line-height: 0.9; display: block; opacity: 0; transform-style: preserve-3d;
+    color: transparent; -webkit-text-stroke: 1px hsl(174 100% 45%);
+    line-height: 0.9; display: block; opacity: 1; transform-style: preserve-3d;
   }
   .sp-tl3 {
     font-family: 'Crimson Pro', serif; font-weight: 200; font-style: italic;
-    color: #F0D080; letter-spacing: 3px; display: block; opacity: 0; margin-top: 18px;
+    color: hsl(280 100% 80%); letter-spacing: 3px; display: block; opacity: 1; margin-top: 18px;
   }
 
   .sp-rule {
     height: 1px; width: 0;
-    background: linear-gradient(90deg, transparent 0%, #B8952A 25%, #D4AF50 50%, #B8952A 75%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, hsl(174 100% 45%) 25%, hsl(280 100% 60%) 50%, hsl(174 100% 45%) 75%, transparent 100%);
     margin: 30px auto;
   }
 
@@ -98,15 +105,15 @@ const STYLES = `
     position: absolute; width: 100%;
     font-family: 'Crimson Pro', serif; font-size: 16px;
     font-weight: 300; font-style: italic;
-    color: #A09070; letter-spacing: 0.5px;
-    opacity: 0; transform: translateY(12px);
+    color: hsl(0 0% 92% / 0.72); letter-spacing: 0.5px;
+    opacity: 0.9; transform: translateY(12px);
   }
 
   .sp-enter-btn {
     font-family: 'Tenor Sans', sans-serif; font-size: 11px;
     letter-spacing: 5px; text-transform: uppercase;
-    color: #1A0F08;
-    background: linear-gradient(135deg,#B8952A,#D4AF50,#F0D080,#D4AF50);
+    color: hsl(240 15% 3%);
+    background: linear-gradient(135deg, hsl(174 100% 45%), hsl(190 100% 55%), hsl(280 100% 60%), hsl(174 100% 45%));
     background-size: 200% auto;
     border: none; border-radius: 2px;
     padding: 15px 48px; cursor: pointer;
@@ -118,44 +125,45 @@ const STYLES = `
   .sp-ghost-btn {
     font-family: 'Tenor Sans', sans-serif; font-size: 11px;
     letter-spacing: 3px; text-transform: uppercase;
-    color: #D4AF50; background: transparent;
-    border: 1px solid rgba(180,149,42,0.3); border-radius: 2px;
+    color: hsl(174 100% 45%); background: transparent;
+    border: 1px solid hsl(174 100% 45% / 0.3); border-radius: 2px;
     padding: 15px 36px; cursor: pointer;
     transition: border-color 0.3s, color 0.3s; outline: none;
   }
-  .sp-ghost-btn:hover { border-color: #D4AF50; color: #F0D080; }
+  .sp-ghost-btn:hover { border-color: hsl(280 100% 60%); color: hsl(280 100% 80%); }
 
-  .sp-prog-track { height: 1px; background: rgba(180,149,42,0.15); position: relative; }
+  .sp-prog-track { height: 1px; background: hsl(0 0% 100% / 0.10); position: relative; }
   .sp-prog-fill  {
     height: 100%; position: absolute; top: 0; left: 0;
-    background: linear-gradient(90deg,#8B3A2A,#B8952A,#D4AF50);
+    background: linear-gradient(90deg, hsl(174 100% 45%), hsl(190 100% 55%), hsl(280 100% 60%));
     transition: width 0.04s linear;
   }
   .sp-prog-glow {
     position: absolute; top: -4px; width: 8px; height: 8px;
-    border-radius: 50%; background: #D4AF50;
-    box-shadow: 0 0 10px 3px rgba(212,175,80,0.7); opacity: 0;
+    border-radius: 50%; background: hsl(174 100% 45%);
+    box-shadow: 0 0 10px 3px hsl(174 100% 45% / 0.7); opacity: 0;
     transition: left 0.04s linear;
   }
   .sp-stage-lbl {
     font-family: 'Tenor Sans', sans-serif; font-size: 10px;
-    letter-spacing: 3px; text-transform: uppercase; color: #6A6050;
+    letter-spacing: 3px; text-transform: uppercase; color: hsl(240 5% 65% / 0.8);
   }
   .sp-pct-lbl {
     font-family: 'Crimson Pro', serif; font-size: 14px;
-    font-style: italic; color: #D4AF50;
+    font-style: italic; color: hsl(174 100% 45%);
     font-variant-numeric: tabular-nums;
   }
 
   .sp-badge-ring {
     width: 68px; height: 68px; border-radius: 50%;
-    border: 1px solid #D4AF50;
+    border: 1px solid hsl(174 100% 45%);
     display: flex; align-items: center; justify-content: center;
     position: relative;
+    box-shadow: 0 0 30px hsl(174 100% 45% / 0.15);
   }
   .sp-burst {
     position: absolute; border-radius: 50%;
-    border: 1px solid #D4AF50; width: 100%; height: 100%;
+    border: 1px solid hsl(280 100% 60%); width: 100%; height: 100%;
     animation: spBurst 1s ease forwards;
   }
   @keyframes spBurst {
@@ -164,7 +172,32 @@ const STYLES = `
   }
   .sp-badge-txt {
     font-family: 'Crimson Pro', serif; font-size: 15px;
-    font-style: italic; font-weight: 200; color: #D4AF50; letter-spacing: 2px;
+    font-style: italic; font-weight: 200; color: hsl(0 0% 92% / 0.86); letter-spacing: 2px;
+  }
+
+  .sp-tagline {
+    margin-top: 14px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: hsl(280 100% 80% / 0.88);
+    letter-spacing: 1px;
+    opacity: 0.9;
+  }
+
+  .sp-scanline {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, hsl(174 100% 45% / 0.06) 48%, transparent 52%);
+    background-size: 100% 180px;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 0.45;
+    animation: spScan 10s linear infinite;
+  }
+  @keyframes spScan {
+    from { transform: translateY(-180px); }
+    to   { transform: translateY(180px); }
   }
 
   .sp-confetti {
@@ -255,12 +288,13 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
         .to("#sp-fc3",     { opacity: 1,         duration: 2.2, ease: "power2.out" }, 0.7)
         .to("#sp-eyebrow", { opacity: 1, y: 0,   duration: 0.8, ease: "power3.out" }, 0.6)
         .fromTo("#sp-tl1",
-          { opacity: 0, rotateX: -90, y: 30, transformOrigin: "center bottom" },
-          { opacity: 1, rotateX:   0, y:  0, duration: 1.1, ease: "back.out(1.5)" }, 1.1)
+          { rotateX: -45, y: 24, transformOrigin: "center bottom" },
+          { rotateX:   0, y:  0, duration: 1.1, ease: "back.out(1.5)" }, 1.1)
         .fromTo("#sp-tl2",
-          { opacity: 0, rotateX:  90, y: -30, transformOrigin: "center top" },
-          { opacity: 1, rotateX:   0, y:   0, duration: 1.1, ease: "back.out(1.5)" }, 1.35)
-        .to("#sp-tl3",  { opacity: 1, duration: 0.9, ease: "power3.out" }, 1.9)
+          { rotateX:  45, y: -24, transformOrigin: "center top" },
+          { rotateX:   0, y:   0, duration: 1.1, ease: "back.out(1.5)" }, 1.35)
+        .to("#sp-tl3",  { y: 0, duration: 0.9, ease: "power3.out" }, 1.9)
+        .to(".sp-tagline", { y: 0, duration: 0.8, ease: "power2.out" }, 2.05)
         .to("#sp-rule", { width: 320,  duration: 1.3, ease: "power3.inOut" }, 1.7)
         .to("#sp-msgs", { opacity: 1,  duration: 0.7, ease: "power2.out" }, 2.3)
         // Buttons were already rendered; animate them in from opacity 0
@@ -276,7 +310,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
       gsap.to("#sp-fc3", { y: "-=10",   duration: 4.2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.9 });
 
       // First message
-      gsap.fromTo("#sp-msg-0", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, delay: 2.6 });
+      gsap.fromTo("#sp-msg-0", { opacity: 0.2, y: 12 }, { opacity: 0.9, y: 0, duration: 0.8, delay: 2.6 });
     }, 50);
 
     return () => clearTimeout(tid);
@@ -405,10 +439,13 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
 
       <div
         ref={rootRef}
+        className="sp-root"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", perspective: "1400px" }}
       >
+        <div className="sp-scanline" aria-hidden="true" />
+
         {/* Particle canvas */}
         <canvas
           ref={canvasRef}
@@ -461,6 +498,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
             <span id="sp-tl3" className="sp-tl3" style={{ fontSize: "clamp(15px,2vw,21px)" }}>
               A curated space where design meets intention
             </span>
+            <div className="sp-tagline">A dark, premium experience crafted to match the portfolio</div>
           </div>
 
           {/* Gold divider */}
@@ -536,7 +574,7 @@ const SplashScreen = ({ onFinish }: SplashProps) => {
               <div className="sp-badge-ring">
                 <div className="sp-burst" />
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-                  <path d="M5 13L10.5 18.5L21 8" stroke="#D4AF50" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M5 13L10.5 18.5L21 8" stroke="hsl(174 100% 45%)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <span className="sp-badge-txt">You are most welcome</span>

@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
-import SplashScreen from "@/components/SplashScreen";
+import SplashScreen from "./components/SplashScreen";
 
 const queryClient = new QueryClient();
 

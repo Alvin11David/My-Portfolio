@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import MagneticButton from "./MagneticButton";
 import argBackgroundStripes from "@/assets/images/arg-background-stripes.svg";
+import whiteFireStripes from "@/assets/images/white-fire-stripes.svg";
 
 gsap.registerPlugin(ScrollToPlugin);
 

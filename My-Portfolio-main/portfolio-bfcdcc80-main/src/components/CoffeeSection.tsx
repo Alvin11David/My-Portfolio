@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import CloudWave from "./CloudWave";
 import blueBackgroundStripes from "@/assets/images/blue-background-stripes.svg";
+import oredFireStripes from "@/assets/images/ored-fire-stripes.svg";
 
 const CoffeeSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);

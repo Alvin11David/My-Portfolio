@@ -34,12 +34,17 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         {[0, 1].map((i) => (
           <div
             key={i}
-            className="h-full bg-white"
+            className="relative h-full bg-white"
             style={{
               width: "1.5px",
               boxShadow: "0 0 8px rgba(255,255,255,0.4)",
             }}
-          />
+          >
+            <div
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white"
+              style={{ width: "8px", height: "8px", boxShadow: "0 0 8px rgba(255,255,255,0.6)" }}
+            />
+          </div>
         ))}
       </div>
     </div>

@@ -181,10 +181,10 @@ const HeroSection = () => {
               className="headline-line block"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord("Crafting", false)}
               </span>
-              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord(" ", false)}
               </span>
               <span className="text-5xl italic sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
@@ -195,7 +195,7 @@ const HeroSection = () => {
               className="headline-line mt-2 block"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord("Experiences", false)}
               </span>
             </span>
@@ -203,10 +203,10 @@ const HeroSection = () => {
               className="headline-line mt-2 block"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord("That", false)}
               </span>
-              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord(" ", false)}
               </span>
               <span className="text-5xl italic sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">

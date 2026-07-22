@@ -18,7 +18,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
       }`}
     >
       <div className="flex h-full w-full items-stretch justify-center gap-60">
-        {[0, 1, 2, 3].map((i) => (
+        {[0, 1].map((i) => (
           <div
             key={i}
             className="h-full bg-white"

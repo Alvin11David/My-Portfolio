@@ -113,7 +113,7 @@ const Navigation = () => {
         }`}
       >
         <div
-          className={`container mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-4 transition-all duration-700 ${
+          className={`container mx-auto flex max-w-5xl items-center justify-between rounded-full px-5 py-4 transition-all duration-700 ${
             isScrolled
               ? "glass soft-border shadow-2xl shadow-background/30"
               : "bg-transparent"

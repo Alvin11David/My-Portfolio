@@ -24,19 +24,11 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
             className="h-full bg-white"
             style={{
               width: "1.5px",
-              animation: `splashFade 1.2s ease-in-out ${i * 0.2}s infinite`,
               boxShadow: "0 0 8px rgba(255,255,255,0.4)",
             }}
           />
         ))}
       </div>
-
-      <style>{`
-        @keyframes splashFade {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 };

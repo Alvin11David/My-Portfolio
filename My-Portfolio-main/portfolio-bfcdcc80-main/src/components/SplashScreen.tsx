@@ -29,7 +29,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           />
         ))}
       </div>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-60 px-0 pointer-events-none">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-50 px-0 pointer-events-none">
         {[0, 1].map((i) => (
           <div
             key={i}

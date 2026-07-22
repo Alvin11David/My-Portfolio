@@ -427,7 +427,7 @@ const ProjectsSection = () => {
                         <Icon className="h-6 w-6" />
                       </div>
                       <div>
-                        <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+                        <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground">
                           <FolderOpen className="h-3.5 w-3.5 text-primary" />
                           Folder {String(groupIndex + 1).padStart(2, "0")}
                         </div>

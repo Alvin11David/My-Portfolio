@@ -3,6 +3,7 @@ import { ArrowUp, Heart } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import MagneticButton from "./MagneticButton";
+import argBackgroundStripes from "@/assets/images/arg-background-stripes.svg";
 
 gsap.registerPlugin(ScrollToPlugin);
 

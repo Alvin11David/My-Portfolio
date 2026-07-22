@@ -647,7 +647,7 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className="p-5 sm:p-10">
-                  <p className="mb-8 text-base text-muted-foreground sm:mb-12 sm:text-xl">
+                  <p className="mb-8 text-base text-foreground sm:mb-12 sm:text-xl">
                     {selectedProject.description}
                   </p>
 
@@ -700,7 +700,7 @@ const ProjectsSection = () => {
                       <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
                         The Challenge
                       </h4>
-                      <p className="text-muted-foreground">
+                      <p className="text-foreground">
                         {selectedProject.challenge}
                       </p>
                     </div>
@@ -708,7 +708,7 @@ const ProjectsSection = () => {
                       <h4 className="mb-3 font-serif text-lg font-bold text-foreground sm:mb-4 sm:text-xl">
                         The Solution
                       </h4>
-                      <p className="text-muted-foreground">
+                      <p className="text-foreground">
                         {selectedProject.solution}
                       </p>
                     </div>

@@ -17,35 +17,27 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <svg
-        width="2"
-        height="120"
-        viewBox="0 0 2 120"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
-      >
+      <div className="flex items-center justify-center gap-8">
         {[0, 1, 2, 3].map((i) => (
-          <line
+          <div
             key={i}
-            x1="1"
-            y1={i * 32 + 4}
-            x2="1"
-            y2={i * 32 + 28}
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinecap="round"
+            className="splash-line"
             style={{
-              animation: `splashPulse 1.2s ease-in-out ${i * 0.15}s infinite`,
-              transformOrigin: `1px ${i * 32 + 16}px`,
+              width: "1.5px",
+              height: "160px",
+              backgroundColor: "white",
+              borderRadius: "1px",
+              animation: `splashGrow 1.2s ease-in-out ${i * 0.2}s infinite`,
+              transformOrigin: "top center",
+              boxShadow: "0 0 8px rgba(255,255,255,0.4)",
             }}
           />
         ))}
-      </svg>
+      </div>
 
       <style>{`
-        @keyframes splashPulse {
-          0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+        @keyframes splashGrow {
+          0%, 100% { opacity: 0.3; transform: scaleY(0.4); }
           50% { opacity: 1; transform: scaleY(1); }
         }
       `}</style>

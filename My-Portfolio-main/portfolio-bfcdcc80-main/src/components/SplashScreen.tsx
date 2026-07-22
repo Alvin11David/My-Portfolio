@@ -17,7 +17,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="flex h-full w-full items-stretch justify-center gap-8">
+      <div className="flex h-full w-full items-stretch justify-center gap-16">
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}

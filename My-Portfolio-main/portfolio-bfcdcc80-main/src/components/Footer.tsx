@@ -64,7 +64,7 @@ const Footer = () => {
           {/* Back to top */}
           <MagneticButton
             onClick={scrollToTop}
-            className="group flex items-center gap-3 rounded-full border border-border bg-secondary/50 px-6 py-3 text-sm font-medium text-muted-foreground transition-all hover:border-primary hover:bg-primary/10 hover:text-primary"
+            className="group flex items-center gap-3 rounded-full border border-border bg-secondary/50 px-6 py-3 text-sm font-medium text-foreground transition-all hover:border-primary hover:bg-primary/10 hover:text-primary"
           >
             Back to top
           </MagneticButton>

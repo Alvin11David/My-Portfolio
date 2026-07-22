@@ -464,7 +464,7 @@ const ProjectsSection = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
                       </div>
                     ))}
-                    <span className="ml-2 text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+                    <span className="ml-2 text-xs font-semibold uppercase tracking-[0.25em] text-foreground">
                       {isOpen ? "Tap to collapse" : "Tap to open folder"}
                     </span>
                     <ChevronDown

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -7,20 +7,13 @@ import CloudWave from "./CloudWave";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Lazy load the 3D scene for better performance
-const Scene3D = lazy(() => import("./Scene3D"));
-
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [showScene, setShowScene] = useState(false);
 
   useEffect(() => {
-    // Delay loading of 3D scene for smoother initial experience
-    const timer = setTimeout(() => setShowScene(true), 500);
-
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({
         x: (e.clientX / window.innerWidth - 0.5) * 30,
@@ -29,7 +22,6 @@ const HeroSection = () => {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
@@ -87,14 +79,6 @@ const HeroSection = () => {
       ref={sectionRef}
       className="section-shell relative h-screen w-full overflow-hidden bg-background"
     >
-      {/* 3D Background Scene */}
-      <Suspense fallback={null}>
-        {showScene && (
-          <div className="absolute inset-0 z-[1] opacity-40">
-            <Scene3D variant="hero" />
-          </div>
-        )}
-      </Suspense>
       <div
         ref={videoRef}
         className="absolute inset-0 z-[1]"

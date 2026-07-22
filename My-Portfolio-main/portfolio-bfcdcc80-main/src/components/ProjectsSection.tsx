@@ -529,7 +529,7 @@ const ProjectsSection = () => {
                                         .map((tech) => (
                                           <span
                                             key={tech}
-                                            className="rounded-full border border-border bg-muted/40 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+                                            className="rounded-full border border-border bg-muted/40 px-3 py-1.5 text-xs font-medium text-foreground"
                                           >
                                             {tech}
                                           </span>

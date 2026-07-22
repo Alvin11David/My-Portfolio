@@ -29,6 +29,7 @@ const Footer = () => {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent">
         <img src={argBackgroundStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" aria-hidden="true" />
+        <img src={whiteFireStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" aria-hidden="true" />
       </div>
 
       <div className="container relative z-10 mx-auto px-6 py-20">

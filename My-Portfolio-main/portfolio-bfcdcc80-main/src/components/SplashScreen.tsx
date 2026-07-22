@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import logoImage from "@/assets/images/video/alvin_logo.png";
 
 const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(false);
-      setTimeout(onComplete, 500);
-    }, 5500);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
+  const handleAnimationEnd = () => {
+    setVisible(false);
+    setTimeout(onComplete, 500);
+  };
 
   return (
     <div
@@ -27,6 +24,8 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
               height: "1.5px",
               width: "100%",
               boxShadow: "0 0 8px rgba(255,255,255,0.4)",
+              transformOrigin: "left",
+              animation: `drawLine 1.2s ease-out ${i === 0 ? "0.3s" : "0.8s"} forwards`,
             }}
           />
         ))}
@@ -47,6 +46,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         <img
           src={logoImage}
           alt="Logo"
+          onAnimationEnd={handleAnimationEnd}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[200px] object-cover"
           style={{
             animation: "logoFadeIn 5s ease-in-out forwards",
@@ -78,6 +78,10 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         @keyframes logoFadeIn {
           0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
           100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        @keyframes drawLine {
+          0% { transform: scaleX(0); }
+          100% { transform: scaleX(1); }
         }
       `}</style>
     </div>

@@ -206,7 +206,7 @@ const HeroSection = () => {
 
         {/* Description with blur reveal */}
         <p
-          className="mb-14 max-w-2xl text-center text-lg text-muted-foreground sm:text-xl"
+          className="mb-14 max-w-2xl text-center text-lg text-white sm:text-xl"
         >
           I transform ideas into immersive digital experiences through elegant
           code and thoughtful design. Let's build something extraordinary

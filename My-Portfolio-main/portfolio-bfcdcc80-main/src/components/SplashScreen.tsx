@@ -17,18 +17,14 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="flex items-center justify-center gap-8">
+      <div className="flex h-full w-full items-stretch justify-center gap-8">
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            className="splash-line"
+            className="h-full bg-white"
             style={{
               width: "1.5px",
-              height: "160px",
-              backgroundColor: "white",
-              borderRadius: "1px",
-              animation: `splashGrow 1.2s ease-in-out ${i * 0.2}s infinite`,
-              transformOrigin: "top center",
+              animation: `splashFade 1.2s ease-in-out ${i * 0.2}s infinite`,
               boxShadow: "0 0 8px rgba(255,255,255,0.4)",
             }}
           />
@@ -36,9 +32,9 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
       </div>
 
       <style>{`
-        @keyframes splashGrow {
-          0%, 100% { opacity: 0.3; transform: scaleY(0.4); }
-          50% { opacity: 1; transform: scaleY(1); }
+        @keyframes splashFade {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 1; }
         }
       `}</style>
     </div>

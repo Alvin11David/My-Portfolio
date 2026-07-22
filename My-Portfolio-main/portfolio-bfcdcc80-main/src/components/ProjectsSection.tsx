@@ -440,7 +440,7 @@ const ProjectsSection = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 self-start rounded-full border border-border/70 bg-background/70 px-4 py-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-3 self-start rounded-full border border-border/70 bg-background/70 px-4 py-2 text-sm text-foreground">
                       <LayoutGrid className="h-4 w-4 text-primary" />
                       {group.projects.length} items
                     </div>

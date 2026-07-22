@@ -394,7 +394,7 @@ const ProjectsSection = () => {
               <br />
               <span className="gradient-text">Define Excellence</span>
             </h2>
-            <p className="animate-header max-w-md text-lg text-muted-foreground lg:text-right">
+            <p className="animate-header max-w-md text-lg text-foreground lg:text-right">
               Each project represents a unique challenge solved through creative
               thinking and technical expertise.
             </p>

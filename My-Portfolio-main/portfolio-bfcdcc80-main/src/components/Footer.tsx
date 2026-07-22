@@ -54,7 +54,7 @@ const Footer = () => {
               <MagneticButton
                 key={link}
                 href={`#${link.toLowerCase()}`}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-foreground transition-colors hover:text-primary"
               >
                 {link}
               </MagneticButton>

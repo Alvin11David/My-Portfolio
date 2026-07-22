@@ -434,7 +434,7 @@ const ProjectsSection = () => {
                         <h3 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
                           {group.title}
                         </h3>
-                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground md:text-base">
                           {group.description}
                         </p>
                       </div>

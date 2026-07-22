@@ -538,7 +538,7 @@ const ProjectsSection = () => {
                                   </div>
 
                                   <div className="rounded-[1.25rem] border border-border/60 bg-secondary/30 p-4">
-                                    <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
+                                    <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground">
                                       File preview
                                     </div>
                                     <div className="mt-3 space-y-2">

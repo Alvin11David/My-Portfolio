@@ -520,7 +520,7 @@ const ProjectsSection = () => {
 
                                 <div className="mt-4 grid gap-4 sm:grid-cols-[1.25fr_0.75fr]">
                                   <div>
-                                    <p className="text-sm leading-relaxed text-muted-foreground">
+                                    <p className="text-sm leading-relaxed text-foreground">
                                       {project.description}
                                     </p>
                                     <div className="mt-4 flex flex-wrap gap-2">

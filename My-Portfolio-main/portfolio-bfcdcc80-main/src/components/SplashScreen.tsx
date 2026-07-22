@@ -21,7 +21,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         {[0, 1].map((i) => (
           <div
             key={i}
-            className="bg-white"
+            className="h-line bg-white"
             style={{
               height: "1.5px",
               width: "100%",
@@ -34,17 +34,33 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         {[0, 1].map((i) => (
           <div
             key={i}
-            className="relative h-full bg-white"
+            className="v-line bg-white"
             style={{
               width: "1.5px",
               boxShadow: "0 0 8px rgba(255,255,255,0.4)",
             }}
-          >
-            <div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white"
-              style={{ width: "8px", height: "8px", boxShadow: "0 0 8px rgba(255,255,255,0.6)" }}
-            />
-          </div>
+          />
+        ))}
+      </div>
+      <div className="absolute inset-0 pointer-events-none">
+        {[
+          { top: "calc(50% - 100px)", left: "calc(50% - 120px)" },
+          { top: "calc(50% - 100px)", left: "calc(50% + 120px)" },
+          { top: "calc(50% + 100px)", left: "calc(50% - 120px)" },
+          { top: "calc(50% + 100px)", left: "calc(50% + 120px)" },
+        ].map((pos, i) => (
+          <div
+            key={i}
+            className="absolute bg-white"
+            style={{
+              top: pos.top,
+              left: pos.left,
+              width: "8px",
+              height: "8px",
+              transform: "translate(-50%, -50%)",
+              boxShadow: "0 0 8px rgba(255,255,255,0.6)",
+            }}
+          />
         ))}
       </div>
     </div>

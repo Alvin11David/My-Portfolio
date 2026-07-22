@@ -88,6 +88,7 @@ const HeroSection = () => {
           transition: "transform 0.3s ease-out",
         }}
       >
+        <img src={braBackgroundStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" aria-hidden="true" />
         <div
           className="absolute -left-20 -top-20 h-[600px] w-[600px] rounded-full"
           style={{

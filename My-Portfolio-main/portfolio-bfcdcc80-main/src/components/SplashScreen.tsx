@@ -29,6 +29,19 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           />
         ))}
       </div>
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-60 px-0 pointer-events-none">
+        {[0, 1].map((i) => (
+          <div
+            key={i}
+            className="bg-white"
+            style={{
+              height: "1.5px",
+              width: "100%",
+              boxShadow: "0 0 8px rgba(255,255,255,0.4)",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };

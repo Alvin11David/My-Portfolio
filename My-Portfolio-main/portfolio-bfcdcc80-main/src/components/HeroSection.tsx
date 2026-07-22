@@ -338,7 +338,7 @@ const HeroSection = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6">
+      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 pt-20">
         {/* Subtitle */}
         <p
           ref={subtitleRef}

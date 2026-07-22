@@ -179,7 +179,7 @@ const Navigation = () => {
           </nav>
 
           {/* Mobile controls */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 md:hidden">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

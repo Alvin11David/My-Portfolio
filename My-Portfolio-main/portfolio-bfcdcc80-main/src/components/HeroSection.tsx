@@ -175,7 +175,7 @@ const HeroSection = () => {
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord(" ", false)}
               </span>
-              <span className="text-2xl italic sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+              <span className="text-2xl italic text-green-500 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord("Digital", true)}
               </span>
             </span>
@@ -197,7 +197,7 @@ const HeroSection = () => {
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord(" ", false)}
               </span>
-              <span className="text-2xl italic sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+              <span className="text-2xl italic text-green-500 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord("Inspire", true)}
               </span>
             </span>

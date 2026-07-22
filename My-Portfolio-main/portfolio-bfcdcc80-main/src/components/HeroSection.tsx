@@ -187,7 +187,7 @@ const HeroSection = () => {
               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord(" ", false)}
               </span>
-              <span className="text-5xl italic sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
+              <span className="text-2xl italic sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                 {splitWord("Digital", true)}
               </span>
             </span>

@@ -90,6 +90,7 @@ const HeroSection = () => {
         }}
       >
         <img src={braBackgroundStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" aria-hidden="true" />
+        <img src={greFireStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" aria-hidden="true" />
         <div
           className="absolute -left-20 -top-20 h-[600px] w-[600px] rounded-full"
           style={{

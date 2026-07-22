@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import MagneticButton from "./MagneticButton";
 import CloudWave from "./CloudWave";
 import braBackgroundStripes from "@/assets/images/bra-background-stripes.svg";
+import greFireStripes from "@/assets/images/gre-fire-stripes.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 

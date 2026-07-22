@@ -43,7 +43,7 @@ const Footer = () => {
             >
               Portfolio<span className="text-primary">.</span>
             </a>
-            <p className="max-w-sm text-muted-foreground">
+            <p className="max-w-sm text-foreground">
               Crafting digital experiences that inspire and deliver results.
             </p>
           </div>

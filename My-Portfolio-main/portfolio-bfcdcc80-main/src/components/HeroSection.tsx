@@ -158,18 +158,6 @@ const HeroSection = () => {
 
       {/* Main content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 pt-20">
-        {/* Subtitle */}
-        <p
-          className="hero-badge mb-8 flex items-center gap-4 rounded-full px-5 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-primary sm:text-sm"
-        >
-          <span className="h-px w-12 bg-gradient-to-r from-transparent to-primary" />
-          <span className="relative">
-            Designer & Developer
-            <span className="absolute -inset-2 animate-pulse rounded-full bg-primary/10 blur-xl" />
-          </span>
-          <span className="h-px w-12 bg-gradient-to-l from-transparent to-primary" />
-        </p>
-
         {/* 3D Headline */}
         <div
           ref={headlineRef}

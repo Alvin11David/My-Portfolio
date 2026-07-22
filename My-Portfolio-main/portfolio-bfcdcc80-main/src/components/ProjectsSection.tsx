@@ -546,7 +546,7 @@ const ProjectsSection = () => {
                                       <div className="h-2 w-full rounded-full bg-border/80" />
                                       <div className="h-2 w-5/6 rounded-full bg-border/70" />
                                     </div>
-                                    <div className="mt-4 text-xs text-muted-foreground">
+                                    <div className="mt-4 text-xs text-foreground">
                                       {project.year} • {project.group}
                                     </div>
                                   </div>

@@ -75,6 +75,7 @@ const CoffeeSection = () => {
       className="relative py-24 overflow-hidden bg-background"
     >
       <div className="absolute inset-0 pointer-events-none">
+        <img src={blueBackgroundStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" aria-hidden="true" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] animate-pulse" />
       </div>
 

@@ -183,8 +183,8 @@ const AboutSection = () => {
       <div className="absolute inset-0">
         <div className="absolute left-0 top-1/4 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[180px]" />
         <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-glow-secondary/5 blur-[150px]" />
-        <img src={backgroundStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" aria-hidden="true" />
-        <FireStripes className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <img src={backgroundStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" aria-hidden="true" />
+        <FireStripes className="absolute inset-0 h-full w-full object-cover opacity-70" />
       </div>
 
       {/* Large background text */}

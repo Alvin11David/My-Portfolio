@@ -52,6 +52,19 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         ))}
       </div>
       <div className="absolute inset-0 pointer-events-none">
+        <video
+          ref={videoRef}
+          src={logoVideo}
+          muted
+          loop
+          playsInline
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-32 w-auto object-contain"
+          style={{
+            animation: "logoFadeIn 5s ease-in-out forwards",
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 pointer-events-none">
         {[
           { top: "calc(50% - 100px)", left: "calc(50% - 120px)" },
           { top: "calc(50% - 100px)", left: "calc(50% + 120px)" },

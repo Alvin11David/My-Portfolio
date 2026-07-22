@@ -4,13 +4,21 @@ import logoVideo from "@/assets/images/video/logo.mp4";
 const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [visible, setVisible] = useState(true);
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
       setTimeout(onComplete, 500);
-    }, 2200);
+    }, 5500);
     return () => clearTimeout(timer);
   }, [onComplete]);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
 
   return (
     <div

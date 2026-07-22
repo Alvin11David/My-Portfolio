@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import CloudWave from "./CloudWave";
+import redBackgroundStripes from "@/assets/images/red-background-stripes.svg";
 import {
   Code2,
   Palette,
@@ -229,6 +230,7 @@ const SkillsSection = () => {
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <img src={redBackgroundStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" aria-hidden="true" />
         <div className="bg-blob absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[120px]" />
         <div className="bg-blob absolute bottom-[10%] right-[-5%] h-[400px] w-[400px] rounded-full bg-purple-500/10 blur-[100px]" />
         <div className="bg-blob absolute top-[40%] left-[20%] h-[300px] w-[300px] rounded-full bg-cyan-500/10 blur-[80px]" />

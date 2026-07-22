@@ -7,24 +7,10 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "@/components/theme-provider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { useEffect, useState } from "react";
-import SplashScreen from "./components/SplashScreen";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    const hideTimer = setTimeout(() => setShowSplash(false), 5000);
-
-    return () => clearTimeout(hideTimer);
-  }, []);
-
-  if (showSplash) {
-    return <SplashScreen onFinish={() => setShowSplash(false)} />;
-  }
-
   return (
     <HelmetProvider>
       <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">

@@ -26,6 +26,7 @@ import JamboPOSImage from "@/assets/images/JamboPOS.png";
 import StudentUniversityPortal from "@/assets/images/StudentUniversityPortal.png";
 import SunbirdGenAIImage from "@/assets/images/Sunbird GenAI App.png";
 import orangeBg from "@/assets/images/orange-bg.svg";
+import greenFireStripes from "@/assets/images/green-fire-stripes.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -375,7 +376,8 @@ const ProjectsSection = () => {
   return (
     <section ref={sectionRef} id="projects" className="relative bg-background">
       <div className="absolute inset-0 overflow-hidden">
-        <img src={orangeBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" aria-hidden="true" />
+        <img src={orangeBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" aria-hidden="true" />
+        <img src={greenFireStripes} alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" aria-hidden="true" />
         <div className="absolute right-0 top-0 h-[800px] w-[800px] rounded-full bg-primary/5 blur-[200px]" />
         <div className="absolute bottom-0 left-0 h-[600px] w-[600px] rounded-full bg-glow-secondary/5 blur-[150px]" />
       </div>

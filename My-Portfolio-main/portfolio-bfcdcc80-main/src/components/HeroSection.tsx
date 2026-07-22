@@ -157,7 +157,7 @@ const HeroSection = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 pt-20">
+      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 pt-32 sm:pt-28 md:pt-20">
         {/* 3D Headline */}
         <div
           ref={headlineRef}
@@ -217,7 +217,7 @@ const HeroSection = () => {
         <div className="flex flex-col gap-4 sm:flex-row mb-20">
           <MagneticButton
             href="#projects"
-            className="cta-btn group relative overflow-hidden rounded-full bg-primary px-10 py-5 font-semibold text-primary-foreground transition-all duration-500 hover:shadow-2xl hover:shadow-primary/35"
+            className="cta-btn group relative overflow-hidden rounded-full bg-green-500 px-10 py-5 font-semibold text-white transition-all duration-500 hover:shadow-2xl hover:shadow-green-500/35"
           >
             <span className="relative z-10 flex items-center gap-3">
               Explore My Work

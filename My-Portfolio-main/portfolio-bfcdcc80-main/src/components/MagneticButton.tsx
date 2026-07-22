@@ -9,6 +9,7 @@ interface MagneticButtonProps {
   target?: string;
   rel?: string;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 const MagneticButton = ({
@@ -19,6 +20,7 @@ const MagneticButton = ({
   target,
   rel,
   onClick,
+  style,
 }: MagneticButtonProps) => {
   const buttonRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
   const contentRef = useRef<HTMLSpanElement>(null);
@@ -75,6 +77,7 @@ const MagneticButton = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={`magnetic-button inline-block ${className}`}
+      style={style}
     >
       <span ref={contentRef} className="inline-block">
         {children}

@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import logoVideo from "@/assets/images/video/logo.mp4";
+import { useEffect, useState } from "react";
+import logoImage from "@/assets/images/video/alvin_logo.png";
 
 const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [visible, setVisible] = useState(true);
-
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -13,12 +11,6 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
     }, 5500);
     return () => clearTimeout(timer);
   }, [onComplete]);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   return (
     <div
@@ -52,13 +44,10 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         ))}
       </div>
       <div className="absolute inset-0 pointer-events-none">
-        <video
-          ref={videoRef}
-          src={logoVideo}
-          muted
-          loop
-          playsInline
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-32 w-auto object-contain"
+        <img
+          src={logoImage}
+          alt="Logo"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] h-[200px] object-cover"
           style={{
             animation: "logoFadeIn 5s ease-in-out forwards",
           }}

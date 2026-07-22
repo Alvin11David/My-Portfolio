@@ -4,11 +4,20 @@ import { gsap } from "gsap";
 import MagneticButton from "./MagneticButton";
 import { ThemeToggle } from "./ThemeToggle";
 
+const sectionColors: Record<string, string> = {
+  about: "#00d4aa",
+  projects: "#f97316",
+  skills: "#a855f7",
+  support: "#3b82f6",
+  contact: "#06b6d4",
+};
+
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [buttonColor, setButtonColor] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const scrollTimeoutRef = useRef<number | null>(null);
@@ -47,8 +56,13 @@ const Navigation = () => {
         const el = document.getElementById(section);
         if (el && window.scrollY >= el.offsetTop - 300) {
           setActiveSection(section);
+          setButtonColor(sectionColors[section] ?? null);
           break;
         }
+      }
+
+      if (window.scrollY < 300) {
+        setButtonColor(null);
       }
     };
 
@@ -172,7 +186,11 @@ const Navigation = () => {
 
             <MagneticButton
               href="#contact"
-              className="ml-6 rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground transition-all duration-500 hover:shadow-xl hover:shadow-primary/30"
+              className="ml-6 rounded-full px-7 py-3 text-sm font-semibold text-white transition-all duration-500 hover:shadow-xl"
+              style={{
+                backgroundColor: buttonColor ?? undefined,
+                boxShadow: buttonColor ? `0 10px 15px -3px ${buttonColor}40` : undefined,
+              }}
             >
               <span className="relative z-10">Let's Talk</span>
             </MagneticButton>

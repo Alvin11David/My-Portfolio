@@ -157,7 +157,7 @@ const HeroSection = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 pt-32 sm:pt-28 md:pt-20">
+      <div className="relative z-20 flex h-full flex-col items-center justify-center px-6 pt-48 sm:pt-28 md:pt-20">
         {/* 3D Headline */}
         <div
           ref={headlineRef}

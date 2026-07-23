@@ -15,17 +15,16 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-0 pointer-events-none" style={{ gap: "12.5rem" }}>
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-0 pointer-events-none overflow-hidden" style={{ gap: "12.5rem" }}>
         {[0, 1].map((i) => (
           <div
             key={i}
             className="h-line bg-white"
             style={{
-              height: "1.5px",
-              width: "100%",
+              height: "1px",
+              width: "50%",
               boxShadow: "0 0 8px rgba(255,255,255,0.4)",
-              transformOrigin: "left",
-              animation: `drawLine 1.2s ease-out ${i === 0 ? "0.3s" : "0.8s"} forwards`,
+              animation: "lineMoveRight 2s linear infinite",
             }}
           />
         ))}
@@ -36,7 +35,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
             key={i}
             className="v-line bg-white"
             style={{
-              width: "1.5px",
+              width: "1px",
               boxShadow: "0 0 8px rgba(255,255,255,0.4)",
             }}
           />
@@ -79,9 +78,9 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
           100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
-        @keyframes drawLine {
-          0% { transform: scaleX(0); }
-          100% { transform: scaleX(1); }
+        @keyframes lineMoveRight {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
         }
       `}</style>
     </div>

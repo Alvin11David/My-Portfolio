@@ -214,7 +214,7 @@ const HeroSection = () => {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col gap-4 sm:flex-row mb-10 sm:mb-20">
+        <div className="flex flex-col gap-4 sm:flex-row mb-6 sm:mb-20">
           <MagneticButton
             href="#projects"
             className="cta-btn group relative overflow-hidden rounded-full bg-green-500 px-10 py-5 font-semibold text-white transition-all duration-500 hover:shadow-2xl hover:shadow-green-500/35"

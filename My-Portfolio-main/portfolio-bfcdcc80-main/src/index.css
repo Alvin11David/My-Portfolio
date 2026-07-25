@@ -36,6 +36,8 @@
     --input: 240 10% 90%;
     --ring: 174 100% 38%;
 
+    --grid-line: 0 0% 0%;
+
     --radius: 1rem;
 
     /* Extended design tokens */

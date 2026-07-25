@@ -245,11 +245,11 @@
 @layer components {
   /* Glassmorphism */
   .glass {
-    background: hsl(var(--surface-glass) / 0.78);
-    backdrop-filter: blur(28px) saturate(160%);
-    -webkit-backdrop-filter: blur(28px) saturate(160%);
-    border: 1px solid hsl(var(--border) / 0.7);
-    box-shadow: 0 20px 60px hsl(var(--background) / 0.35);
+    background: hsl(var(--surface-glass) / 0.25);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid hsl(var(--border) / 0.4);
+    box-shadow: 0 8px 32px hsl(var(--background) / 0.2);
   }
 
   /* Glow effects */

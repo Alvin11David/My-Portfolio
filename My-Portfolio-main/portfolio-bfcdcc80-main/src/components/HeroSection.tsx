@@ -127,7 +127,7 @@ const HeroSection = () => {
             style={{
               left: `${(i + 1) * 14.28}%`,
               background:
-                "linear-gradient(to bottom, transparent, hsl(174 100% 48% / 0.08) 30%, hsl(174 100% 48% / 0.08) 70%, transparent)",
+                "linear-gradient(to bottom, transparent, hsl(var(--grid-line) / 0.08) 30%, hsl(var(--grid-line) / 0.08) 70%, transparent)",
             }}
           />
         ))}

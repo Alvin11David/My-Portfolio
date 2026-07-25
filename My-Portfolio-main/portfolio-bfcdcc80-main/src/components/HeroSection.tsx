@@ -161,7 +161,7 @@ const HeroSection = () => {
         {/* 3D Headline */}
         <div
           ref={headlineRef}
-          className="mb-10 overflow-visible text-center"
+          className="mb-6 sm:mb-10 overflow-visible text-center"
           style={{ perspective: "1000px" }}
         >
           <h1 className="mx-auto max-w-6xl font-serif font-bold leading-[0.88] tracking-tight">

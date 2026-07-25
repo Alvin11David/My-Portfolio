@@ -79,7 +79,7 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="section-shell relative h-screen w-full bg-background"
+      className="section-shell relative min-h-screen w-full bg-background"
     >
       <div
         ref={videoRef}

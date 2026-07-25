@@ -186,7 +186,7 @@ const Navigation = () => {
 
             <MagneticButton
               href="#contact"
-              className="ml-6 rounded-full px-7 py-3 text-sm font-semibold text-white transition-all duration-500 hover:shadow-xl"
+              className={`ml-6 rounded-full px-7 py-3 text-sm font-semibold transition-all duration-500 hover:shadow-xl ${buttonColor ? "text-white" : "text-foreground"}`}
               style={{
                 backgroundColor: buttonColor ?? undefined,
                 boxShadow: buttonColor ? `0 10px 15px -3px ${buttonColor}40` : undefined,

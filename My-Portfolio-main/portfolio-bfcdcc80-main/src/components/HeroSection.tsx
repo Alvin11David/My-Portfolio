@@ -240,7 +240,7 @@ const HeroSection = () => {
 
           <MagneticButton
             href="#contact"
-            className="cta-btn group relative overflow-hidden rounded-full border border-border bg-background/40 px-10 py-5 font-semibold text-foreground backdrop-blur-md transition-all duration-500 hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
+            className="cta-btn group relative overflow-hidden rounded-full border border-border bg-background/40 px-6 py-3 sm:px-10 sm:py-5 font-semibold text-foreground backdrop-blur-md transition-all duration-500 hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
           >
             <span className="flex items-center gap-3">
               Let's Talk

@@ -1,0 +1,16 @@
+#!/bin/sh
+# Maven Wrapper Startup Script
+
+MAVEN_WRAPPER_DIR="$(dirname "$0")/.mvn/wrapper"
+MAVEN_WRAPPER_JAR="$MAVEN_WRAPPER_DIR/maven-wrapper.jar"
+MAVEN_WRAPPER_PROPERTIES="$MAVEN_WRAPPER_DIR/maven-wrapper.properties"
+MAVEN_PROJECT_DIR="$(dirname "$0")"
+
+if [ ! -f "$MAVEN_WRAPPER_JAR" ]; then
+    echo "Downloading Maven Wrapper..."
+    curl -sL "https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/0.5.6/maven-wrapper-0.5.6.jar" -o "$MAVEN_WRAPPER_JAR"
+fi
+
+java -cp "$MAVEN_WRAPPER_JAR" io.takari.maven.wrapper.MavenWrapperMain \
+    --maven-wrapperProperties "$MAVEN_WRAPPER_PROPERTIES" \
+    --maven-projectDir "$MAVEN_PROJECT_DIR" "$@"

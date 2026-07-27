@@ -92,7 +92,7 @@ const projectGroups = [
   },
 ];
 
-const IMG_BASE = "http://localhost:8080";
+const IMG_BASE = "http://localhost:8081";
 
 const mapProject = (p: any): Project => ({
   id: p.id,

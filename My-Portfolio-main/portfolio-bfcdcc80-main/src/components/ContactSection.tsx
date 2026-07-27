@@ -376,13 +376,11 @@ const ContactSection = () => {
           },
           { publicKey: EMAILJS_PUBLIC_KEY },
         ),
-        import("@/lib/api").then(({ api }) =>
-          api.submitContact({
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-          })
-        ),
+        api.submitContact({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
       ]);
 
       toast({

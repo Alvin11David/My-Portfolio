@@ -81,6 +81,25 @@ const SkillsSection = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
 
+  const { data: apiCategories } = useQuery({
+    queryKey: ["skillCategories"],
+    queryFn: api.getSkillCategories,
+  });
+  const { data: apiTools } = useQuery({
+    queryKey: ["tools"],
+    queryFn: api.getTools,
+  });
+
+  const skillCategories = (apiCategories?.length ? apiCategories : defaultCategories).map((cat: any) => ({
+    ...cat,
+    icon: iconMap[cat.iconName] || iconMap.Code2,
+  }));
+
+  const tools = (apiTools?.length ? apiTools : defaultTools).map((t: any) => ({
+    ...t,
+    icon: iconMap[t.iconName] || iconMap.Sparkles,
+  }));
+
   useGSAP(
     () => {
       if (!sectionRef.current) return;

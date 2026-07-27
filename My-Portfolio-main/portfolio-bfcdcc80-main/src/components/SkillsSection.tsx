@@ -1,7 +1,9 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { api } from "@/lib/api";
 import CloudWave from "./CloudWave";
 import redBackgroundStripes from "@/assets/images/red-background-stripes.svg";
 import yellowFireStripes from "@/assets/images/yellow-fire-stripes.svg";
@@ -27,69 +29,50 @@ import { Badge } from "@/components/ui/badge";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface SkillCategory {
-  title: string;
-  icon: React.ReactNode;
-  skills: { name: string; level: number }[];
-  color: string;
-  shadowColor: string;
-}
+const iconMap: Record<string, React.ReactNode> = {
+  Code2: <Code2 className="h-8 w-8 text-cyan-400" />,
+  Server: <Server className="h-8 w-8 text-emerald-400" />,
+  Cloud: <Cloud className="h-8 w-8 text-purple-400" />,
+  Palette: <Palette className="h-4 w-4" />,
+  Cpu: <Cpu className="h-4 w-4" />,
+  Layers: <Layers className="h-4 w-4" />,
+  Sparkles: <Sparkles className="h-4 w-4" />,
+  Terminal: <Terminal className="h-4 w-4" />,
+  Database: <Database className="h-4 w-4" />,
+  Globe: <Globe className="h-4 w-4" />,
+  GitBranch: <GitBranch className="h-4 w-4" />,
+  Zap: <Zap className="h-4 w-4" />,
+  PenTool: <PenTool className="h-4 w-4" />,
+  CreditCard: <CreditCard className="h-4 w-4" />,
+  Send: <Send className="h-4 w-4" />,
+  Box: <Box className="h-4 w-4" />,
+};
 
-const skillCategories: SkillCategory[] = [
+const defaultCategories = [
   {
-    title: "Frontend",
-    icon: <Code2 className="h-8 w-8 text-cyan-400" />,
-    skills: [
-      { name: "React.js / Next.js", level: 96 },
-      { name: "TypeScript", level: 94 },
-      { name: "JavaScript", level: 94 },
-      { name: "Tailwind CSS", level: 95 },
-      { name: "Three.js / GSAP", level: 85 },
-      { name: "Framer Motion", level: 88 },
-    ],
-    color: "from-cyan-500/20 via-blue-500/20 to-indigo-500/20",
-    shadowColor: "shadow-cyan-500/20",
+    title: "Frontend", iconName: "Code2",
+    skills: [{ name: "React.js / Next.js", level: 96 }, { name: "TypeScript", level: 94 }, { name: "JavaScript", level: 94 }, { name: "Tailwind CSS", level: 95 }, { name: "Three.js / GSAP", level: 85 }, { name: "Framer Motion", level: 88 }],
+    color: "from-cyan-500/20 via-blue-500/20 to-indigo-500/20", shadowColor: "shadow-cyan-500/20",
   },
   {
-    title: "Backend",
-    icon: <Server className="h-8 w-8 text-emerald-400" />,
-    skills: [
-      { name: "Node.js", level: 72 },
-      { name: "Java", level: 65 },
-      { name: "Python", level: 60 },
-      { name: "MySQL", level: 60 },
-    ],
-    color: "from-emerald-500/20 via-teal-500/20 to-green-500/20",
-    shadowColor: "shadow-emerald-500/20",
+    title: "Backend", iconName: "Server",
+    skills: [{ name: "Node.js", level: 72 }, { name: "Java", level: 65 }, { name: "Python", level: 60 }, { name: "MySQL", level: 60 }],
+    color: "from-emerald-500/20 via-teal-500/20 to-green-500/20", shadowColor: "shadow-emerald-500/20",
   },
   {
-    title: "Infrastructure",
-    icon: <Cloud className="h-8 w-8 text-purple-400" />,
-    skills: [
-      { name: "Docker", level: 42 },
-      { name: "Render", level: 98 },
-      { name: "Netlify", level: 95 },
-      { name: "Vercel", level: 88 },
-      { name: "Firebase / Supabase", level: 87 },
-    ],
-    color: "from-purple-500/20 via-fuchsia-500/20 to-pink-500/20",
-    shadowColor: "shadow-purple-500/20",
+    title: "Infrastructure", iconName: "Cloud",
+    skills: [{ name: "Docker", level: 42 }, { name: "Render", level: 98 }, { name: "Netlify", level: 95 }, { name: "Vercel", level: 88 }, { name: "Firebase / Supabase", level: 87 }],
+    color: "from-purple-500/20 via-fuchsia-500/20 to-pink-500/20", shadowColor: "shadow-purple-500/20",
   },
 ];
 
-const tools = [
-  { name: "Git", icon: <GitBranch className="h-4 w-4" /> },
-  { name: "Blender", icon: <Zap className="h-4 w-4" /> },
-  { name: "Affinity", icon: <Palette className="h-4 w-4" /> },
-  { name: "Vercel", icon: <Globe className="h-4 w-4" /> },
-  { name: "Three.js", icon: <Box className="h-4 w-4" /> },
-  { name: "GSAP", icon: <Sparkles className="h-4 w-4" /> },
-  { name: "Redis", icon: <Database className="h-4 w-4" /> },
-  { name: "Prisma", icon: <Database className="h-4 w-4" /> },
-  { name: "Supabase", icon: <Database className="h-4 w-4" /> },
-  { name: "Stripe", icon: <CreditCard className="h-4 w-4" /> },
-  { name: "Figma", icon: <PenTool className="h-4 w-4" /> },
-  { name: "Postman", icon: <Send className="h-4 w-4" /> },
+const defaultTools = [
+  { name: "Git", iconName: "GitBranch" }, { name: "Blender", iconName: "Zap" },
+  { name: "Affinity", iconName: "Palette" }, { name: "Vercel", iconName: "Globe" },
+  { name: "Three.js", iconName: "Box" }, { name: "GSAP", iconName: "Sparkles" },
+  { name: "Redis", iconName: "Database" }, { name: "Prisma", iconName: "Database" },
+  { name: "Supabase", iconName: "Database" }, { name: "Stripe", iconName: "CreditCard" },
+  { name: "Figma", iconName: "PenTool" }, { name: "Postman", iconName: "Send" },
 ];
 
 const SkillsSection = () => {

@@ -1,12 +1,28 @@
 import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { api } from "@/lib/api";
 import CloudWave from "./CloudWave";
 import backgroundStripes from "@/assets/images/background-stripes.svg";
 import FireStripes from "./FireStripes";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const defaultStats = [
+  { number: 2, suffix: "+", label: "Years Experience" },
+  { number: 5, suffix: "+", label: "Projects Delivered" },
+  { number: 5, suffix: "+", label: "Happy Clients" },
+  { number: 8, suffix: "+", label: "Users Reached" },
+];
+
+const defaultSkills = [
+  "React", "TypeScript", "Node.js", "Figma", "UI/UX Design",
+  "Motion Design", "Three.js", "GSAP", "Next.js", "Tailwind",
+];
+
+const defaultBio = "As a seasoned designer and developer with over 2 years of experience, I specialize in crafting impactful digital products that seamlessly integrate thoughtful design with clean, efficient code. My expertise spans modern web technologies, user experience design, and scalable software solutions. Currently pursuing a degree in Computer Science at Makerere University, I remain committed to continuous learning and innovation in the ever-evolving field of technology.";
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -17,15 +33,14 @@ const AboutSection = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  const stats = [
-    { number: 2, suffix: "+", label: "Years Experience" },
-    { number: 5, suffix: "+", label: "Projects Delivered" },
-    { number: 5, suffix: "+", label: "Happy Clients" },
-    { number: 8, suffix: "+", label: "Users Reached" },
-  ];
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: api.getProfile,
+  });
 
-  const bioText =
-    "As a seasoned designer and developer with over 2 years of experience, I specialize in crafting impactful digital products that seamlessly integrate thoughtful design with clean, efficient code. My expertise spans modern web technologies, user experience design, and scalable software solutions. Currently pursuing a degree in Computer Science at Makerere University, I remain committed to continuous learning and innovation in the ever-evolving field of technology.";
+  const stats = profile?.stats || defaultStats;
+  const bioText = profile?.bioText || defaultBio;
+  const skills = profile?.skills || defaultSkills;
 
   useGSAP(
     () => {

@@ -323,18 +323,7 @@ const AboutSection = () => {
             <div ref={skillsRef}>
               <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-muted-foreground"></p>
               <div className="flex flex-wrap gap-3">
-                {[
-                  "React",
-                  "TypeScript",
-                  "Node.js",
-                  "Figma",
-                  "UI/UX Design",
-                  "Motion Design",
-                  "Three.js",
-                  "GSAP",
-                  "Next.js",
-                  "Tailwind",
-                ].map((skill) => (
+                {(skills).map((skill: string) => (
                   <span
                     key={skill}
                     className="skill-badge rounded-full border border-border bg-secondary/30 px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:border-primary hover:bg-primary/10 hover:text-primary"

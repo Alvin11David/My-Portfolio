@@ -92,11 +92,40 @@ const projectGroups = [
   },
 ];
 
+const IMG_BASE = "http://localhost:8080";
+
+const mapProject = (p: any): Project => ({
+  id: p.id,
+  title: p.title,
+  category: p.category,
+  group: p.groupName,
+  description: p.description,
+  challenge: p.challenge,
+  solution: p.solution,
+  results: p.results || [],
+  image: p.imageUrl
+    ? `${IMG_BASE}${p.imageUrl}`
+    : (fallbackImages[p.title] || ""),
+  accentColor: p.accentColor,
+  technologies: p.technologies || [],
+  year: p.year,
+  liveUrl: p.liveUrl,
+  webUrl: p.webUrl,
+  playStoreUrl: p.playStoreUrl,
+});
+
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [openGroup, setOpenGroup] = useState<string>("Mobile Apps");
+
+  const { data: apiProjects = [] } = useQuery({
+    queryKey: ["projects"],
+    queryFn: api.getProjects,
+  });
+
+  const projects: Project[] = apiProjects.map(mapProject);
 
   const groupedProjects = projectGroups.map((group) => ({
     ...group,

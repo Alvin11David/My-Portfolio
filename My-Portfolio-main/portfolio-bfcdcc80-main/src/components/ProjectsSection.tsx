@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -15,6 +16,7 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { api } from "@/lib/api";
 import MUBSLocatorImage from "@/assets/images/MUBSLocator.jpg";
 import MchencuziAuditImage from "@/assets/images/Mchencuzi Audit.png";
 import HeplerAppImage from "@/assets/images/Helper Cover.jpg";
@@ -48,233 +50,18 @@ interface Project {
   playStoreUrl?: string;
 }
 
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "MUBS Locator",
-    category: "Fintech",
-    group: "Mobile Apps",
-    description:
-      "Find buildings quickly using Google Maps, submit feedback to improve campus facilities, and manage your profile effortlessly.",
-    challenge:
-      "Students, Parents and visitors get problems when they try to navigate Makerere University.",
-    solution:
-      "Created a minimalist interface with gesture-based navigation and AI-powered insights.",
-    results: [
-      "40% increase in daily active users",
-      "65% reduction in support tickets",
-      "4.9★ App Store rating",
-    ],
-    image: MUBSLocatorImage,
-    accentColor: "emerald",
-    technologies: [
-      "Flutter Frame work",
-      "JavaScript",
-      "Firebase",
-      "React Native",
-    ],
-    year: "2024",
-    liveUrl: "https://apps.apple.com/ug/app/mubs-locator/id6755059078",
-    webUrl: "https://mubs-locator.web.app/",
-  },
-  {
-    id: 2,
-    title: "Mchencuzi Audit",
-    category: "Audit Software",
-    group: "Enterprise Systems",
-    description:
-      "Mchencuzi Audit Software is a digital audit management system designed to support the planning, execution, documentation, and reporting of audit activities in an efficient and organized manner.",
-    challenge:
-      "Traditional audit processes were inefficient, prone to errors, and lacked transparency.",
-    solution:
-      "Developed a comprehensive digital platform with automated workflows, real-time tracking, and advanced reporting features.",
-    results: [
-      "70% reduction in audit time",
-      "95% increase in accuracy",
-      "Adopted by 50+ organizations",
-    ],
-    image: MchencuziAuditImage,
-    accentColor: "blue",
-    technologies: ["Angular", "Affinity", "Supabase", "Express"],
-    year: "2025",
-  },
-  {
-    id: 3,
-    title: "C-Helper App",
-    category: "On-Demand Services",
-    group: "Mobile Apps",
-    description:
-      "Find trusted help fast or earn more work—match, chat, and get paid in one place.",
-    challenge:
-      "Unemployement and underemployment were rising, while people struggled to find reliable help for everyday tasks.",
-    solution:
-      "Built a mobile app platform that connects people needing help with local helpers, featuring secure payments, real-time chat, and AI-driven matching.",
-    results: ["1M+ downloads", "85% user retention", "Featured by Apple"],
-    image: HeplerAppImage,
-    accentColor: "rose",
-    technologies: [
-      "Flutter",
-      "Firebase",
-      "Blender",
-      "Affinity",
-      "Relworx",
-      "Figma",
-    ],
-    year: "2026",
-    liveUrl: "https://apps.apple.com/ug/app/c-helper-app/id6759479834",
-    playStoreUrl:
-      "https://play.google.com/store/apps/details?id=com.helperapp.mobile&referrer=utm_source%3Dgoogle%26utm_medium%3Dorganic%26utm_term%3Dc-helper&pcampaignid=APPU_1_ehEMatmcCa6ki-gPuca46A4",
-    webUrl: "https://c-helper-support.lovable.app/",
-  },
-  {
-    id: 4,
-    title: "Time Sync",
-    category: "Education",
-    group: "Web Apps",
-    description:
-      "A next-generation education timer that helps students manage their study sessions effectively.",
-    challenge:
-      "Students often struggle with time management and maintaining focus during study sessions.",
-    solution:
-      "Developed an intuitive timer with customizable intervals, progress tracking, and focus mode features.",
-    results: ["35% higher conversion rate", "60% fewer returns"],
-    image: TimeSync,
-    accentColor: "amber",
-    technologies: ["Angular", "Three.js", "Supabase", "Figma"],
-    year: "2026",
-    webUrl: "https://timetablesync-d33fc.web.app/",
-  },
-  {
-    id: 5,
-    title: "Bible App",
-    category: "Spiritual",
-    group: "Mobile Apps",
-    description:
-      "A comprehensive Bible application offering multiple translations, daily devotionals, and offline access for spiritual growth.",
-    challenge:
-      "Many users lacked easy access to scripture and devotionals, especially offline or in regions with limited connectivity.",
-    solution:
-      "Developed a user-friendly app with offline Bible versions, daily devotionals, bookmarks, and a powerful search feature.",
-    results: [
-      "200K+ downloads worldwide",
-      "4.8★ average rating",
-      "Used in 30+ countries",
-    ],
-    image: BibleAppImage,
-    accentColor: "violet",
-    technologies: ["React Native", "Firebase", "TypeScript", "Expo"],
-    year: "2023",
-    webUrl: "https://church-bible-app.netlify.app/",
-  },
-  {
-    id: 6,
-    title: "Veritas Institute",
-    category: "Education",
-    group: "Web Apps",
-    description: "",
-    challenge:
-      "Education institutions need a clear, trustworthy web presence that makes it easy for visitors to explore offerings quickly.",
-    solution:
-      "Designed a responsive, content-focused website with clear navigation, strong visual hierarchy, and conversion-ready sections.",
-    results: [
-      "Faster program discovery",
-      "Improved first-visit engagement",
-      "Clearer admissions journey",
-    ],
-    image: VeritasImage,
-    accentColor: "teal",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-    year: "2026",
-    webUrl: "https://institute-demo-site.netlify.app/",
-  },
-  {
-    id: 7,
-    title: "Edwin's Bake House",
-    category: "Bakery",
-    group: "Web Apps",
-    description: "",
-    challenge:
-      "Small food brands need a polished online presence that makes browsing products and placing orders feel simple and inviting.",
-    solution:
-      "Built a responsive showcase site with clear product presentation, strong branding, and easy access to key business details.",
-    results: [
-      "Clearer product visibility",
-      "Improved online ordering flow",
-      "Stronger brand presentation",
-    ],
-    image: EdwinsBakeHouseImage,
-    accentColor: "orange",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-    year: "2026",
-    webUrl: "https://edwins-bake-house.vercel.app/",
-  },
-  {
-    id: 8,
-    title: "JamboPOS",
-    category: "Point of Sale",
-    group: "Web Apps",
-    description:
-      "A streamlined point-of-sale prototype built to help businesses manage sales, inventory, and daily operations.",
-    challenge:
-      "Retail and service businesses need a fast, reliable system that simplifies checkout and keeps operations organized.",
-    solution:
-      "Created a clean POS experience with structured workflows, intuitive navigation, and clear business-focused presentation.",
-    results: [
-      "Simplified checkout flow",
-      "Better daily sales tracking",
-      "Clearer inventory management",
-    ],
-    image: JamboPOSImage,
-    accentColor: "emerald",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-    year: "2026",
-    webUrl: "https://jambo-pos-system-prototype.netlify.app/",
-  },
-  {
-    id: 9,
-    title: "Student University Portal",
-    category: "Education",
-    group: "Web Apps",
-    description:
-      "A student portal designed to bring academic information, services, and university updates into one place with a Firebase backend.",
-    challenge:
-      "Students need a single destination for academic resources, updates, and everyday university workflows.",
-    solution:
-      "Built a clean portal experience that organizes key student actions and information into one accessible interface.",
-    results: [
-      "Centralized student access",
-      "Simplified information discovery",
-      "Clearer university communication",
-    ],
-    image: StudentUniversityPortal,
-    accentColor: "blue",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "Firebase"],
-    year: "2026",
-    webUrl: "https://universityportal2026.web.app/",
-  },
-  {
-    id: 10,
-    title: "Sunbird GenAI App",
-    category: "AI Platform",
-    group: "AI Platforms",
-    description:
-      "A GenAI app that summarizes text, translates it, and generates audio output from both text and audio input pipelines.",
-    challenge:
-      "Users needed a single tool to handle text and audio workflows across multiple local languages.",
-    solution:
-      "Built an AI workflow that supports text summarization, translation, transcription, and audio generation in one interface.",
-    results: [
-      "Text and audio pipelines",
-      "Multi-language support",
-      "End-to-end AI workflow",
-    ],
-    image: SunbirdGenAIImage,
-    accentColor: "violet",
-    technologies: ["React", "TypeScript", "Firebase", "AI/ML"],
-    year: "2026",
-    webUrl: "https://internship-assessment-steel.vercel.app/",
-  },
-];
+const fallbackImages: Record<string, string> = {
+  "MUBS Locator": MUBSLocatorImage,
+  "Mchencuzi Audit": MchencuziAuditImage,
+  "C-Helper App": HeplerAppImage,
+  "Time Sync": TimeSync,
+  "Bible App": BibleAppImage,
+  "Veritas Institute": VeritasImage,
+  "Edwin's Bake House": EdwinsBakeHouseImage,
+  JamboPOS: JamboPOSImage,
+  "Student University Portal": StudentUniversityPortal,
+  "Sunbird GenAI App": SunbirdGenAIImage,
+};
 
 const getBackgroundImage = (image: string) =>
   image.startsWith("linear-gradient") ? image : `url(${image})`;

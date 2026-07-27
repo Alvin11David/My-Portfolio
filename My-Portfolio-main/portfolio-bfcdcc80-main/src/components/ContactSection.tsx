@@ -363,19 +363,26 @@ const ContactSection = () => {
     setIsSending(true);
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          title: "New Contact Message",
-        },
-        {
-          publicKey: EMAILJS_PUBLIC_KEY,
-        },
-      );
+      await Promise.allSettled([
+        emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            title: "New Contact Message",
+          },
+          { publicKey: EMAILJS_PUBLIC_KEY },
+        ),
+        import("@/lib/api").then(({ api }) =>
+          api.submitContact({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+          })
+        ),
+      ]);
 
       toast({
         title: "Message sent!",
@@ -385,18 +392,12 @@ const ContactSection = () => {
       setFormErrors({ name: "", email: "", message: "" });
       setFocusedField(null);
     } catch (error) {
-      const isNetworkError =
-        error instanceof TypeError &&
-        error.message.toLowerCase().includes("failed to fetch");
-
       toast({
         title: "Could not send message",
-        description: isNetworkError
-          ? "Network request to EmailJS failed. Check your Service ID and EmailJS allowed domains, then try again."
-          : "Please try again or email alvin69david@gmail.com directly.",
+        description: "Please try again or email alvin69david@gmail.com directly.",
         variant: "destructive",
       });
-      console.error("EmailJS send failed", error);
+      console.error("Send failed", error);
     } finally {
       setIsSending(false);
     }

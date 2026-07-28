@@ -125,7 +125,18 @@ const ProjectsSection = () => {
     queryFn: api.getProjects,
   });
 
+  console.debug("[ProjectsSection] API response:", apiProjects);
+
   const projects: Project[] = apiProjects.map(mapProject);
+
+  console.debug("[ProjectsSection] Mapped projects:", projects);
+
+  const groupedProjects = projectGroups.map((group) => ({
+    ...group,
+    projects: projects.filter((project) => project.group === group.title),
+  }));
+
+  console.debug("[ProjectsSection] Grouped:", groupedProjects.map(g => ({ title: g.title, count: g.projects.length })));
 
   const groupedProjects = projectGroups.map((group) => ({
     ...group,

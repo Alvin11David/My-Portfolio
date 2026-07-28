@@ -229,7 +229,7 @@ export default function ProjectForm() {
             <Input type="file" accept="image/*" onChange={handleImageUpload} />
             {form.imageUrl && (
               <div className="relative aspect-video w-48 overflow-hidden rounded-lg border">
-                <img src={`http://localhost:8080${form.imageUrl}`} alt="Preview" className="h-full w-full object-cover" />
+                <img src={form.imageUrl} alt="Preview" className="h-full w-full object-cover" />
               </div>
             )}
           </CardContent>

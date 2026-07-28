@@ -19,7 +19,6 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const Index = () => {
   useEffect(() => {
-    // Initialize Lenis smooth scroll
     const lenis = new Lenis({
       duration: 0.8, // Reduced for better performance
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -27,8 +26,7 @@ const Index = () => {
       gestureOrientation: "vertical",
       smoothWheel: true,
     });
-
-    // Connect Lenis to GSAP ScrollTrigger
+    
     lenis.on("scroll", ScrollTrigger.update);
 
     gsap.ticker.add((time) => {

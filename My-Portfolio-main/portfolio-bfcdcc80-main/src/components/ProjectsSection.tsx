@@ -64,7 +64,7 @@ const fallbackImages: Record<string, string> = {
 };
 
 const getBackgroundImage = (image: string) =>
-  image.startsWith("linear-gradient") ? image : `url(${image})`;
+  image.startsWith("linear-gradient") ? image : `url("${image}")`;
 
 const projectGroups = [
   {

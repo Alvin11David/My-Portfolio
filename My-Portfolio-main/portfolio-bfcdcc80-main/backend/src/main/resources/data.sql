@@ -33,65 +33,65 @@ INSERT INTO profile_skills (profile_id, skill) VALUES
 -- Projects
 INSERT INTO projects (title, category, group_name, description, challenge, solution, image_url, accent_color, year, live_url, web_url, play_store_url, display_order)
 VALUES
-    ('MUBS Locator', 'Fintech', 'Mobile Apps',
+     ('MUBS Locator', 'Fintech', 'Mobile Apps',
      'Find buildings quickly using Google Maps, submit feedback to improve campus facilities, and manage your profile effortlessly.',
      'Students, Parents and visitors get problems when they try to navigate Makerere University.',
      'Created a minimalist interface with gesture-based navigation and AI-powered insights.',
-     null, 'emerald', '2024', 'https://apps.apple.com/ug/app/mubs-locator/id6755059078', 'https://mubs-locator.web.app/', null, 1),
+     '/uploads/MUBSLocator.jpg', 'emerald', '2024', 'https://apps.apple.com/ug/app/mubs-locator/id6755059078', 'https://mubs-locator.web.app/', null, 1),
 
-    ('Mchencuzi Audit', 'Audit Software', 'Enterprise Systems',
+     ('Mchencuzi Audit', 'Audit Software', 'Enterprise Systems',
      'Mchencuzi Audit Software is a digital audit management system designed to support the planning, execution, documentation, and reporting of audit activities in an efficient and organized manner.',
      'Traditional audit processes were inefficient, prone to errors, and lacked transparency.',
      'Developed a comprehensive digital platform with automated workflows, real-time tracking, and advanced reporting features.',
-     null, 'blue', '2025', null, null, null, 2),
+     '/uploads/Mchencuzi-Audit.png', 'blue', '2025', null, null, null, 2),
 
-    ('C-Helper App', 'Healthcare', 'Mobile Apps',
+     ('C-Helper App', 'Healthcare', 'Mobile Apps',
      'Find trusted help fast or earn more work—match, chat, and get paid in one place.',
      'Unemployement and underemployment were rising, while people struggled to find reliable help for everyday tasks.',
      'Built a mobile app platform that connects people needing help with local helpers, featuring secure payments, real-time chat, and AI-driven matching.',
-     null, 'rose', '2026', 'https://apps.apple.com/ug/app/c-helper-app/id6759479834', 'https://c-helper-support.lovable.app/', 'https://play.google.com/store/apps/details?id=com.helperapp.mobile', 3),
+     '/uploads/Helper-Cover.jpg', 'rose', '2026', 'https://apps.apple.com/ug/app/c-helper-app/id6759479834', 'https://c-helper-support.lovable.app/', 'https://play.google.com/store/apps/details?id=com.helperapp.mobile', 3),
 
-    ('Time Sync', 'Education', 'Web Apps',
+     ('Time Sync', 'Education', 'Web Apps',
      'A next-generation education timer that helps students manage their study sessions effectively.',
      'Students often struggle with time management and maintaining focus during study sessions.',
      'Developed an intuitive timer with customizable intervals, progress tracking, and focus mode features.',
-     null, 'amber', '2026', null, 'https://timetablesync-d33fc.web.app/', null, 4),
+     '/uploads/Time-Sync.png', 'amber', '2026', null, 'https://timetablesync-d33fc.web.app/', null, 4),
 
-    ('Bible App', 'Spiritual', 'Mobile Apps',
+     ('Bible App', 'Spiritual', 'Mobile Apps',
      'A comprehensive Bible application offering multiple translations, daily devotionals, and offline access for spiritual growth.',
      'Many users lacked easy access to scripture and devotionals, especially offline or in regions with limited connectivity.',
      'Developed a user-friendly app with offline Bible versions, daily devotionals, bookmarks, and a powerful search feature.',
-     null, 'violet', '2023', null, 'https://church-bible-app.netlify.app/', null, 5),
+     '/uploads/BibleApp.png', 'violet', '2023', null, 'https://church-bible-app.netlify.app/', null, 5),
 
-    ('Veritas Institute', 'Education', 'Web Apps',
+     ('Veritas Institute', 'Education', 'Web Apps',
      '',
      'Education institutions need a clear, trustworthy web presence that makes it easy for visitors to explore offerings quickly.',
      'Designed a responsive, content-focused website with clear navigation, strong visual hierarchy, and conversion-ready sections.',
-     null, 'teal', '2026', null, 'https://institute-demo-site.netlify.app/', null, 6),
+     '/uploads/Veritas.png', 'teal', '2026', null, 'https://institute-demo-site.netlify.app/', null, 6),
 
-    ('Edwin''s Bake House', 'Bakery', 'Web Apps',
+     ('Edwin''s Bake House', 'Bakery', 'Web Apps',
      '',
      'Small food brands need a polished online presence that makes browsing products and placing orders feel simple and inviting.',
      'Built a responsive showcase site with clear product presentation, strong branding, and easy access to key business details.',
-     null, 'orange', '2026', null, 'https://edwins-bake-house.vercel.app/', null, 7),
+     '/uploads/EdwinsBakeHouse.png', 'orange', '2026', null, 'https://edwins-bake-house.vercel.app/', null, 7),
 
-    ('JamboPOS', 'Point of Sale', 'Web Apps',
+     ('JamboPOS', 'Point of Sale', 'Web Apps',
      'A streamlined point-of-sale prototype built to help businesses manage sales, inventory, and daily operations.',
      'Retail and service businesses need a fast, reliable system that simplifies checkout and keeps operations organized.',
      'Created a clean POS experience with structured workflows, intuitive navigation, and clear business-focused presentation.',
-     null, 'emerald', '2026', null, 'https://jambo-pos-system-prototype.netlify.app/', null, 8),
+     '/uploads/JamboPOS.png', 'emerald', '2026', null, 'https://jambo-pos-system-prototype.netlify.app/', null, 8),
 
-    ('Student University Portal', 'Education', 'Web Apps',
+     ('Student University Portal', 'Education', 'Web Apps',
      'A student portal designed to bring academic information, services, and university updates into one place with a Firebase backend.',
      'Students need a single destination for academic resources, updates, and everyday university workflows.',
      'Built a clean portal experience that organizes key student actions and information into one accessible interface.',
-     null, 'blue', '2026', null, 'https://universityportal2026.web.app/', null, 9),
+     '/uploads/StudentUniversityPortal.png', 'blue', '2026', null, 'https://universityportal2026.web.app/', null, 9),
 
-    ('Sunbird GenAI App', 'AI Platform', 'AI Platforms',
+     ('Sunbird GenAI App', 'AI Platform', 'AI Platforms',
      'A GenAI app that summarizes text, translates it, and generates audio output from both text and audio input pipelines.',
      'Users needed a single tool to handle text and audio workflows across multiple local languages.',
      'Built an AI workflow that supports text summarization, translation, transcription, and audio generation in one interface.',
-     null, 'violet', '2026', null, 'https://internship-assessment-steel.vercel.app/', null, 10);
+     '/uploads/Sunbird-GenAI-App.png', 'violet', '2026', null, 'https://internship-assessment-steel.vercel.app/', null, 10);
 
 INSERT INTO project_technologies (project_id, technology) VALUES
     (1, 'Flutter Frame work'), (1, 'JavaScript'), (1, 'Firebase'), (1, 'React Native'),

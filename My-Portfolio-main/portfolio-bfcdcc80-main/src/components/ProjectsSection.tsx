@@ -138,11 +138,6 @@ const ProjectsSection = () => {
 
   console.debug("[ProjectsSection] Grouped:", groupedProjects.map(g => ({ title: g.title, count: g.projects.length })));
 
-  const groupedProjects = projectGroups.map((group) => ({
-    ...group,
-    projects: projects.filter((project) => project.group === group.title),
-  }));
-
   useGSAP(
     () => {
       if (headerRef.current) {

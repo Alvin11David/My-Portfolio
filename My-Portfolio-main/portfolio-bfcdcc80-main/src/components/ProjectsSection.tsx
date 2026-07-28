@@ -324,7 +324,6 @@ const ProjectsSection = () => {
                                       ),
                                     }}
                                   />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-90" />
                                   <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
                                     <div>
                                       <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-background/75 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary backdrop-blur-sm">

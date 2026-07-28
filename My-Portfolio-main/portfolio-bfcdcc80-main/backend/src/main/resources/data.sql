@@ -1,8 +1,14 @@
+TRUNCATE TABLE hero_headlines, heroes, profile_stats, profile_skills, profiles,
+    project_results, project_technologies, projects,
+    category_skills, skill_categories,
+    tools
+RESTART IDENTITY CASCADE;
+
 -- Hero
 INSERT INTO heroes (description) VALUES ('I craft digital experiences that blend clean code with compelling design, turning complex problems into intuitive solutions.');
 INSERT INTO hero_headlines (hero_id, text, style) VALUES
     (1, 'Hi', 'normal'),
-    (1, "I'm", 'normal'),
+    (1, 'I''m', 'normal'),
     (1, 'Alvin', 'italic'),
     (1, 'David', 'bold');
 
